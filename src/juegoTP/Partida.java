@@ -1,13 +1,17 @@
 package juegoTP;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
+
+import javax.swing.JFrame;
 
 public class Partida extends Observador {
 	private ArrayList<Jugador> jugadores;
 	// private ArrayList<Ronda> rondas;
 	private int simbolosParaGanar, orden, primerJugador;
 	private Tablero tablero;
+	private JFrame pantallaPartida;
 
 	/*
 	 * Constructor de la clase partido
@@ -34,6 +38,21 @@ public class Partida extends Observador {
 
 	public void setOrden(int orden) {
 		this.orden = orden;
+	}
+
+	public void configurarPartida(Jugador primero, String sentido) { // true -> horario, false -> antihorario
+		if (sentido.compareTo("Antihorario") == 0) {
+			Collections.reverse(jugadores);
+		}
+		int i = 0;
+		while(primero != jugadores.get(i)) {
+			i++;
+		}
+		jugadores.add(0, jugadores.remove(i));
+	}
+	
+	public void setPantalla(JFrame pant) {
+		pantallaPartida=pant;
 	}
 
 	/*
@@ -123,14 +142,15 @@ public class Partida extends Observador {
 			m.setCantidadCartas(16);
 			m.mezclarMazo();
 			m.repartir(jugadores);
-			System.out.println("*************RONDA NUMERO " + ronda+"*************");
+			
+			System.out.println("*************RONDA NUMERO " + ronda + "*************");
 
 			while (m.getCantidadCartas() > 0 && jugadoresEstables > 1) {
-				System.out.println("La cantidad de cartas en el mazo es de : " + m.getCantidadCartas()+"\n");
+				System.out.println("La cantidad de cartas en el mazo es de : " + m.getCantidadCartas() + "\n");
 
 				for (int i = 0; i < jugadores.size() && jugadoresEstables > 1; i++)
 					if (jugadores.get(i).getEstado().compareTo("Fuera de Ronda") != 0) {
-						System.out.println("Turno del jugador: " + jugadores.get(i).getNombre());
+//						pantallaPartida.
 						if (jugadores.get(i).jugada(m, jugadores, d))
 							jugadoresEstables--;/// Verifica que el jugador pueda jugar///para que le toque el turno
 						System.out.println("*************************************");
@@ -193,8 +213,8 @@ public class Partida extends Observador {
 												/// estado "Jugando"
 				j.setEstado("Jugando");
 			}
-			
-			System.out.println("Ganador de la ronda : "+ganadorRonda.getNombre());
+
+			System.out.println("Ganador de la ronda : " + ganadorRonda.getNombre());
 			System.out.println("*************************************");
 			ronda++;
 			ganadorRonda = null;
@@ -202,7 +222,7 @@ public class Partida extends Observador {
 			jugadoresEstables = this.jugadores.size();
 		}
 		System.out.println("\n*************************************");
-		System.out.println("GANADOR DE LA PARTIDA : "+ ganadorJug.getNombre());
+		System.out.println("GANADOR DE LA PARTIDA : " + ganadorJug.getNombre());
 		System.out.println("*************************************");
 
 	}

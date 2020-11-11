@@ -118,6 +118,7 @@ public class SegundaVentana extends PantallaInicio {
 		DefaultComboBoxModel combo = new DefaultComboBoxModel(new String[4]);
 		comboListaJugadores.setModel(combo);
 		combo.insertElementAt(jugador, jugadores.size());
+		
 
 		botonAgregarJugador.addMouseListener(new MouseAdapter() {
 			@Override
@@ -142,18 +143,23 @@ public class SegundaVentana extends PantallaInicio {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if (jugadores.size() > 0) {
-					if ((String) comboListaJugadores.getSelectedItem() != null &&((String) comboListaJugadores.getSelectedItem()).length() != 0) {
-						
+					if ((String) comboListaJugadores.getSelectedItem() != null
+							&& ((String) comboListaJugadores.getSelectedItem()).length() != 0) {
+
 						Partida partida = new Partida(
 								Integer.parseInt(comboCantidadCorazones.getSelectedItem().toString()),
 								new Jugador(jugador));
 						for (Object object : jugadores) {
 							partida.agregarJugador((Jugador) object);
 						}
+						jugadores.add(new Jugador(jugador));
+						
+						partida.configurarPartida(
+								(Jugador) jugadores.get(combo.getIndexOf((String) combo.getSelectedItem())),
+								(String) comboSentidoRonda.getSelectedItem());
 						pantallaInicio.setVisible(false);
 						PantallaPartida pantallaPar = new PantallaPartida(partida);
-					}
-					else {
+					} else {
 						PantallaError pant = new PantallaError("No se eligio jugador para iniciar ronda");
 					}
 

@@ -3,15 +3,22 @@ package InterfazGrafica;
 import juegoTP.*;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import InterfazGrafica.PantallaInicio.FondoInicio;
+
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -44,7 +51,7 @@ public class PantallaInicio extends JFrame {
 	public PantallaInicio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new FondoInicio();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		SpringLayout sl_contentPane = new SpringLayout();
@@ -57,11 +64,13 @@ public class PantallaInicio extends JFrame {
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Love Letter");
+		lblNewLabel.setForeground(Color.white);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 166, SpringLayout.WEST, contentPane);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Ingrese nombre de usuario");
+		lblNewLabel_1.setForeground(Color.white);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_1, 116, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, -6, SpringLayout.NORTH, textField_1);
 		contentPane.add(lblNewLabel_1);
@@ -92,5 +101,13 @@ public class PantallaInicio extends JFrame {
 		
 	}
 	
-	
+	class FondoInicio extends JPanel{
+		private Image imagen;
+		public void paint(Graphics g) {
+			imagen = new ImageIcon(getClass().getResource("/imagenes/menu.jpg")).getImage(); 
+			g.drawImage(imagen, 0, 0, getWidth(),getHeight(), this);
+			setOpaque(false);
+			super.paint(g);
+		}
+	}
 }

@@ -2,6 +2,7 @@ package InterfazGrafica;
 
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,6 +19,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import juegoTP.Partida;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -78,9 +81,9 @@ public class PantallaPartida extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Jugador 1");
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -24, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel_2, -411, SpringLayout.EAST, contentPane);
 		lblNewLabel_2.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_2, 0, SpringLayout.WEST, lblNewLabel_1);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -21, SpringLayout.SOUTH, contentPane);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Jugador 4");
@@ -95,7 +98,11 @@ public class PantallaPartida extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, mazo, -301, SpringLayout.EAST, contentPane);
 		contentPane.add(mazo);
 		
-		JButton BotonCarta = new JButton("New button");
+		JButton botonCarta2 = new JButton("carta 2");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2, -231, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2, -69, SpringLayout.SOUTH, contentPane);
+		
+		
 		
 		
 		try {
@@ -104,25 +111,6 @@ public class PantallaPartida extends JFrame {
             panel.setBorder(fondo);
             
             
-            BotonCarta.addMouseListener(new MouseAdapter() {
-            	@Override
-            	public void mouseClicked(MouseEvent arg0) {
-            		
-            	}
-            });
-            sl_contentPane.putConstraint(SpringLayout.SOUTH, BotonCarta, -40, SpringLayout.NORTH, lblNewLabel_2);
-            sl_contentPane.putConstraint(SpringLayout.EAST, BotonCarta, -405, SpringLayout.EAST, contentPane);
-            contentPane.add(BotonCarta);
-            
-            labelRonda = new JLabel("Ronda x");
-            labelRonda.setForeground(Color.WHITE);
-            sl_contentPane.putConstraint(SpringLayout.NORTH, labelRonda, 0, SpringLayout.NORTH, lblNewLabel_1);
-            sl_contentPane.putConstraint(SpringLayout.WEST, labelRonda, 111, SpringLayout.WEST, contentPane);
-            sl_contentPane.putConstraint(SpringLayout.SOUTH, labelRonda, 42, SpringLayout.SOUTH, lblNewLabel_1);
-            sl_contentPane.putConstraint(SpringLayout.EAST, labelRonda, -759, SpringLayout.EAST, contentPane);
-            labelRonda.setFont(new Font("Tahoma", Font.PLAIN, 30));
-            contentPane.add(labelRonda);
-            labelRonda.setVisible(true);
             
             
             
@@ -130,12 +118,69 @@ public class PantallaPartida extends JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 		
+		botonCarta2.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent arg0) {
+        		if (arg0.getClickCount() == 2) {
+//        			partida.getJugador
+                }
+               
+        	}
+        });
+        contentPane.add(botonCarta2);
+        
+        labelRonda = new JLabel("Ronda x");
+        labelRonda.setForeground(Color.WHITE);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, labelRonda, 0, SpringLayout.NORTH, lblNewLabel_1);
+        sl_contentPane.putConstraint(SpringLayout.WEST, labelRonda, 111, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, labelRonda, 42, SpringLayout.SOUTH, lblNewLabel_1);
+        sl_contentPane.putConstraint(SpringLayout.EAST, labelRonda, -759, SpringLayout.EAST, contentPane);
+        labelRonda.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        contentPane.add(labelRonda);
+        
+        JButton botonCarta1 = new JButton("carta 1");
+        sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1, 434, SpringLayout.SOUTH, lblNewLabel_1);
+        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1, 407, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1, -29, SpringLayout.NORTH, lblNewLabel_2);
+        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1, -463, SpringLayout.EAST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2, 38, SpringLayout.EAST, botonCarta1);
+        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2, 180, SpringLayout.EAST, botonCarta1);
+        contentPane.add(botonCarta1);
+        
+       
+        
+        
+        
+		
 		partida.setPantalla(this);
 		partida.comenzarPartida();
+		partida.darCarta(0);
 		
+		int ancho = botonCarta1.getWidth();
+		int alto = botonCarta1.getHeight();
 		
+		 Image img = null;
+			try {
+				img = ImageIO.read(new File( "Imagenes\\"+(partida.deQuienEsTurno().getManoDeCartas().getMano().get(0).getNombre()+ ".png")));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//	        botonCarta1.setIcon(new ImageIcon(img));
+			botonCarta1.setIcon(new ImageIcon(img.getScaledInstance(ancho, alto, Image.SCALE_DEFAULT)));
+	        
+	        
+	        Image img2 = null;
+			try {
+				img2 = ImageIO.read(new File( "Imagenes\\"+(partida.deQuienEsTurno().getManoDeCartas().getMano().get(1).getNombre()+ ".png")));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			botonCarta1.setIcon(new ImageIcon(img2));
+			botonCarta2.setIcon(new ImageIcon(img2.getScaledInstance(ancho, alto, Image.SCALE_DEFAULT)));
 		
-		
+
 		
 	}
 	
@@ -148,15 +193,15 @@ public class PantallaPartida extends JFrame {
 
 	}
 	
+	public void mazoVacio() {
+		
+	}
+	
 	
 	class FondoPartida implements Border {
 
 	    private BufferedImage mImagen = null;
 
-	    /**
-	     * Constructor, indicamos la imagen que queremos que se redimensione
-	     * @param pImagen ImageIO.read(new File(ruta imagen))
-	     */
 	    public FondoPartida(BufferedImage pImagen) {
 	        mImagen = pImagen;
 	    }

@@ -15,6 +15,7 @@ public class Partida extends Observador {
 	private Tablero tablero;
 	private PantallaPartida pantallaPartida = null;
 	private int ronda;
+	private int turno;
 
 	/*
 	 * Constructor de la clase partido
@@ -26,8 +27,21 @@ public class Partida extends Observador {
 		jugadores.add(jugadorCreador);
 		ronda = 0;
 		tablero = new Tablero();
-		
+
 	}
+	
+	public void siguienteTurno() {
+		if(turno>jugadores.size())
+			turno = 1;
+		else
+			turno++;
+	}
+	
+	public Jugador deQuienEsTurno() {
+		return jugadores.get(turno);
+	}
+	
+	
 
 	public void eliminarJugador(Jugador j) {
 		if (this.jugadores.contains(j))
@@ -39,20 +53,19 @@ public class Partida extends Observador {
 		this.primerJugador = n - 1;
 	}
 
-
 	public void configurarPartida(Jugador primero, String sentido) { // true -> horario, false -> antihorario
 		if (sentido.compareTo("Antihorario") == 0) {
 			Collections.reverse(jugadores);
 		}
 		int i = 0;
-		while(primero != jugadores.get(i)) {
+		while (primero != jugadores.get(i)) {
 			i++;
 		}
 		jugadores.add(0, jugadores.remove(i));
 	}
-	
+
 	public void setPantalla(PantallaPartida pant) {
-		pantallaPartida=pant;
+		pantallaPartida = pant;
 	}
 
 	/*
@@ -127,31 +140,49 @@ public class Partida extends Observador {
 	public int getCantJugadores() {
 		return jugadores.size();
 	}
-	
+
 	public void comenzarPartida() {
 		
 		Mazo mazo = tablero.getMazo();
 		boolean ganador = false;
+		int jugadoresEstables = this.jugadores.size();
 		ronda++;
+		Descarte d = tablero.getDescarte();
 		
 		for (Jugador jugador : jugadores) {
 			jugador.getManoDeCartas().agarrarCarta(mazo.asignarCarta());
 		}
 		
+		
+		
 //		while (!ganador) {
-			try {
-				pantallaPartida.mostrarRonda("Ronda "+ronda);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			mazo.setCantidadCartas(16);
-			mazo.mezclarMazo();
-			mazo.repartir(jugadores);
-			
-			
+//			try {
+//				pantallaPartida.mostrarRonda("Ronda "+ronda);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			mazo.setCantidadCartas(16);
+//			mazo.mezclarMazo();
+//			mazo.repartir(jugadores);
+//			
+//			while (mazo.getCantidadCartas() > 0 && jugadoresEstables > 1) {
+//
+//				for (int i = 0; i < jugadores.size() && jugadoresEstables > 1; i++)
+//					if (jugadores.get(i).getEstado().compareTo("Fuera de Ronda") != 0) {
+//						if(mazo.getCantidadCartas() == 0)
+//							pantallaPartida.mazoVacio();
+//						else
+//						if (jugadores.get(i).jugada(mazo, jugadores, d))
+//							jugadoresEstables--;/// Verifica que el jugador pueda jugar///para que le toque el turno
+//					}
+//			}	
 //		}
 		
+	}
+	
+	public void darCarta(int n) {
+		jugadores.get(n).getManoDeCartas().agarrarCarta(tablero.getMazo().asignarCarta());
 	}
 
 	public void jugarPartida() {
@@ -168,7 +199,7 @@ public class Partida extends Observador {
 			m.setCantidadCartas(16);
 			m.mezclarMazo();
 			m.repartir(jugadores);
-			
+
 			System.out.println("*************RONDA NUMERO " + ronda + "*************");
 
 			while (m.getCantidadCartas() > 0 && jugadoresEstables > 1) {

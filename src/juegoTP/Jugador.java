@@ -263,15 +263,15 @@ public class Jugador extends Observador {
 //public void salirDeSala() {///a completar para proximas entregas
 //	
 //}
-	private void setOrdenRonda() {
-		Scanner entradaJugador = new Scanner(System.in);
-		int ordenRonda;
-		do {
-			System.out.print("\nElija una opcion: \n0-Orden Horario\n1-Orden inverso\nOpcion: ");
-			ordenRonda = entradaJugador.nextInt();
-		} while (ordenRonda < 0 && ordenRonda > 1);
-		partidaJuego.setOrden(ordenRonda);
-	}
+//	private void setOrdenRonda() {
+//		Scanner entradaJugador = new Scanner(System.in);
+//		int ordenRonda;
+//		do {
+//			System.out.print("\nElija una opcion: \n0-Orden Horario\n1-Orden inverso\nOpcion: ");
+//			ordenRonda = entradaJugador.nextInt();
+//		} while (ordenRonda < 0 && ordenRonda > 1);
+//		partidaJuego.setOrden(ordenRonda);
+//	}
 
 //	
 	private void setPrimerJugador() {
@@ -288,15 +288,15 @@ public class Jugador extends Observador {
 //	
 //	///SE PENSARON PRIVATE PARA SER LLAMADAS DENTRO DE CONFIGURAR PARTIDA
 //	
-	public void configurarPartida() {
-		if (this.esAdmin == true) {
-			setPrimerJugador();/// Este metodo de partida va a ver en el array de jguadores
-								/// y hacer que tire primero ese jugador que eligio la persona
-								/// que creo la sala
-			setOrdenRonda();
-		}
-
-	}
+//	public void configurarPartida() {
+//		if (this.esAdmin == true) {
+//			setPrimerJugador();/// Este metodo de partida va a ver en el array de jguadores
+//								/// y hacer que tire primero ese jugador que eligio la persona
+//								/// que creo la sala
+//			setOrdenRonda();
+//		}
+//
+//	}
 
 	public void sumarUnDesc() {
 		this.cartasTiradas++;

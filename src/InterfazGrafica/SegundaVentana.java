@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 
@@ -119,7 +120,8 @@ public class SegundaVentana extends PantallaInicio {
 		comboListaJugadores.setModel(combo);
 		combo.insertElementAt(jugador, jugadores.size());
 		
-
+		JFrame segundaVentana = this;
+		
 		botonAgregarJugador.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -131,7 +133,7 @@ public class SegundaVentana extends PantallaInicio {
 
 					}
 				} else {
-					PantallaError pant = new PantallaError("No se ingreso nombre de jugador");
+					JOptionPane.showMessageDialog(segundaVentana, "Campo vacio");
 				}
 				textField_nombreJugador.setText("");
 			}
@@ -160,11 +162,11 @@ public class SegundaVentana extends PantallaInicio {
 						pantallaInicio.setVisible(false);
 						PantallaPartida pantallaPar = new PantallaPartida(partida);
 					} else {
-						PantallaError pant = new PantallaError("No se eligio jugador para iniciar ronda");
+						JOptionPane.showMessageDialog(segundaVentana, "No se eligio jugador para iniciar ronda");
 					}
 
 				} else {
-					PantallaError pant = new PantallaError("No se llego a la cantidad minima de jugadores");
+					JOptionPane.showMessageDialog(segundaVentana, "No se llego a la cantidad minima de jugadores");
 				}
 			}
 		});

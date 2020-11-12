@@ -4,6 +4,8 @@ import juegoTP.*;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,15 +14,20 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
+import java.awt.Color;
 
 public class PantallaInicio extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+//	private FondoPantalla fondo = new FondoPantalla();
 
 	/**
 	 * Launch the application.
@@ -42,14 +49,17 @@ public class PantallaInicio extends JFrame {
 	 * Create the frame.
 	 */
 	public PantallaInicio() {
+		setForeground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+
 		SpringLayout sl_contentPane = new SpringLayout();
 	    contentPane.setLayout(sl_contentPane);
-		
+//		this.setContentPane(fondo);
+	    
 		textField_1 = new JTextField();
 		sl_contentPane.putConstraint(SpringLayout.NORTH, textField_1, 101, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, textField_1, 139, SpringLayout.WEST, contentPane);
@@ -79,7 +89,7 @@ public class PantallaInicio extends JFrame {
 				ventana2.setVisible(true);
 				}
 				else {
-					PantallaError pant = new PantallaError("No se ingreso nombre de jugador");
+					JOptionPane.showMessageDialog(pantallaInicio, "No se ingreso nombre de jugador");
 				}
 				
 			}
@@ -92,5 +102,6 @@ public class PantallaInicio extends JFrame {
 		
 	}
 	
+
 	
 }

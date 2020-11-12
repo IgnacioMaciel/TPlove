@@ -6,12 +6,15 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 
+import InterfazGrafica.PantallaPartida;
+
 public class Partida extends Observador {
 	private ArrayList<Jugador> jugadores;
 	// private ArrayList<Ronda> rondas;
-	private int simbolosParaGanar, orden, primerJugador;
+	private int simbolosParaGanar, primerJugador;
 	private Tablero tablero;
-	private JFrame pantallaPartida;
+	private PantallaPartida pantallaPartida = null;
+	private int ronda;
 
 	/*
 	 * Constructor de la clase partido
@@ -21,9 +24,9 @@ public class Partida extends Observador {
 		// rondas = new ArrayList<Ronda>();
 		simbolosParaGanar = victoriasNecesarias;
 		jugadores.add(jugadorCreador);
-		orden = orden = 0;
-		/// 0 PARA SENTIDO HORARIO
-		/// 1 PARA SENTIDO ANTIHORARIO
+		ronda = 0;
+		tablero = new Tablero();
+		
 	}
 
 	public void eliminarJugador(Jugador j) {
@@ -36,9 +39,6 @@ public class Partida extends Observador {
 		this.primerJugador = n - 1;
 	}
 
-	public void setOrden(int orden) {
-		this.orden = orden;
-	}
 
 	public void configurarPartida(Jugador primero, String sentido) { // true -> horario, false -> antihorario
 		if (sentido.compareTo("Antihorario") == 0) {
@@ -51,7 +51,7 @@ public class Partida extends Observador {
 		jugadores.add(0, jugadores.remove(i));
 	}
 	
-	public void setPantalla(JFrame pant) {
+	public void setPantalla(PantallaPartida pant) {
 		pantallaPartida=pant;
 	}
 
@@ -126,6 +126,32 @@ public class Partida extends Observador {
 
 	public int getCantJugadores() {
 		return jugadores.size();
+	}
+	
+	public void comenzarPartida() {
+		
+		Mazo mazo = tablero.getMazo();
+		boolean ganador = false;
+		ronda++;
+		
+		for (Jugador jugador : jugadores) {
+			jugador.getManoDeCartas().agarrarCarta(mazo.asignarCarta());
+		}
+		
+//		while (!ganador) {
+			try {
+				pantallaPartida.mostrarRonda("Ronda "+ronda);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			mazo.setCantidadCartas(16);
+			mazo.mezclarMazo();
+			mazo.repartir(jugadores);
+			
+			
+//		}
+		
 	}
 
 	public void jugarPartida() {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Carta{
 	
 	
-
+	
 	private String nombre;
 	private int puntajeFuerza;
 	private String descEfecto;

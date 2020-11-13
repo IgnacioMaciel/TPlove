@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Ronda extends Observable{
 	private ArrayList<Jugador> jugadoresActivos;
 	private int turnoDeJugador;
+	private int finRonda;
 	private Mazo mazo;
 	private Descarte descarte;
 	
@@ -15,8 +16,19 @@ public class Ronda extends Observable{
 	public Ronda(ArrayList<Jugador> jugadores) {
 		this.jugadoresActivos = new ArrayList<Jugador>(jugadores); 
 		turnoDeJugador = 0;
+		finRonda=jugadores.size();
 		mazo = new Mazo();
 		descarte = new Descarte();
+	}
+	
+	
+	
+	public Mazo getMazo() {
+		return mazo;
+	}
+	
+	public Descarte getDescarte() {
+		return descarte;
 	}
 	
 	
@@ -24,8 +36,8 @@ public class Ronda extends Observable{
 		registrar(partida);
 	}
 	
-	public void registrar(Jugador jugador) {
-		registrar(jugador);
+	public void registrarJugadores(ArrayList<Jugador> jugadores) {
+		jugadoresActivos = jugadores;
 	}
 	
 	/*
@@ -57,7 +69,7 @@ public class Ronda extends Observable{
 						if (jugador.getEstado() == "Inmune")
 							jugador.setEstado("Jugando");
 						
-						jugador.jugada(mazo, jugadoresActivos, descarte);
+//						jugador.jugada(mazo, jugadoresActivos, descarte);
 					}
 						
 					if (turnoDeJugador < jugadoresActivos.size())
@@ -76,6 +88,12 @@ public class Ronda extends Observable{
 		}
 	}
 	
+	public int getTurnoDeJugador() {
+		return turnoDeJugador;
+	}
+
+
+
 	/*
 	 * Elimina a los jugadores que no cumplan con la mayor cantidad de cartas tiradas, 
 	 * solo quedando dentro del array el jugador ganador. 

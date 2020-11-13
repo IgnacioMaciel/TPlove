@@ -12,12 +12,16 @@ public class Mano {
 		return mano;
 	}
 
+	public Carta getCarta(int nro) {
+		return mano.get(nro-1);
+	}
+	
 	public void agarrarCarta(Carta c) {
 		mano.add(c);
 	}
 	
 	public Carta sacarCarta(int pos) {
-		return mano.remove(pos);
+		return mano.remove(pos-1);
 	}
 	
 	public Carta getCartaEn(int n) {

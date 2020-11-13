@@ -22,7 +22,7 @@ class CondesaTest {
 		j1.asignarCarta(new Principe());
 		
 		assertTrue(j1.getManoDeCartas().estaCarta(conde));
-		j1.jugada(mazo, jugadores, descarte);
+//		j1.jugada(mazo, jugadores, descarte);
 		
 		assertTrue(!j1.getManoDeCartas().estaCarta(conde));
 		

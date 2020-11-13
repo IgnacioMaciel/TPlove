@@ -53,9 +53,6 @@ public class Jugador extends Observador {
 	}
 
 	public boolean agarrarCarta(Mazo mazo) {
-		System.out.println("-------Oprime una tecla para agarrar una carta del mazo....");
-		Scanner tecla = new Scanner(System.in);
-		tecla.next();
 		Carta cartaAsignada = mazo.asignarCarta();
 		if (cartaAsignada != null) {
 			asignarCarta(cartaAsignada);
@@ -124,18 +121,13 @@ public class Jugador extends Observador {
 
 	}
 
-	public boolean jugada(Mazo mazo, ArrayList<Jugador> jugadores, Descarte descarte) {
+	public boolean jugada(int posCarta,Mazo mazo, ArrayList<Jugador> jugadores, Descarte descarte) {
 		/// ESTE METODO ES AL QUE SE LLAMA CUANDO LE TOCA EL TURNO A CADA JUGADOR
 		/// DENTRO DE ESTE EL JUGADOR REALIZA TODO LO Q DEBE HACER: AGARRA UNA CARTA DEL
 		/// MAZO,
 		/// SE VERIFICA SI TIENE CONDEZA, Y LUEGO SELECCIONA UNA CARTA DEL MAZO
 		if(this.getEstado() == "Inmune") {
 			this.setEstado("Jugando");
-		}
-
-		if (!this.agarrarCarta(mazo)) {
-			System.out.println("No hay mas cartas en el mazo!");
-			return false;
 		}
 
 		if (manoDeCartas.estaCarta(new Condesa())
@@ -153,7 +145,7 @@ public class Jugador extends Observador {
 
 		}
 
-		return jugarCarta(seleccionarCartaAJugar(), descarte, jugadores, mazo, this);
+		return jugarCarta(manoDeCartas.sacarCarta(posCarta), descarte, jugadores, mazo, this);
 	}
 
 	public String getNombre() {
@@ -221,6 +213,7 @@ public class Jugador extends Observador {
 	public int getCartasTiradas() {
 		return cartasTiradas;
 	}
+	
 
 	public void verCarta(Carta c) {
 		System.out.println(c);
@@ -282,7 +275,7 @@ public class Jugador extends Observador {
 		do {
 			eleccion = entradaJugador.nextInt() - 1;
 		} while (eleccion < 0 && eleccion >= cantJug);
-		partidaJuego.setPrimerJugador(eleccion);
+//		partidaJuego.setPrimerJugador(eleccion);
 	}
 
 //	

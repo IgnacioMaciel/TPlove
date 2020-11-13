@@ -90,6 +90,7 @@ public class SegundaVentana extends PantallaInicio {
 				textField_nombreJugador);
 
 		ArrayList jugadores = new ArrayList<Jugador>();
+		jugadores.add(new Jugador(jugador));
 		contentPane.add(botonAgregarJugador);
 
 		JLabel lblNewLabel_2 = new JLabel("Indicar primer jugador de la ronda");
@@ -132,6 +133,9 @@ public class SegundaVentana extends PantallaInicio {
 						combo.insertElementAt(textField_nombreJugador.getText(), jugadores.size());
 
 					}
+					else {
+						JOptionPane.showMessageDialog(segundaVentana, "Limite de jugadores alcanzado");
+					}
 				} else {
 					JOptionPane.showMessageDialog(segundaVentana, "Campo vacio");
 				}
@@ -143,7 +147,8 @@ public class SegundaVentana extends PantallaInicio {
 
 		botonCrearPartida.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent arg0) {	
+				
 				if (jugadores.size() > 0) {
 					if ((String) comboListaJugadores.getSelectedItem() != null
 							&& ((String) comboListaJugadores.getSelectedItem()).length() != 0) {
@@ -156,8 +161,9 @@ public class SegundaVentana extends PantallaInicio {
 						}
 						jugadores.add(new Jugador(jugador));
 						
+						
 						partida.configurarPartida(
-								(Jugador) jugadores.get(combo.getIndexOf((String) combo.getSelectedItem())),
+								(Jugador) jugadores.get(combo.getIndexOf((String) combo.getSelectedItem())-1),
 								(String) comboSentidoRonda.getSelectedItem());
 						pantallaInicio.setVisible(false);
 						PantallaPartida pantallaPar = new PantallaPartida(partida);

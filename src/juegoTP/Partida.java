@@ -10,12 +10,12 @@ import InterfazGrafica.PantallaPartida;
 
 public class Partida extends Observador {
 	private ArrayList<Jugador> jugadores;
-	// private ArrayList<Ronda> rondas;
-	private int simbolosParaGanar, primerJugador;
-	private Tablero tablero;
+	private int simbolosParaGanar;
+	private Ronda ronda;
 	private PantallaPartida pantallaPartida = null;
-	private int ronda;
-	private int turno;
+	int nroRonda;
+	private Jugador creador;
+	
 
 	/*
 	 * Constructor de la clase partido
@@ -24,23 +24,13 @@ public class Partida extends Observador {
 		jugadores = new ArrayList<Jugador>();
 		// rondas = new ArrayList<Ronda>();
 		simbolosParaGanar = victoriasNecesarias;
-		jugadores.add(jugadorCreador);
-		ronda = 0;
-		tablero = new Tablero();
-
+		creador=jugadorCreador;
+		nroRonda = 1;
 	}
 	
-	public void siguienteTurno() {
-		if(turno>jugadores.size())
-			turno = 1;
-		else
-			turno++;
+	public Ronda getRonda() {
+		return ronda;
 	}
-	
-	public Jugador deQuienEsTurno() {
-		return jugadores.get(turno);
-	}
-	
 	
 
 	public void eliminarJugador(Jugador j) {
@@ -48,49 +38,30 @@ public class Partida extends Observador {
 			this.jugadores.remove(jugadores.indexOf(j));
 
 	}
-
-	public void setPrimerJugador(int n) {
-		this.primerJugador = n - 1;
+	
+	public ArrayList<Jugador> getJugadores(){
+		return jugadores;
 	}
+
 
 	public void configurarPartida(Jugador primero, String sentido) { // true -> horario, false -> antihorario
 		if (sentido.compareTo("Antihorario") == 0) {
 			Collections.reverse(jugadores);
 		}
 		int i = 0;
-		while (primero != jugadores.get(i)) {
+		
+		
+		while (jugadores.size() > i && primero.getNombre().compareTo(jugadores.get(i).getNombre()) != 0) {
 			i++;
 		}
 		jugadores.add(0, jugadores.remove(i));
+		
+		ronda = new Ronda(jugadores);
 	}
 
 	public void setPantalla(PantallaPartida pant) {
 		pantallaPartida = pant;
 	}
-
-	/*
-	 * El metodo de observador
-	 */
-//	@Override
-//	public void notificarse() {
-//		
-//		if (hayGanador() != null)
-//			finalizarPartida(hayGanador());
-//		else
-//			agregarRonda();
-//	}
-
-//	@Override
-//	public void notificarseJugador(Jugador jugador) {
-//		// TODO Auto-generated method stub
-//	}
-
-	/*
-	 * Hay que ver este metodo, porque lo hice en base a los puntajes del jugador,
-	 * pero si tenes un array de rondas que solo van a tener al ganador, no
-	 * necesitaria ir hasta el jugador para incrementar una variable "puntaje" que
-	 * haga lo mismo.
-	 */
 
 	public Jugador hayGanador() {
 
@@ -101,23 +72,7 @@ public class Partida extends Observador {
 		return null;
 	}
 
-	/*
-	 * Agrega una ronda a la partida y se pasa la lista de jugadores que apareceran
-	 * en la ronda
-	 */
-//	public boolean agregarRonda() {
-//		Ronda ronda = new Ronda(jugadores);
-//		ronda.registrar(this);
-//		for (Jugador jugador : jugadores) {
-//			ronda.registrar(jugador);
-//		}
-//		return rondas.add(ronda);
-//		
-//	}
 
-	/*
-	 * Agrega un jugador a la partida
-	 */
 	public boolean agregarJugador(Jugador jugador) {
 
 		if (jugadores.size() < 4)
@@ -143,16 +98,18 @@ public class Partida extends Observador {
 
 	public void comenzarPartida() {
 		
-		Mazo mazo = tablero.getMazo();
-		boolean ganador = false;
-		int jugadoresEstables = this.jugadores.size();
-		ronda++;
-		Descarte d = tablero.getDescarte();
 		
 		for (Jugador jugador : jugadores) {
-			jugador.getManoDeCartas().agarrarCarta(mazo.asignarCarta());
+			jugador.getManoDeCartas().agarrarCarta(this.ronda.getMazo().asignarCarta());
 		}
 		
+		try {
+			this.pantallaPartida.mostrarRonda(nroRonda);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 		
 		
 //		while (!ganador) {
@@ -179,10 +136,10 @@ public class Partida extends Observador {
 //			}	
 //		}
 		
-	}
+
 	
 	public void darCarta(int n) {
-		jugadores.get(n).getManoDeCartas().agarrarCarta(tablero.getMazo().asignarCarta());
+		jugadores.get(n).getManoDeCartas().agarrarCarta(ronda.getMazo().asignarCarta());
 	}
 
 	public void jugarPartida() {
@@ -208,7 +165,7 @@ public class Partida extends Observador {
 				for (int i = 0; i < jugadores.size() && jugadoresEstables > 1; i++)
 					if (jugadores.get(i).getEstado().compareTo("Fuera de Ronda") != 0) {
 //						pantallaPartida.
-						if (jugadores.get(i).jugada(m, jugadores, d))
+//						if (jugadores.get(i).jugada(m, jugadores, d))
 							jugadoresEstables--;/// Verifica que el jugador pueda jugar///para que le toque el turno
 						System.out.println("*************************************");
 					}

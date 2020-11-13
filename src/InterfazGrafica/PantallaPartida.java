@@ -363,6 +363,7 @@ public class PantallaPartida extends JFrame {
 		while(partida.hayGanador() == null) { //no haya ganador de partida
 			
 			int turno=0;
+			int opc=0;
 			Mazo mazo = new Mazo();
 			Jugador jug = null;
 			
@@ -385,8 +386,28 @@ public class PantallaPartida extends JFrame {
 					jug.agarrarCarta(mazo, this);
 					this.actualizarPantalla(numJugador, jug);
 					
-					Object[] opciones = {jug.getManoDeCartas().getMano().get(0).getNombre(),jug.getManoDeCartas().getMano().get(1).getNombre()};
-					int opc = JOptionPane.showOptionDialog(this, "Elija 1 carta para jugar","Jugador: " + jug.getNombre(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,opciones, opciones[1]);
+					if(jug.getManoDeCartas().getMano().get(0).getNombre() == "Condesa" && (jug.getManoDeCartas().getMano().get(1).getNombre() == "Rey" || jug.getManoDeCartas().getMano().get(1).getNombre() == "Principe")
+							|| (jug.getManoDeCartas().getMano().get(0).getNombre() == "Rey" || jug.getManoDeCartas().getMano().get(0).getNombre() == "Principe") && jug.getManoDeCartas().getMano().get(1).getNombre() == "Condesa") {
+						
+						Carta c1 = jug.getManoDeCartas().getMano().get(0);
+						Carta c2 = jug.getManoDeCartas().getMano().get(1);
+						
+						if(c1.getNombre() == "Condesa") {
+							opc=0;
+						}
+						else {
+							opc=1;
+						}
+						
+						JOptionPane.showMessageDialog(this, "La condesa no es compatible con el Rey y el Principe, despidete de ella!");
+					}
+					else {
+						Object[] opciones = {jug.getManoDeCartas().getMano().get(0).getNombre(),jug.getManoDeCartas().getMano().get(1).getNombre()};
+						opc = JOptionPane.showOptionDialog(this, "Elija 1 carta para jugar","Jugador: " + jug.getNombre(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,opciones, opciones[1]);
+					}
+					
+					
+					
 					
 					if(opc == 0) {
 						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, 0);

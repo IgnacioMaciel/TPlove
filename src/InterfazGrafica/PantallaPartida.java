@@ -26,6 +26,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PantallaPartida extends JFrame {
 
@@ -68,39 +70,41 @@ public class PantallaPartida extends JFrame {
 		sl_contentPane = new SpringLayout();
 		contentPane.setLayout(sl_contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Jugador 3");
-		lblNewLabel.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 32, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel, -269, SpringLayout.SOUTH, contentPane);
-		contentPane.add(lblNewLabel);
+		JLabel LabelJugador3 = new JLabel("Jugador 3");
+		LabelJugador3.setForeground(Color.WHITE);
+		sl_contentPane.putConstraint(SpringLayout.WEST, LabelJugador3, 32, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador3, -269, SpringLayout.SOUTH, contentPane);
+		contentPane.add(LabelJugador3);
 		
-		JLabel lblNewLabel_1 = new JLabel("Jugador 2");
-		lblNewLabel_1.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 40, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel_1, -430, SpringLayout.EAST, contentPane);
-		contentPane.add(lblNewLabel_1);
+		JLabel LabelJugador2 = new JLabel("Jugador 2");
+		LabelJugador2.setForeground(Color.WHITE);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador2, 40, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador2, -430, SpringLayout.EAST, contentPane);
+		contentPane.add(LabelJugador2);
 		
-		JLabel lblNewLabel_2 = new JLabel("Jugador 1");
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -24, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel_2, -411, SpringLayout.EAST, contentPane);
-		lblNewLabel_2.setForeground(Color.WHITE);
-		contentPane.add(lblNewLabel_2);
+		JLabel LabelJugador1 = new JLabel("Jugador 1");
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador1, -24, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador1, -411, SpringLayout.EAST, contentPane);
+		LabelJugador1.setForeground(Color.WHITE);
+		contentPane.add(LabelJugador1);
 		
-		JLabel lblNewLabel_3 = new JLabel("Jugador 4");
-		lblNewLabel_3.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 335, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel_3, -10, SpringLayout.EAST, contentPane);
-		contentPane.add(lblNewLabel_3);
+		JLabel LabelJugador4 = new JLabel("Jugador 4");
+		LabelJugador4.setForeground(Color.WHITE);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador4, 335, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador4, -10, SpringLayout.EAST, contentPane);
+		contentPane.add(LabelJugador4);
 		
 		JLabel mazo = new JLabel("mazo");
+		sl_contentPane.putConstraint(SpringLayout.WEST, mazo, 407, SpringLayout.WEST, contentPane);
 		mazo.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, mazo, 319, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, mazo, -301, SpringLayout.EAST, contentPane);
 		contentPane.add(mazo);
 		
-		JButton botonCarta2 = new JButton("carta 2");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2, -231, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2, -69, SpringLayout.SOUTH, contentPane);
+		JButton botonCarta2 = new JButton("");
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2, -31, SpringLayout.NORTH, LabelJugador1);
+		botonCarta2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
 		
 		
@@ -130,22 +134,50 @@ public class PantallaPartida extends JFrame {
         contentPane.add(botonCarta2);
         
         labelRonda = new JLabel("Ronda x");
-        labelRonda.setForeground(Color.WHITE);
-        sl_contentPane.putConstraint(SpringLayout.NORTH, labelRonda, 0, SpringLayout.NORTH, lblNewLabel_1);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, labelRonda, 0, SpringLayout.NORTH, LabelJugador2);
         sl_contentPane.putConstraint(SpringLayout.WEST, labelRonda, 111, SpringLayout.WEST, contentPane);
-        sl_contentPane.putConstraint(SpringLayout.SOUTH, labelRonda, 42, SpringLayout.SOUTH, lblNewLabel_1);
-        sl_contentPane.putConstraint(SpringLayout.EAST, labelRonda, -759, SpringLayout.EAST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, labelRonda, 42, SpringLayout.SOUTH, LabelJugador2);
+        labelRonda.setForeground(Color.WHITE);
         labelRonda.setFont(new Font("Tahoma", Font.PLAIN, 30));
         contentPane.add(labelRonda);
         
-        JButton botonCarta1 = new JButton("carta 1");
-        sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1, 434, SpringLayout.SOUTH, lblNewLabel_1);
-        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1, 407, SpringLayout.WEST, contentPane);
-        sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1, -29, SpringLayout.NORTH, lblNewLabel_2);
-        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1, -463, SpringLayout.EAST, contentPane);
+        JButton botonCarta1 = new JButton("");
         sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2, 38, SpringLayout.EAST, botonCarta1);
         sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2, 180, SpringLayout.EAST, botonCarta1);
+        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1, 407, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1, 545, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1, -29, SpringLayout.NORTH, LabelJugador1);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1, -203, SpringLayout.NORTH, LabelJugador1);
+        botonCarta1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        	}
+        });
         contentPane.add(botonCarta1);
+        
+        JButton botonCarta3 = new JButton("carta 3");
+        sl_contentPane.putConstraint(SpringLayout.EAST, labelRonda, -158, SpringLayout.WEST, botonCarta3);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, mazo, 39, SpringLayout.SOUTH, botonCarta3);
+        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta3, 407, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta3, 545, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta3, 6, SpringLayout.SOUTH, LabelJugador2);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta3, 178, SpringLayout.SOUTH, LabelJugador2);
+		botonCarta3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		contentPane.add(botonCarta3);
+		
+		JButton botonCarta4 = new JButton("carta 4");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2, 256, SpringLayout.SOUTH, botonCarta4);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta4, 38, SpringLayout.EAST, botonCarta3);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta4, -283, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta4, 60, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta4, 232, SpringLayout.NORTH, contentPane);
+		botonCarta4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		contentPane.add(botonCarta4);
         
        
         
@@ -156,8 +188,8 @@ public class PantallaPartida extends JFrame {
 		partida.comenzarPartida();
 		partida.darCarta(0);
 		
-		int ancho = botonCarta1.getWidth();
-		int alto = botonCarta1.getHeight();
+		//int ancho = botonCarta1.getWidth();
+		//int alto = botonCarta1.getHeight();
 		
 		 Image img = null;
 			try {
@@ -166,8 +198,8 @@ public class PantallaPartida extends JFrame {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//	        botonCarta1.setIcon(new ImageIcon(img));
-			botonCarta1.setIcon(new ImageIcon(img.getScaledInstance(ancho, alto, Image.SCALE_DEFAULT)));
+	        botonCarta1.setIcon(new ImageIcon(img));
+	        //botonCarta1.setIcon(new ImageIcon(img.getScaledInstance(ancho, alto, Image.SCALE_DEFAULT)));
 	        
 	        
 	        Image img2 = null;
@@ -177,10 +209,18 @@ public class PantallaPartida extends JFrame {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			botonCarta1.setIcon(new ImageIcon(img2));
-			botonCarta2.setIcon(new ImageIcon(img2.getScaledInstance(ancho, alto, Image.SCALE_DEFAULT)));
-		
-
+			botonCarta2.setIcon(new ImageIcon(img2));
+			//botonCarta2.setIcon(new ImageIcon(img2.getScaledInstance(ancho, alto, Image.SCALE_DEFAULT)));
+			
+			
+			
+			JLabel Mazo = new JLabel("");
+			Mazo.setIcon(new ImageIcon("C:\\Users\\Lucas\\Documents\\GitHub\\TPlove\\Imagenes\\Mazo1.png"));
+			sl_contentPane.putConstraint(SpringLayout.NORTH, Mazo, 6, SpringLayout.SOUTH, mazo);
+			sl_contentPane.putConstraint(SpringLayout.WEST, Mazo, 399, SpringLayout.WEST, contentPane);
+			contentPane.add(Mazo);
+			
+			
 		
 	}
 	

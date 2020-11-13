@@ -158,7 +158,6 @@ public class SegundaVentana extends PantallaInicio {
 						for (Object object : jugadores) {
 							partida.agregarJugador((Jugador) object);
 						}
-						jugadores.add(new Jugador(jugador));
 						
 						
 						partida.configurarPartida(

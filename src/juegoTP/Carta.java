@@ -66,8 +66,6 @@ public abstract class Carta{
 
 	public void activarEfecto(Jugador jug, ArrayList<Jugador> jugadores, Mazo mazo, PantallaPartida pantallaPartida) {
 		
-		
 	}
-	
-	
+
 }

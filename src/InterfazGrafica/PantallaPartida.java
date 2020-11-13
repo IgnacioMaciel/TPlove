@@ -378,14 +378,15 @@ public class PantallaPartida extends JFrame {
 					jug.agarrarCarta(mazo, this);
 					this.actualizarPantalla(numJugador, jug);
 					
-					Object[] opciones = {"Carta 1","Carta 2"};
+					//Object[] opciones = {"Carta 1","Carta 2"};
+					Object[] opciones = {jug.getManoDeCartas().getMano().get(0).getNombre(),jug.getManoDeCartas().getMano().get(1).getNombre()};
 					int opc = JOptionPane.showOptionDialog(this, "Elija 1 carta para jugar","Jugador: " + jug.getNombre(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,opciones, opciones[1]);
 					
 					if(opc == 0) {
-						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, opc);
+						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, 0);
 					}
 					else{
-						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, opc);
+						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, 1);
 					}
 					
 					
@@ -426,26 +427,31 @@ public class PantallaPartida extends JFrame {
 		
 		if(numJugador == 0) {
 			this.cartaVisible1.setIcon(new ImageIcon(img1));
+			this.cartaVisible1.setVisible(true);
 			this.cartaVisible2.setIcon(new ImageIcon(img2));
+			this.cartaVisible2.setVisible(true);
 		}
-		
-		if(numJugador == 1) {
+		else if(numJugador == 1) {
 			this.cartaVisible3.setIcon(new ImageIcon(img1));
+			this.cartaVisible3.setVisible(true);
 			this.cartaVisible4.setIcon(new ImageIcon(img2));
+			this.cartaVisible4.setVisible(true);
 		}
-		
-		if(numJugador == 2) {
+		else if(numJugador == 2) {
 			this.cartaVisible5.setIcon(new ImageIcon(img1));
+			this.cartaVisible5.setVisible(true);
 			this.cartaVisible6.setIcon(new ImageIcon(img2));
+			this.cartaVisible6.setVisible(true);
 		}
-		
-		if(numJugador == 3) {
+		else if(numJugador == 3) {
 			this.cartaVisible7.setIcon(new ImageIcon(img1));
+			this.cartaVisible7.setVisible(true);
 			this.cartaVisible8.setIcon(new ImageIcon(img2));
+			this.cartaVisible8.setVisible(true);
 		}
 		
 	}
-	
+
 	public void ocultarCartasJugador(int numJugador, Jugador jug) {
 	
 		Image img1 = null;

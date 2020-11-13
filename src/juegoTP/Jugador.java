@@ -23,7 +23,7 @@ public class Jugador extends Observador {
 
 	public Jugador(String nombre) {
 		this.nombre = nombre;
-		estado = "En Espera";
+		estado = "Jugando";
 		puntaje = 0;
 		manoDeCartas = new Mano();
 		esAdmin = false;
@@ -322,43 +322,43 @@ public class Jugador extends Observador {
 		this.puntaje++;
 	}
 
-	public void jugarCartaEnCampo(int numJugador, ArrayList<Jugador> jugadores, Mazo mazo, PantallaPartida pantallaPartida, Jugador jug, int opc) {
+	public void jugarCartaEnCampo(int numJugador, ArrayList<Jugador> jugadores, Mazo mazo, PantallaPartida pantallaPartida, Jugador jug, int pos) {
 		
-		if(numJugador == 0 && opc==0) {
+		if(numJugador == 0 && pos==0) {
 			pantallaPartida.getCartaVisible1().setVisible(false);
 		}
 		
-		if(numJugador == 0 && opc==1) {
-			pantallaPartida.getCartaVisible1().setVisible(false);
+		if(numJugador == 0 && pos==1) {
+			pantallaPartida.getCartaVisible2().setVisible(false);
 		}
 		
-		if(numJugador == 1 && opc==0) {
-			pantallaPartida.getCartaVisible1().setVisible(false);
+		if(numJugador == 1 && pos==0) {
+			pantallaPartida.getCartaVisible3().setVisible(false);
 		}
 		
-		if(numJugador == 1 && opc==1) {
-			pantallaPartida.getCartaVisible1().setVisible(false);
+		if(numJugador == 1 && pos==1) {
+			pantallaPartida.getCartaVisible4().setVisible(false);
 		}
 		
-		if(numJugador == 2 && opc==0) {
-			pantallaPartida.getCartaVisible1().setVisible(false);
+		if(numJugador == 2 && pos==0) {
+			pantallaPartida.getCartaVisible5().setVisible(false);
 		}
 		
-		if(numJugador == 2 && opc==1) {
-			pantallaPartida.getCartaVisible1().setVisible(false);
+		if(numJugador == 2 && pos==1) {
+			pantallaPartida.getCartaVisible6().setVisible(false);
 		}
 		
-		if(numJugador == 3 && opc==0) {
-			pantallaPartida.getCartaVisible1().setVisible(false);
+		if(numJugador == 3 && pos==0) {
+			pantallaPartida.getCartaVisible7().setVisible(false);
 		}
 		
-		if(numJugador == 3 && opc==1) {
-			pantallaPartida.getCartaVisible1().setVisible(false);
+		if(numJugador == 3 && pos==1) {
+			pantallaPartida.getCartaVisible8().setVisible(false);
 		}
 		
 		JButton cartaJugada = pantallaPartida.getCartaJugada();
 		
-		Carta card = jug.getManoDeCartas().getMano().get(opc);
+		Carta card = jug.getManoDeCartas().getMano().get(pos);
 		
 		Image img = null;
 		try {
@@ -369,6 +369,8 @@ public class Jugador extends Observador {
 		}
 		
 		cartaJugada.setIcon(new ImageIcon(img));
+		
+		jug.getManoDeCartas().sacarCarta(pos);
 		
 		card.activarEfecto(jug, jugadores, mazo, pantallaPartida);
 		

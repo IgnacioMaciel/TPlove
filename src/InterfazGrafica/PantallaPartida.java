@@ -373,6 +373,13 @@ public class PantallaPartida extends JFrame {
 				int numJugador = ronda%jugadores.size();
 				jug = jugadores.get(numJugador);
 				
+				if(jug.getEstado() == "Inmune") {
+					jug.setEstado("Jugando");
+					
+					JOptionPane.showMessageDialog(this, "El jugador " + jug.getNombre() + " ya no tiene inmunidad!");
+				}
+				
+				
 				if(jug.getEstado() != "Fuera de Ronda") {
 					
 					jug.agarrarCarta(mazo, this);

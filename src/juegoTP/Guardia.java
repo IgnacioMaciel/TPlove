@@ -3,6 +3,8 @@ package juegoTP;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import InterfazGrafica.PantallaPartida;
+
 public class Guardia extends Carta {
 
 	public Guardia() {
@@ -10,8 +12,8 @@ public class Guardia extends Carta {
 	}
 
 	@Override
-	public boolean activarEfecto (Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte d, Mazo m) {
-		boolean valor = false;
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m, PantallaPartida pantallaPartida) {
+		/*boolean valor = false;
 		int i=1, numeroJugador=-1, cartaSeleccionada=0;
 		Scanner ingresoTeclado = new Scanner(System.in);
 		
@@ -24,11 +26,6 @@ public class Guardia extends Carta {
 				i++;
 				
 		}
-
-//		do {
-//			System.out.println("Ingrese numero de jugador a seleccionar");
-//			numeroJugador = ingresoTeclado.nextInt()-1;
-//		}while((numeroJugador < 0 || numeroJugador >= listaJugadores.size()) && listaJugadores.get(numeroJugador)!=jugador);		///HASTA ELEGIR UN JUGADOR VALIDO DEL VECTOR
 		
 		while(numeroJugador == -1) {
 			 System.out.println("\n-------Ingrese numero de jugador a seleccionar:");
@@ -63,9 +60,7 @@ public class Guardia extends Carta {
 		}
 		else System.out.println("El jugador no posee esa carta");
 		}
-		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");
-	
-		return valor;
+		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");*/
 	}
 
 }

@@ -31,7 +31,7 @@ public class Jugador extends Observador {
 		partidaJuego = null;
 	}
 
-	public void iniciarPartida(Partida p) {
+	/*public void iniciarPartida(Partida p) {
 		if (this.esAdmin == true) {
 			if (p.getCantJugadores() >= 2) {
 				p.jugarPartida();
@@ -40,7 +40,7 @@ public class Jugador extends Observador {
 				System.out.println("No se puede inicar la partida al no haber 2 jugadores o mas");
 		} else
 			System.out.println("Solo un administrador puede inicar la partida");
-	}
+	}*/
 
 	public void unirsePartida(Partida pp) {
 		pp.agregarJugador(this);
@@ -110,7 +110,7 @@ public class Jugador extends Observador {
 		return manoDeCartas.sacarCarta(pos);
 	}
 
-	public boolean jugarCarta(Carta carta, Descarte descarte, ArrayList<Jugador> jugadores, Mazo mazo, Jugador j) {// descartar
+	/*public boolean jugarCarta(Carta carta, Descarte descarte, ArrayList<Jugador> jugadores, Mazo mazo, Jugador j) {// descartar
 																													// carta
 		/// recibe por parametro la carta que se saco de su mano
 		/// y el descarte, para tirar la carta alli
@@ -125,7 +125,7 @@ public class Jugador extends Observador {
 		descarte.agregarCarta(carta);
 		cartasTiradas++; // AL FINAL DE CADA RONDA SE VERIFICA CUANTAS CARTAS TIRO, PARA VER QUIEN GANO
 		return sacoJug;
-	}
+	}*/
 
 	public void descarto(Descarte d, Mazo m) {
 		Carta c = this.manoDeCartas.sacarCarta(0);
@@ -139,7 +139,7 @@ public class Jugador extends Observador {
 
 	}
 
-	public boolean jugada(Mazo mazo, ArrayList<Jugador> jugadores, Descarte descarte) {
+	/*public boolean jugada(Mazo mazo, ArrayList<Jugador> jugadores, Descarte descarte) {
 		/// ESTE METODO ES AL QUE SE LLAMA CUANDO LE TOCA EL TURNO A CADA JUGADOR
 		/// DENTRO DE ESTE EL JUGADOR REALIZA TODO LO Q DEBE HACER: AGARRA UNA CARTA DEL
 		/// MAZO,
@@ -169,7 +169,7 @@ public class Jugador extends Observador {
 		}
 
 		return jugarCarta(seleccionarCartaAJugar(), descarte, jugadores, mazo, this);
-	}
+	}*/
 
 	public String getNombre() {
 		return nombre;

@@ -3,15 +3,17 @@ package juegoTP;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import InterfazGrafica.PantallaPartida;
+
 public class Sacerdote extends Carta {
 
 	public Sacerdote() {
 		super("Sacerdote", 2, "El jugador elige otro jugador para ver la cartas en su mano");
 	}
 
-	public boolean activarEfecto (Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte des, Mazo m) {
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m, PantallaPartida pantallaPartida) {
 			
-		int i=1, numeroJugador=-1;
+		/*int i=1, numeroJugador=-1;
 		Scanner ingresoTeclado = new Scanner(System.in);
 		
 		System.out.println("\nLos Jugadores a elegir son:");
@@ -22,13 +24,6 @@ public class Sacerdote extends Carta {
 			i++;
 				
 		}	
-		
-
-//		do {
-//			System.out.println("Ingrese numero de jugador a seleccionar");
-//			numeroJugador = ingresoTeclado.nextInt()-1;
-//		}while( (numeroJugador < 0 || numeroJugador >= listaJugadores.size()) && listaJugadores.get(numeroJugador) !=jugador && 
-//				listaJugadores.get(numeroJugador).getEstado()=="Fuera de Ronda");	
 		
 		while(numeroJugador == -1) {
 			 System.out.println("\n-------Ingrese numero de jugador a seleccionar:");
@@ -49,7 +44,7 @@ public class Sacerdote extends Carta {
 		///METODO A ARREGLAR PARA QUE SOLO SE LO MUESTRE AL JUGADOR QUE TIRA LA CARTA
 		}
 		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");
-		return false;
+		return false;*/
 	}
 	
 	

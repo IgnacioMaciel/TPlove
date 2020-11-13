@@ -3,6 +3,8 @@ package juegoTP;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import InterfazGrafica.PantallaPartida;
+
 public class Principe extends Carta{
 
 	public Principe() {
@@ -10,8 +12,8 @@ public class Principe extends Carta{
 	}
 
 	@Override
-	public boolean activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte desc, Mazo mazo) {
-		boolean valor = false;
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m, PantallaPartida pantallaPartida) {
+		/*boolean valor = false;
 		int i=1, numeroJugador=-1;
 		Scanner ingresoTeclado = new Scanner(System.in);
 		
@@ -23,11 +25,6 @@ public class Principe extends Carta{
 				
 		}
 		
-
-//		do {
-//			System.out.println("Ingrese numero de jugador a seleccionar");
-//			numeroJugador = ingresoTeclado.nextInt()-1;
-//		}while( (numeroJugador < 0 || numeroJugador >= listaJugadores.size()) && listaJugadores.get(numeroJugador).getEstado()=="Fuera de Ronda");		///HASTA ELEGIR UN JUGADOR VALIDO DEL VECTOR
 		while(numeroJugador == -1) {
 			 System.out.println("\n-------Ingrese numero de jugador a seleccionar:");
 				numeroJugador = ingresoTeclado.nextInt()-1;
@@ -58,7 +55,7 @@ public class Principe extends Carta{
 		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");
 		//System.out.println(listaJugadores.get(numeroJugador).getCartaMano());
 		
-		return valor;
+		return valor;*/
 	}
 
 }

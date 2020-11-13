@@ -3,6 +3,8 @@ package juegoTP;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import InterfazGrafica.PantallaPartida;
+
 public class Rey extends Carta{
 
 	public Rey() {
@@ -10,9 +12,9 @@ public class Rey extends Carta{
 	}
 
 	@Override
-	public boolean activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte d, Mazo m) {
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m, PantallaPartida pantallaPartida) {
 		
-
+		/*
 		int i=1, numeroJugador=-1;
 		Scanner ingresoTeclado = new Scanner(System.in);
 		Carta cartaAuxiliar;
@@ -45,7 +47,6 @@ public class Rey extends Carta{
 		System.out.println("La nueva mano de cartas es:");
 		System.out.println(jugador.getReferenciaCarta());
 		}
-		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");
-		return false;
+		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");*/
 	}
 }

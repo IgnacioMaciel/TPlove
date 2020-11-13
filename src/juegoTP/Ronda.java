@@ -40,7 +40,7 @@ public class Ronda extends Observable{
 	 * El jugador realiza la jugada dentro del actualizar
 	 * Si la partida solo tiene un jugador o se termino el mazo, se determina al ganador.
 	 */	
-	public void actualizar() {
+	/*public void actualizar() {
 		
 		int index = 0;
 		
@@ -74,7 +74,7 @@ public class Ronda extends Observable{
 				determinarGanador();
 			notificar();
 		}
-	}
+	}*/
 	
 	/*
 	 * Elimina a los jugadores que no cumplan con la mayor cantidad de cartas tiradas, 

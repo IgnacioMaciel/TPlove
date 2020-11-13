@@ -23,8 +23,6 @@ public abstract class Carta{
 		 return this.getPuntajeFuerza() - c2.getPuntajeFuerza();
 		
     }
-	
-	public abstract boolean activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte d, Mazo m);
 
 	public int getPuntajeFuerza() {
 		return puntajeFuerza;

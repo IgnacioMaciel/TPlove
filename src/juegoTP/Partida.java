@@ -111,7 +111,7 @@ public class Partida extends Observador {
 		return jugadores.size();
 	}
 
-	public void jugarPartida() {
+	/*public void jugarPartida() {
 
 		Tablero tableroPartida = new Tablero();
 		Mazo m = tableroPartida.getMazo();
@@ -207,7 +207,7 @@ public class Partida extends Observador {
 		System.out.println("GANADOR DE LA PARTIDA : "+ ganadorJug.getNombre());
 		System.out.println("*************************************");
 
-	}
+	}*/
 	
 	public void configurarPartida(Jugador primero, String sentido) { // true -> horario, false -> antihorario
 		if (sentido.compareTo("Antihorario") == 0) {

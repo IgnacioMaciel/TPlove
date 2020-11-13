@@ -2,6 +2,8 @@ package juegoTP;
 
 import java.util.ArrayList;
 
+import InterfazGrafica.PantallaPartida;
+
 public class Princesa extends Carta{
 
 	public Princesa() {
@@ -9,10 +11,8 @@ public class Princesa extends Carta{
 	}
 
 	@Override
-	public boolean activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte d, Mazo m) {
-		jugador.setEstado("Fuera de Ronda");
-		
-		return true;
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m, PantallaPartida pantallaPartida) {
+		//jugador.setEstado("Fuera de Ronda");
 	}
 	
 }

@@ -1,7 +1,16 @@
 package juegoTP;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+import InterfazGrafica.PantallaPartida;
 
 public class Jugador extends Observador {
 
@@ -47,15 +56,12 @@ public class Jugador extends Observador {
 			cantSimbolos = leoTeclado.nextInt();
 		} while (cantSimbolos < 2 || cantSimbolos > 10);
 		this.esAdmin = true;
-		this.partidaJuego = new Partida(cantSimbolos, this);
+		this.partidaJuego = new Partida(cantSimbolos);
 		this.estado = "Jugando";
 		return partidaJuego;
 	}
 
-	public boolean agarrarCarta(Mazo mazo) {
-		System.out.println("-------Oprime una tecla para agarrar una carta del mazo....");
-		Scanner tecla = new Scanner(System.in);
-		tecla.next();
+	public boolean agarrarCarta(Mazo mazo, PantallaPartida pantallaPartida) {
 		Carta cartaAsignada = mazo.asignarCarta();
 		if (cartaAsignada != null) {
 			asignarCarta(cartaAsignada);
@@ -65,6 +71,15 @@ public class Jugador extends Observador {
 	}// Agarrar carte debe recibir por parametro una carta, entonces busco en mazo la
 		// que esta arriba de todo, y la
 		/// retorno a partir del metodo asignar carta
+	
+	public boolean agarrarCarta(Mazo mazo) {
+		Carta cartaAsignada = mazo.asignarCarta();
+		if (cartaAsignada != null) {
+			asignarCarta(cartaAsignada);
+			return true;
+		}
+		return false;
+	}
 
 	public void asignarCarta(Carta c) {
 		manoDeCartas.agarrarCarta(c);
@@ -300,6 +315,63 @@ public class Jugador extends Observador {
 
 	public void sumarUnDesc() {
 		this.cartasTiradas++;
+		
+	}
+
+	public void sumarCorazon() {
+		this.puntaje++;
+	}
+
+	public void jugarCartaEnCampo(int numJugador, ArrayList<Jugador> jugadores, Mazo mazo, PantallaPartida pantallaPartida, Jugador jug, int opc) {
+		
+		if(numJugador == 0 && opc==0) {
+			pantallaPartida.getCartaVisible1().setVisible(false);
+		}
+		
+		if(numJugador == 0 && opc==1) {
+			pantallaPartida.getCartaVisible1().setVisible(false);
+		}
+		
+		if(numJugador == 1 && opc==0) {
+			pantallaPartida.getCartaVisible1().setVisible(false);
+		}
+		
+		if(numJugador == 1 && opc==1) {
+			pantallaPartida.getCartaVisible1().setVisible(false);
+		}
+		
+		if(numJugador == 2 && opc==0) {
+			pantallaPartida.getCartaVisible1().setVisible(false);
+		}
+		
+		if(numJugador == 2 && opc==1) {
+			pantallaPartida.getCartaVisible1().setVisible(false);
+		}
+		
+		if(numJugador == 3 && opc==0) {
+			pantallaPartida.getCartaVisible1().setVisible(false);
+		}
+		
+		if(numJugador == 3 && opc==1) {
+			pantallaPartida.getCartaVisible1().setVisible(false);
+		}
+		
+		JButton cartaJugada = pantallaPartida.getCartaJugada();
+		
+		Carta card = jug.getManoDeCartas().getMano().get(opc);
+		
+		Image img = null;
+		try {
+			img = ImageIO.read(new File( "Imagenes\\"+card.getNombre()+ ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		cartaJugada.setIcon(new ImageIcon(img));
+		
+		card.activarEfecto(jug, jugadores, mazo, pantallaPartida);
+		
 		
 	}
 

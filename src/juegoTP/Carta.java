@@ -2,6 +2,8 @@ package juegoTP;
 
 import java.util.ArrayList;
 
+import InterfazGrafica.PantallaPartida;
+
 public abstract class Carta{
 	
 	
@@ -59,6 +61,12 @@ public abstract class Carta{
 		if (puntajeFuerza != other.puntajeFuerza)
 			return false;
 		return true;
+	}
+
+
+	public void activarEfecto(Jugador jug, ArrayList<Jugador> jugadores, Mazo mazo, PantallaPartida pantallaPartida) {
+		
+		
 	}
 	
 	

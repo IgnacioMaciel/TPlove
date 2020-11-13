@@ -13,7 +13,7 @@ class MucamaTest {
 		
 		assertTrue(j1.getManoDeCartas().estaCarta(new Mucama()));
 		
-		j1.getCartaMano().activarEfecto(j1, null, null, null);
+		//j1.getCartaMano().activarEfecto(j1, null, null, null);
 		
 		assertEquals("Inmune", j1.getEstado());
 	}

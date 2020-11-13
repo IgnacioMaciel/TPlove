@@ -4,44 +4,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
-
 import InterfazGrafica.PantallaPartida;
 
 public class Partida extends Observador {
 	private ArrayList<Jugador> jugadores;
 	// private ArrayList<Ronda> rondas;
-	private int simbolosParaGanar, primerJugador;
+	private int simbolosParaGanar, orden, primerJugador;
 	private Tablero tablero;
-	private PantallaPartida pantallaPartida = null;
-	private int ronda;
-	private int turno;
 
 	/*
 	 * Constructor de la clase partido
 	 */
-	public Partida(int victoriasNecesarias, Jugador jugadorCreador) {
+	public Partida(int victoriasNecesarias) {
 		jugadores = new ArrayList<Jugador>();
 		// rondas = new ArrayList<Ronda>();
 		simbolosParaGanar = victoriasNecesarias;
-		jugadores.add(jugadorCreador);
-		ronda = 0;
-		tablero = new Tablero();
-
+		orden = orden = 0;
+		/// 0 PARA SENTIDO HORARIO
+		/// 1 PARA SENTIDO ANTIHORARIO
 	}
-	
-	public void siguienteTurno() {
-		if(turno>jugadores.size())
-			turno = 1;
-		else
-			turno++;
-	}
-	
-	public Jugador deQuienEsTurno() {
-		return jugadores.get(turno);
-	}
-	
-	
 
 	public void eliminarJugador(Jugador j) {
 		if (this.jugadores.contains(j))
@@ -53,19 +34,8 @@ public class Partida extends Observador {
 		this.primerJugador = n - 1;
 	}
 
-	public void configurarPartida(Jugador primero, String sentido) { // true -> horario, false -> antihorario
-		if (sentido.compareTo("Antihorario") == 0) {
-			Collections.reverse(jugadores);
-		}
-		int i = 0;
-		while (primero != jugadores.get(i)) {
-			i++;
-		}
-		jugadores.add(0, jugadores.remove(i));
-	}
-
-	public void setPantalla(PantallaPartida pant) {
-		pantallaPartida = pant;
+	public void setOrden(int orden) {
+		this.orden = orden;
 	}
 
 	/*
@@ -141,50 +111,6 @@ public class Partida extends Observador {
 		return jugadores.size();
 	}
 
-	public void comenzarPartida() {
-		
-		Mazo mazo = tablero.getMazo();
-		boolean ganador = false;
-		int jugadoresEstables = this.jugadores.size();
-		ronda++;
-		Descarte d = tablero.getDescarte();
-		
-		for (Jugador jugador : jugadores) {
-			jugador.getManoDeCartas().agarrarCarta(mazo.asignarCarta());
-		}
-		
-		
-		
-//		while (!ganador) {
-//			try {
-//				pantallaPartida.mostrarRonda("Ronda "+ronda);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			mazo.setCantidadCartas(16);
-//			mazo.mezclarMazo();
-//			mazo.repartir(jugadores);
-//			
-//			while (mazo.getCantidadCartas() > 0 && jugadoresEstables > 1) {
-//
-//				for (int i = 0; i < jugadores.size() && jugadoresEstables > 1; i++)
-//					if (jugadores.get(i).getEstado().compareTo("Fuera de Ronda") != 0) {
-//						if(mazo.getCantidadCartas() == 0)
-//							pantallaPartida.mazoVacio();
-//						else
-//						if (jugadores.get(i).jugada(mazo, jugadores, d))
-//							jugadoresEstables--;/// Verifica que el jugador pueda jugar///para que le toque el turno
-//					}
-//			}	
-//		}
-		
-	}
-	
-	public void darCarta(int n) {
-		jugadores.get(n).getManoDeCartas().agarrarCarta(tablero.getMazo().asignarCarta());
-	}
-
 	public void jugarPartida() {
 
 		Tablero tableroPartida = new Tablero();
@@ -199,15 +125,14 @@ public class Partida extends Observador {
 			m.setCantidadCartas(16);
 			m.mezclarMazo();
 			m.repartir(jugadores);
-
-			System.out.println("*************RONDA NUMERO " + ronda + "*************");
+			System.out.println("*************RONDA NUMERO " + ronda+"*************");
 
 			while (m.getCantidadCartas() > 0 && jugadoresEstables > 1) {
-				System.out.println("La cantidad de cartas en el mazo es de : " + m.getCantidadCartas() + "\n");
+				System.out.println("La cantidad de cartas en el mazo es de : " + m.getCantidadCartas()+"\n");
 
 				for (int i = 0; i < jugadores.size() && jugadoresEstables > 1; i++)
 					if (jugadores.get(i).getEstado().compareTo("Fuera de Ronda") != 0) {
-//						pantallaPartida.
+						System.out.println("Turno del jugador: " + jugadores.get(i).getNombre());
 						if (jugadores.get(i).jugada(m, jugadores, d))
 							jugadoresEstables--;/// Verifica que el jugador pueda jugar///para que le toque el turno
 						System.out.println("*************************************");
@@ -270,8 +195,8 @@ public class Partida extends Observador {
 												/// estado "Jugando"
 				j.setEstado("Jugando");
 			}
-
-			System.out.println("Ganador de la ronda : " + ganadorRonda.getNombre());
+			
+			System.out.println("Ganador de la ronda : "+ganadorRonda.getNombre());
 			System.out.println("*************************************");
 			ronda++;
 			ganadorRonda = null;
@@ -279,9 +204,22 @@ public class Partida extends Observador {
 			jugadoresEstables = this.jugadores.size();
 		}
 		System.out.println("\n*************************************");
-		System.out.println("GANADOR DE LA PARTIDA : " + ganadorJug.getNombre());
+		System.out.println("GANADOR DE LA PARTIDA : "+ ganadorJug.getNombre());
 		System.out.println("*************************************");
 
+	}
+	
+	public void configurarPartida(Jugador primero, String sentido) { // true -> horario, false -> antihorario
+		if (sentido.compareTo("Antihorario") == 0) {
+			Collections.reverse(jugadores);
+		}
+		int i = 0;
+		
+		
+		while (jugadores.size() > i && primero.getNombre().compareTo(jugadores.get(i).getNombre()) != 0) {
+			i++;
+		}
+		jugadores.add(0, jugadores.remove(i));
 	}
 
 	@Override
@@ -295,4 +233,39 @@ public class Partida extends Observador {
 		// TODO Auto-generated method stub
 
 	}
+
+	public Jugador hayGanadorDeRonda() {
+		
+		int jugadoresVivos=0;
+		Jugador jug = null;
+		
+		for (Jugador jugador : jugadores) {
+			if (jugador.getEstado() != "Fuera de Ronda")
+			{
+				jugadoresVivos++;
+				jug = jugador;
+			}
+				
+		}
+		
+		if(jugadoresVivos==1)
+			return jug;
+		return null;
+	}
+	
+	public void empezarJuego(ArrayList<Jugador> jugadores, Mazo mazo, PantallaPartida pantallaPartida) {
+
+		for (Jugador jugador : jugadores) {
+			jugador.agarrarCarta(mazo);
+		}
+	}
+
+	/*public void nextPlayer() {
+
+		Player temp = activePlayer;
+		activePlayer = opponentPlayer;
+		opponentPlayer = temp;
+		activePlayer.addCardToHand();
+
+	}*/
 }

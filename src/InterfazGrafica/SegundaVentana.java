@@ -24,10 +24,6 @@ import javax.swing.JTextArea;
 
 public class SegundaVentana extends PantallaInicio {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2530889295896145935L;
 	private JPanel contentPane;
 	private JFrame pantalla1;
 	private String jugador;
@@ -94,6 +90,7 @@ public class SegundaVentana extends PantallaInicio {
 				textField_nombreJugador);
 
 		ArrayList jugadores = new ArrayList<Jugador>();
+		jugadores.add(new Jugador(jugador));
 		contentPane.add(botonAgregarJugador);
 
 		JLabel lblNewLabel_2 = new JLabel("Indicar primer jugador de la ronda");
@@ -130,11 +127,14 @@ public class SegundaVentana extends PantallaInicio {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if (textField_nombreJugador.getText().length() != 0) {
-					if (jugadores.size() < 3) {
+					if (jugadores.size() < 4) {
 						jugadores.add(new Jugador(textField_nombreJugador.getText()));
 
 						combo.insertElementAt(textField_nombreJugador.getText(), jugadores.size());
 
+					}
+					else {
+						JOptionPane.showMessageDialog(segundaVentana, "Limite de jugadores alcanzado");
 					}
 				} else {
 					JOptionPane.showMessageDialog(segundaVentana, "Campo vacio");
@@ -147,24 +147,25 @@ public class SegundaVentana extends PantallaInicio {
 
 		botonCrearPartida.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent arg0) {	
+				
 				if (jugadores.size() > 0) {
 					if ((String) comboListaJugadores.getSelectedItem() != null
 							&& ((String) comboListaJugadores.getSelectedItem()).length() != 0) {
 
 						Partida partida = new Partida(
-								Integer.parseInt(comboCantidadCorazones.getSelectedItem().toString()),
-								new Jugador(jugador));
+								Integer.parseInt(comboCantidadCorazones.getSelectedItem().toString()));
 						for (Object object : jugadores) {
 							partida.agregarJugador((Jugador) object);
 						}
 						jugadores.add(new Jugador(jugador));
 						
+						
 						partida.configurarPartida(
-								(Jugador) jugadores.get(combo.getIndexOf((String) combo.getSelectedItem())),
+								(Jugador) jugadores.get(combo.getIndexOf((String) combo.getSelectedItem())-1),
 								(String) comboSentidoRonda.getSelectedItem());
 						pantallaInicio.setVisible(false);
-						PantallaPartida pantallaPar = new PantallaPartida(partida);
+						PantallaPartida pantallaPar = new PantallaPartida(jugadores, partida);
 					} else {
 						JOptionPane.showMessageDialog(segundaVentana, "No se eligio jugador para iniciar ronda");
 					}

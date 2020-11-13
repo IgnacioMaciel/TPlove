@@ -24,6 +24,10 @@ import javax.swing.JTextArea;
 
 public class SegundaVentana extends PantallaInicio {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2530889295896145935L;
 	private JPanel contentPane;
 	private JFrame pantalla1;
 	private String jugador;

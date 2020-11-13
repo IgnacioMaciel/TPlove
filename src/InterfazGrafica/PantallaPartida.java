@@ -10,14 +10,17 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import juegoTP.Jugador;
 import juegoTP.Partida;
 
 import javax.swing.ImageIcon;
@@ -31,11 +34,36 @@ import java.awt.event.ActionEvent;
 
 public class PantallaPartida extends JFrame {
 
-	private JPanel contentPane;
-	private SpringLayout sl_contentPane;
+	private JPanel contenedorPartida;
+	/*private SpringLayout sl_contentPane;
 	private JButton BotonCarta;
-	private HashMap cartas;
-	private JLabel labelRonda;
+	private HashMap cartas;*/
+	
+	private JPanel ronda;
+	private PanelJugada cartaJugada;
+	public JLabel Mazo;
+	
+	private JLabel nombre1;
+	private JLabel nombre2;
+	private JLabel nombre3;
+	private JLabel nombre4;
+	
+	private JPanel Mano1;
+	private JPanel Mano2;
+	private JPanel Mano3;
+	private JPanel Mano4;
+	
+	private JPanel ocultarMano1;
+	private JPanel ocultarMano2;
+	private JPanel ocultarMano3;
+	private JPanel ocultarMano4;
+	
+	private Jugador p1;
+	private Jugador p2;
+	private Jugador p3;
+	private Jugador p4;
+
+	
 
 	/**
 	 * Launch the application.
@@ -49,7 +77,7 @@ public class PantallaPartida extends JFrame {
 		
 		this.setVisible(true);
 		
-		cartas = new HashMap<String,JButton>();
+		/*cartas = new HashMap<String,JButton>();
 		
 		cartas.put("Baron", new JButton("labelBaron"));
 		cartas.put("Condesa", new JButton("labelCondesa"));
@@ -58,46 +86,46 @@ public class PantallaPartida extends JFrame {
 		cartas.put("Princesa", new JButton("labelPrincesa"));
 		cartas.put("Principe", new JButton("labelPrincipe"));
 		cartas.put("Rey", new JButton("labelRey"));
-		cartas.put("Sacerdote", new JButton("labelSacerdote"));
+		cartas.put("Sacerdote", new JButton("labelSacerdote"));*/
 		
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 768);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		contenedorPartida = new JPanel();
+		contenedorPartida.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contenedorPartida);
 		sl_contentPane = new SpringLayout();
-		contentPane.setLayout(sl_contentPane);
+		contenedorPartida.setLayout(sl_contentPane);
 		
 		JLabel LabelJugador3 = new JLabel("Jugador 3");
 		LabelJugador3.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.WEST, LabelJugador3, 32, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador3, -269, SpringLayout.SOUTH, contentPane);
-		contentPane.add(LabelJugador3);
+		sl_contentPane.putConstraint(SpringLayout.WEST, LabelJugador3, 32, SpringLayout.WEST, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador3, -269, SpringLayout.SOUTH, contenedorPartida);
+		contenedorPartida.add(LabelJugador3);
 		
 		JLabel LabelJugador2 = new JLabel("Jugador 2");
 		LabelJugador2.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador2, 40, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador2, -430, SpringLayout.EAST, contentPane);
-		contentPane.add(LabelJugador2);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador2, 40, SpringLayout.NORTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador2, -430, SpringLayout.EAST, contenedorPartida);
+		contenedorPartida.add(LabelJugador2);
 		
 		JLabel LabelJugador1 = new JLabel("Jugador 1");
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador1, -24, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador1, -411, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador1, -24, SpringLayout.SOUTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador1, -411, SpringLayout.EAST, contenedorPartida);
 		LabelJugador1.setForeground(Color.WHITE);
-		contentPane.add(LabelJugador1);
+		contenedorPartida.add(LabelJugador1);
 		
 		JLabel LabelJugador4 = new JLabel("Jugador 4");
 		LabelJugador4.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador4, 335, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador4, -10, SpringLayout.EAST, contentPane);
-		contentPane.add(LabelJugador4);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador4, 335, SpringLayout.NORTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador4, -10, SpringLayout.EAST, contenedorPartida);
+		contenedorPartida.add(LabelJugador4);
 		
 		JLabel mazo = new JLabel("mazo");
-		sl_contentPane.putConstraint(SpringLayout.WEST, mazo, 407, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, mazo, 407, SpringLayout.WEST, contenedorPartida);
 		mazo.setForeground(Color.WHITE);
-		contentPane.add(mazo);
+		contenedorPartida.add(mazo);
 		
 		JButton botonCarta2 = new JButton("");
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2, -31, SpringLayout.NORTH, LabelJugador1);
@@ -131,53 +159,53 @@ public class PantallaPartida extends JFrame {
                
         	}
         });
-        contentPane.add(botonCarta2);
+        contenedorPartida.add(botonCarta2);
         
         labelRonda = new JLabel("Ronda x");
         sl_contentPane.putConstraint(SpringLayout.NORTH, labelRonda, 0, SpringLayout.NORTH, LabelJugador2);
-        sl_contentPane.putConstraint(SpringLayout.WEST, labelRonda, 111, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.WEST, labelRonda, 111, SpringLayout.WEST, contenedorPartida);
         sl_contentPane.putConstraint(SpringLayout.SOUTH, labelRonda, 42, SpringLayout.SOUTH, LabelJugador2);
         labelRonda.setForeground(Color.WHITE);
         labelRonda.setFont(new Font("Tahoma", Font.PLAIN, 30));
-        contentPane.add(labelRonda);
+        contenedorPartida.add(labelRonda);
         
         JButton botonCarta1 = new JButton("");
         sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2, 38, SpringLayout.EAST, botonCarta1);
         sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2, 180, SpringLayout.EAST, botonCarta1);
-        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1, 407, SpringLayout.WEST, contentPane);
-        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1, 545, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1, 407, SpringLayout.WEST, contenedorPartida);
+        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1, 545, SpringLayout.WEST, contenedorPartida);
         sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1, -29, SpringLayout.NORTH, LabelJugador1);
         sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1, -203, SpringLayout.NORTH, LabelJugador1);
         botonCarta1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         	}
         });
-        contentPane.add(botonCarta1);
+        contenedorPartida.add(botonCarta1);
         
         JButton botonCarta3 = new JButton("carta 3");
         sl_contentPane.putConstraint(SpringLayout.EAST, labelRonda, -158, SpringLayout.WEST, botonCarta3);
         sl_contentPane.putConstraint(SpringLayout.NORTH, mazo, 39, SpringLayout.SOUTH, botonCarta3);
-        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta3, 407, SpringLayout.WEST, contentPane);
-        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta3, 545, SpringLayout.WEST, contentPane);
+        sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta3, 407, SpringLayout.WEST, contenedorPartida);
+        sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta3, 545, SpringLayout.WEST, contenedorPartida);
         sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta3, 6, SpringLayout.SOUTH, LabelJugador2);
         sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta3, 178, SpringLayout.SOUTH, LabelJugador2);
 		botonCarta3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		contentPane.add(botonCarta3);
+		contenedorPartida.add(botonCarta3);
 		
 		JButton botonCarta4 = new JButton("carta 4");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2, 256, SpringLayout.SOUTH, botonCarta4);
 		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta4, 38, SpringLayout.EAST, botonCarta3);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta4, -283, SpringLayout.EAST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta4, 60, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta4, 232, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta4, -283, SpringLayout.EAST, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta4, 60, SpringLayout.NORTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta4, 232, SpringLayout.NORTH, contenedorPartida);
 		botonCarta4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		contentPane.add(botonCarta4);
+		contenedorPartida.add(botonCarta4);
         
        
         
@@ -217,8 +245,8 @@ public class PantallaPartida extends JFrame {
 			JLabel Mazo = new JLabel("");
 			Mazo.setIcon(new ImageIcon("C:\\Users\\Lucas\\Documents\\GitHub\\TPlove\\Imagenes\\Mazo1.png"));
 			sl_contentPane.putConstraint(SpringLayout.NORTH, Mazo, 6, SpringLayout.SOUTH, mazo);
-			sl_contentPane.putConstraint(SpringLayout.WEST, Mazo, 399, SpringLayout.WEST, contentPane);
-			contentPane.add(Mazo);
+			sl_contentPane.putConstraint(SpringLayout.WEST, Mazo, 399, SpringLayout.WEST, contenedorPartida);
+			contenedorPartida.add(Mazo);
 			
 			
 		

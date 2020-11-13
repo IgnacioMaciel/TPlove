@@ -362,7 +362,7 @@ public class PantallaPartida extends JFrame {
 
 		while(partida.hayGanador() == null) { //no haya ganador de partida
 			
-			int ronda=0;
+			int turno=0;
 			Mazo mazo = new Mazo();
 			Jugador jug = null;
 			
@@ -370,7 +370,7 @@ public class PantallaPartida extends JFrame {
 
 			while(partida.hayGanadorDeRonda() == null) {	//no haya ganador de ronda
 				
-				int numJugador = ronda%jugadores.size();
+				int numJugador = turno%jugadores.size();
 				jug = jugadores.get(numJugador);
 				
 				if(jug.getEstado() == "Inmune") {
@@ -385,7 +385,6 @@ public class PantallaPartida extends JFrame {
 					jug.agarrarCarta(mazo, this);
 					this.actualizarPantalla(numJugador, jug);
 					
-					//Object[] opciones = {"Carta 1","Carta 2"};
 					Object[] opciones = {jug.getManoDeCartas().getMano().get(0).getNombre(),jug.getManoDeCartas().getMano().get(1).getNombre()};
 					int opc = JOptionPane.showOptionDialog(this, "Elija 1 carta para jugar","Jugador: " + jug.getNombre(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,opciones, opciones[1]);
 					
@@ -400,7 +399,7 @@ public class PantallaPartida extends JFrame {
 					this.ocultarCartasJugador(numJugador, jug);
 				}
 				
-				ronda++;
+				turno++;
 			}
 			
 			partida.hayGanadorDeRonda().sumarCorazon();

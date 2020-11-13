@@ -36,16 +36,17 @@ public class Sacerdote extends Carta {
 
 		if (jugadoresElegibles.size() == 0) {
 			JOptionPane.showMessageDialog(pantallaPartida, "No hay jugadores seleccionables.");
+			return;
 		} else if (jugadoresElegibles.size() == 1) {
-			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para comparar cartas",
+			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para ver su carta",
 					"Jugador: " + jugador.getNombre(), JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 						opciones, opciones[0]);
 		} else if (jugadoresElegibles.size() == 2) {
-			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para comparar cartas",
+			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para ver su carta",
 					"Jugador: " + jugador.getNombre(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 						opciones, opciones[1]);
 		} else {
-			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para comparar cartas",
+			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para ver su carta",
 					"Jugador: " + jugador.getNombre(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
 						null, opciones, opciones[2]);
 		}

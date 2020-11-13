@@ -49,6 +49,7 @@ public class PantallaPartida extends JFrame {
 	private SpringLayout sl_contentPane;
 	
 	private JLabel ronda;
+	private int turno=0;
 	private JButton cartaJugada;
 	private JLabel MazoLabel;
 	
@@ -244,6 +245,14 @@ public class PantallaPartida extends JFrame {
 		this.cartaOculta4 = cartaOculta4;
 	}
 
+	public int getTurno() {
+		return turno;
+	}
+
+	public void setTurno(int turno) {
+		this.turno = turno;
+	}
+
 	public Jugador getP1() {
 		return p1;
 	}
@@ -362,7 +371,7 @@ public class PantallaPartida extends JFrame {
 
 		while(partida.hayGanador() == null) { //no haya ganador de partida
 			
-			int turno=0;
+			turno=0;
 			int opc=0;
 			Mazo mazo = new Mazo();
 			Jugador jug = null;
@@ -406,16 +415,12 @@ public class PantallaPartida extends JFrame {
 						opc = JOptionPane.showOptionDialog(this, "Elija 1 carta para jugar","Jugador: " + jug.getNombre(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,opciones, opciones[1]);
 					}
 					
-					
-					
-					
 					if(opc == 0) {
 						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, 0);
 					}
 					else{
 						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, 1);
-					}
-					
+					}				
 					
 					this.ocultarCartasJugador(numJugador, jug);
 				}

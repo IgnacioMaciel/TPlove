@@ -6,21 +6,31 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import InterfazGrafica.PantallaPartida.FondoPartida;
+
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.Component;
 
 public class PantallaInicio extends JFrame {
 
@@ -60,6 +70,15 @@ public class PantallaInicio extends JFrame {
 	    contentPane.setLayout(sl_contentPane);
 //		this.setContentPane(fondo);
 	    
+	    try {
+			FondoPartida fondo = new FondoPartida(ImageIO.read(new File("Imagenes\\menu.jpg")));
+			JPanel panel = (JPanel) this.getContentPane();
+			panel.setBorder(fondo);
+
+		} catch (IOException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	    
 		textField_1 = new JTextField();
 		sl_contentPane.putConstraint(SpringLayout.NORTH, textField_1, 101, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, textField_1, 139, SpringLayout.WEST, contentPane);
@@ -67,11 +86,13 @@ public class PantallaInicio extends JFrame {
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Love Letter");
+		lblNewLabel.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 166, SpringLayout.WEST, contentPane);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Ingrese nombre de usuario");
+		lblNewLabel_1.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_1, 116, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, -6, SpringLayout.NORTH, textField_1);
 		contentPane.add(lblNewLabel_1);
@@ -102,6 +123,30 @@ public class PantallaInicio extends JFrame {
 		
 	}
 	
+	class FondoPartida implements Border {
 
+		private BufferedImage mImagen = null;
+
+		public FondoPartida(BufferedImage pImagen) {
+			mImagen = pImagen;
+		}
+
+		@Override
+		public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+			if (mImagen != null) {
+				g.drawImage(mImagen, 0, 0, width, height, null);
+			}
+		}
+
+		@Override
+		public Insets getBorderInsets(Component c) {
+			return new Insets(0, 0, 0, 0);
+		}
+
+		@Override
+		public boolean isBorderOpaque() {
+			return true;
+		}
+	}
 	
 }

@@ -109,74 +109,80 @@ public class PantallaPartida extends JFrame {
 		}
 
 		LabelJugador1 = new JLabel(partida.getJugadores().get(0).getNombre());
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador1, -24, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador1, -411, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador1, 609, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador1, -425, SpringLayout.EAST, contentPane);
+		LabelJugador1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		LabelJugador1.setForeground(Color.WHITE);
 		contentPane.add(LabelJugador1);
 
 		LabelJugador2 = new JLabel(partida.getJugadores().get(1).getNombre());
-		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador2, -471, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador2, 181, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador2, 0, SpringLayout.EAST, LabelJugador1);
+		LabelJugador2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		LabelJugador2.setForeground(Color.WHITE);
 		contentPane.add(LabelJugador2);
 
 		LabelJugador3 = new JLabel("Jugador 3");
-		sl_contentPane.putConstraint(SpringLayout.WEST, LabelJugador3, 131, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador3, -256, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, LabelJugador3, 122, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelJugador3, -278, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador3, 198, SpringLayout.WEST, contentPane);
+		LabelJugador3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		LabelJugador3.setVerticalAlignment(SwingConstants.TOP);
 		LabelJugador3.setForeground(Color.WHITE);
 		contentPane.add(LabelJugador3);
+		if (partida.getJugadores().size() > 2) {
+			LabelJugador3.setText(partida.getJugadores().get(2).getNombre());
+		} else {
+			LabelJugador3.setVisible(false);
+		}
 
 		LabelJugador4 = new JLabel("Jugador 4");
-		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador4, -96, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador4, 0, SpringLayout.NORTH, LabelJugador3);
+		sl_contentPane.putConstraint(SpringLayout.EAST, LabelJugador4, -115, SpringLayout.EAST, contentPane);
+		LabelJugador4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		LabelJugador4.setForeground(Color.WHITE);
 		contentPane.add(LabelJugador4);
+		if (partida.getJugadores().size() > 3) {
+			LabelJugador4.setText(partida.getJugadores().get(3).getNombre());
+		} else {
+			LabelJugador4.setVisible(false);
+		}
 
 		botonCarta2Jugador1 = new JButton("Carta2Jugador1");
-
-		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador1, 0, SpringLayout.WEST, LabelJugador1);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador1, -70, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2Jugador1, -337, SpringLayout.EAST, contentPane);
 
 		contentPane.add(botonCarta2Jugador1);
 
 		labelRonda = new JLabel("Ronda x");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, labelRonda, 40, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, labelRonda, 106, SpringLayout.WEST, contentPane);
 		labelRonda.setForeground(Color.WHITE);
 		labelRonda.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		contentPane.add(labelRonda);
 
 		botonCarta1Jugador1 = new JButton("Carta1Jugador1");
-
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1Jugador1, -70, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador1, 0, SpringLayout.NORTH,
-				botonCarta1Jugador1);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador1, 0, SpringLayout.SOUTH,
-				botonCarta1Jugador1);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2Jugador1, 191, SpringLayout.EAST,
-				botonCarta1Jugador1);
-		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1Jugador1, 439, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador1, -509, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador1, 0, SpringLayout.NORTH, botonCarta1Jugador1);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador1, 252, SpringLayout.SOUTH, LabelJugador2);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador1, -471, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1Jugador1, 471, SpringLayout.WEST, contentPane);
 		botonCarta1Jugador1.setBackground(Color.WHITE);
 		contentPane.add(botonCarta1Jugador1);
 
 		botonCarta1Jugador2 = new JButton("Carta1Jugador2");
-
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador2, 60, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1Jugador2, 427, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1Jugador2, -489, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador1, 255, SpringLayout.SOUTH,
-				botonCarta1Jugador2);
-		sl_contentPane.putConstraint(SpringLayout.EAST, labelRonda, -136, SpringLayout.WEST, botonCarta1Jugador2);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, labelRonda, 0, SpringLayout.NORTH, botonCarta1Jugador2);
+		sl_contentPane.putConstraint(SpringLayout.EAST, labelRonda, -254, SpringLayout.WEST, botonCarta1Jugador2);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador2, 25, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1Jugador2, 471, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1Jugador2, -6, SpringLayout.NORTH, LabelJugador2);
 		contentPane.add(botonCarta1Jugador2);
 
 		botonCarta2Jugador2 = new JButton("Carta2Jugador2");
-
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador2, 62, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador2, 611, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador2, -487, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2Jugador2, -344, SpringLayout.EAST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador2, 24, SpringLayout.SOUTH, botonCarta2Jugador2);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador2, -35, SpringLayout.WEST,
-				botonCarta2Jugador2);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador2, 605, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2Jugador2, -334, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador2, -11, SpringLayout.WEST, botonCarta2Jugador2);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador1, 0, SpringLayout.WEST, botonCarta2Jugador2);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador2, 25, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador2, -6, SpringLayout.NORTH, LabelJugador2);
 		contentPane.add(botonCarta2Jugador2);
 
 		partida.setPantalla(this);
@@ -184,35 +190,35 @@ public class PantallaPartida extends JFrame {
 		partida.darCarta(0);
 
 		botonCarta1Jugador3 = new JButton("Carta1Jugador3");
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, labelRonda, -258, SpringLayout.NORTH, botonCarta1Jugador3);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador3, 41, SpringLayout.SOUTH, botonCarta1Jugador3);
-		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1Jugador3, 32, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, labelRonda, 0, SpringLayout.WEST, botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, labelRonda, -148, SpringLayout.NORTH, botonCarta1Jugador3);
+
+		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador3, 6, SpringLayout.SOUTH, botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador3, 210, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1Jugador3, -313, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1Jugador3, 32, SpringLayout.WEST, contentPane);
 		contentPane.add(botonCarta1Jugador3);
 
 		botonCarta2Jugador3 = new JButton("Carta2Jugador3");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador3, 0, SpringLayout.NORTH,
-				botonCarta1Jugador3);
-		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador3, 16, SpringLayout.EAST,
-				botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador3, 0, SpringLayout.NORTH, botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador3, -6, SpringLayout.NORTH, LabelJugador3);
 		contentPane.add(botonCarta2Jugador3);
 
 		botonCarta1Jugador4 = new JButton("Carta1Jugador4");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador4, 0, SpringLayout.NORTH, botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1Jugador4, -6, SpringLayout.NORTH, LabelJugador4);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador4, -155, SpringLayout.EAST, contentPane);
 		contentPane.add(botonCarta1Jugador4);
 
 		botonCarta2Jugador4 = new JButton("Carta2Jugador4");
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador4, -316, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, LabelJugador4, 31, SpringLayout.SOUTH, botonCarta2Jugador4);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador4, 0, SpringLayout.NORTH,
-				botonCarta2Jugador4);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador4, -6, SpringLayout.WEST,
-				botonCarta2Jugador4);
-		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador4, 0, SpringLayout.WEST, LabelJugador4);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador4, 0, SpringLayout.NORTH, botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador4, 9, SpringLayout.EAST, botonCarta1Jugador4);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador4, -313, SpringLayout.SOUTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2Jugador4, -23, SpringLayout.EAST, contentPane);
 		contentPane.add(botonCarta2Jugador4);
 
 		botonMazo = new JButton("Mazo");
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonMazo, -98, SpringLayout.NORTH, botonCarta2Jugador1);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonMazo, -102, SpringLayout.WEST, botonCarta1Jugador4);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1Jugador4, 114, SpringLayout.EAST, botonMazo);
 		botonMazo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -251,10 +257,13 @@ public class PantallaPartida extends JFrame {
 		contentPane.add(botonMazo);
 
 		botonDescarte = new JButton("Vacio");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonDescarte, -66, SpringLayout.NORTH, botonMazo);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2Jugador3, -180, SpringLayout.WEST, botonDescarte);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonMazo, 63, SpringLayout.NORTH, botonDescarte);
+		sl_contentPane.putConstraint(SpringLayout.WEST, botonMazo, 19, SpringLayout.EAST, botonDescarte);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonDescarte, 35, SpringLayout.SOUTH, LabelJugador2);
 		sl_contentPane.putConstraint(SpringLayout.WEST, botonDescarte, 0, SpringLayout.WEST, botonCarta1Jugador1);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonDescarte, 66, SpringLayout.NORTH, botonMazo);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonDescarte, -70, SpringLayout.WEST, botonMazo);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonDescarte, 0, SpringLayout.SOUTH, LabelJugador4);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonDescarte, 0, SpringLayout.EAST, botonCarta1Jugador1);
 		contentPane.add(botonDescarte);
 		botonCarta1Jugador1.setVisible(false);
 		botonCarta2Jugador1.setVisible(false);
@@ -303,6 +312,42 @@ public class PantallaPartida extends JFrame {
 			}
 		});
 
+		botonCarta1Jugador3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pantallaPartida.jugarCarta(2, 1);
+				botonCarta1Jugador2.setVisible(false);
+				botonCarta2Jugador2.setVisible(false);
+			}
+		});
+
+		botonCarta2Jugador3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pantallaPartida.jugarCarta(2, 2);
+				botonCarta1Jugador2.setVisible(false);
+				botonCarta2Jugador2.setVisible(false);
+			}
+		});
+
+		botonCarta1Jugador4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pantallaPartida.jugarCarta(3, 1);
+				botonCarta1Jugador2.setVisible(false);
+				botonCarta2Jugador2.setVisible(false);
+			}
+		});
+
+		botonCarta2Jugador4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pantallaPartida.jugarCarta(3, 2);
+				botonCarta1Jugador2.setVisible(false);
+				botonCarta2Jugador2.setVisible(false);
+			}
+		});
+
 	}
 
 	public void jugarCarta(int nroJugador, int nroCarta) {
@@ -321,7 +366,7 @@ public class PantallaPartida extends JFrame {
 					.compareTo("Condesa") == 0) {
 				cartaSeleccionada = atacante.getManoDeCartas().sacarCarta(0);
 				partida.getRonda().getDescarte().agregarCarta(cartaSeleccionada);
-				
+
 			} else {
 				cartaSeleccionada = atacante.getManoDeCartas().sacarCarta(1);
 				partida.getRonda().getDescarte().agregarCarta(cartaSeleccionada);
@@ -342,23 +387,23 @@ public class PantallaPartida extends JFrame {
 
 		botonDescarte.setText(cartaSeleccionada.getNombre());
 		atacante.sumarTiradas();
-		if(partida.getRonda().verificarFinDeRonda()) {
-			JOptionPane.showMessageDialog(this, "Ronda finalizada, el ganador es "+partida.getRonda().getGanador().getNombre());
+		if (partida.getRonda().verificarFinDeRonda()) {
+			JOptionPane.showMessageDialog(this,
+					"Ronda finalizada, el ganador es " + partida.getRonda().getGanador().getNombre());
 			partida.setNroRonda(1);
-			if(partida.verificarFinPartida()) {
-				JOptionPane.showMessageDialog(this, "Partida finalizada, el ganador es "+partida.getGanador().getNombre());
-				
-			}else {
-				JOptionPane.showMessageDialog(this, "Ronda "+partida.getNroRonda());
-				labelRonda.setText("Ronda "+partida.getNroRonda());
+			if (partida.verificarFinPartida()) {
+				JOptionPane.showMessageDialog(this,
+						"Partida finalizada, el ganador es " + partida.getGanador().getNombre());
+
+			} else {
+				JOptionPane.showMessageDialog(this, "Ronda " + partida.getNroRonda());
+				labelRonda.setText("Ronda " + partida.getNroRonda());
 				botonDescarte.setText("Vacio");
 				partida.getRonda().resetRonda();
 			}
-		}
-		else {
+		} else {
 			partida.getRonda().pasarTurno();
 		}
-		
 
 	}
 

@@ -50,6 +50,7 @@ public class PantallaPartida extends JFrame {
 	
 	private JLabel ronda;
 	private int turno=0;
+	private int numRonda=0;
 	private JButton cartaJugada;
 	private JLabel MazoLabel;
 	
@@ -253,6 +254,14 @@ public class PantallaPartida extends JFrame {
 		this.turno = turno;
 	}
 
+	public int getNumRonda() {
+		return numRonda;
+	}
+
+	public void setNumRonda(int numRonda) {
+		this.numRonda = numRonda;
+	}
+
 	public Jugador getP1() {
 		return p1;
 	}
@@ -362,6 +371,8 @@ public class PantallaPartida extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, cartaJugada, -610, SpringLayout.EAST, contenedorPartida);
 		contenedorPartida.add(cartaJugada);
 		
+		numRonda=1;
+		
 		ronda = new JLabel("Ronda");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, ronda, 41, SpringLayout.NORTH, contenedorPartida);
 		sl_contentPane.putConstraint(SpringLayout.WEST, ronda, 256, SpringLayout.WEST, contenedorPartida);
@@ -429,9 +440,16 @@ public class PantallaPartida extends JFrame {
 			}
 			
 			partida.hayGanadorDeRonda().sumarCorazon();
+			
+			for (Jugador jugador : jugadores) {
+				jugador.setEstado("Jugando");
+			}
+			
+			
 		}
 			
-			
+		
+		JOptionPane.showMessageDialog(this, "El ganador del juego es: " + partida.hayGanador().getNombre() + "\nFelicitaciones!");
 		
 	}
 	

@@ -316,8 +316,8 @@ public class PantallaPartida extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				pantallaPartida.jugarCarta(2, 1);
-				botonCarta1Jugador2.setVisible(false);
-				botonCarta2Jugador2.setVisible(false);
+				botonCarta1Jugador3.setVisible(false);
+				botonCarta2Jugador3.setVisible(false);
 			}
 		});
 
@@ -325,8 +325,8 @@ public class PantallaPartida extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				pantallaPartida.jugarCarta(2, 2);
-				botonCarta1Jugador2.setVisible(false);
-				botonCarta2Jugador2.setVisible(false);
+				botonCarta1Jugador3.setVisible(false);
+				botonCarta2Jugador3.setVisible(false);
 			}
 		});
 
@@ -334,8 +334,8 @@ public class PantallaPartida extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				pantallaPartida.jugarCarta(3, 1);
-				botonCarta1Jugador2.setVisible(false);
-				botonCarta2Jugador2.setVisible(false);
+				botonCarta1Jugador4.setVisible(false);
+				botonCarta2Jugador4.setVisible(false);
 			}
 		});
 
@@ -343,8 +343,8 @@ public class PantallaPartida extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				pantallaPartida.jugarCarta(3, 2);
-				botonCarta1Jugador2.setVisible(false);
-				botonCarta2Jugador2.setVisible(false);
+				botonCarta1Jugador4.setVisible(false);
+				botonCarta2Jugador4.setVisible(false);
 			}
 		});
 

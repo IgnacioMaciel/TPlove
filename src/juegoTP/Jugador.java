@@ -377,6 +377,59 @@ public class Jugador extends Observador {
 		
 	}
 
+	public void jugarCartaEnCampoPrincipe(int numJugador, ArrayList<Jugador> listaJugadores, Mazo m,
+			PantallaPartida pantallaPartida, Jugador jug, int pos) {
+		
+			if(numJugador == 0 && pos==0) {
+				pantallaPartida.getCartaVisible1().setVisible(false);
+			}
+			
+			if(numJugador == 0 && pos==1) {
+				pantallaPartida.getCartaVisible2().setVisible(false);
+			}
+			
+			if(numJugador == 1 && pos==0) {
+				pantallaPartida.getCartaVisible3().setVisible(false);
+			}
+			
+			if(numJugador == 1 && pos==1) {
+				pantallaPartida.getCartaVisible4().setVisible(false);
+			}
+			
+			if(numJugador == 2 && pos==0) {
+				pantallaPartida.getCartaVisible5().setVisible(false);
+			}
+			
+			if(numJugador == 2 && pos==1) {
+				pantallaPartida.getCartaVisible6().setVisible(false);
+			}
+			
+			if(numJugador == 3 && pos==0) {
+				pantallaPartida.getCartaVisible7().setVisible(false);
+			}
+			
+			if(numJugador == 3 && pos==1) {
+				pantallaPartida.getCartaVisible8().setVisible(false);
+			}
+			
+			JButton cartaJugada = pantallaPartida.getCartaJugada();
+			
+			Carta card = jug.getManoDeCartas().getMano().get(pos);
+			
+			Image img = null;
+			try {
+				img = ImageIO.read(new File( "Imagenes\\"+card.getNombre()+ ".png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			cartaJugada.setIcon(new ImageIcon(img));
+			
+			jug.getManoDeCartas().sacarCarta(pos);
+		
+	}
+
 //	public void seleccionarSala() {
 //		
 //	}

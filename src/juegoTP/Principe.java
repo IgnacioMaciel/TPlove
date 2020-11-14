@@ -55,54 +55,80 @@ public class Principe extends Carta{
 			}
 		}
 		
-		int numJugador=0;
+		int numJugadorActivoEfecto=0;
+		int difPosiciones=0;
 		
 		if( !m.getMazoVacio()) {
 			
-			numJugador = pantallaPartida.getTurno() % listaJugadores.size();
-			Jugador jug = listaJugadores.get(numJugador);
+			numJugadorActivoEfecto = pantallaPartida.getTurno() % listaJugadores.size();
+			Jugador jug = listaJugadores.get(numJugadorActivoEfecto);
+			int bandera=0;
+	
+			for (Jugador jugadorAux : listaJugadores) { 
+				if (jugadorElegido.getNombre() != jugadorAux.getNombre() && bandera==0) {
+					difPosiciones++;
+				}
+				
+				if(jugadorElegido.getNombre() == jugadorAux.getNombre())
+				{
+					bandera=1;
+				}
+			}
+			
+			difPosiciones = numJugadorActivoEfecto - difPosiciones;
+			int posJugadorElegido = numJugadorActivoEfecto - difPosiciones;
+			jug = listaJugadores.get(posJugadorElegido);
+			
+			//buscar numero otro jugador
 			
 			JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre() + " descarta la carta " + jug.getManoDeCartas().getMano().get(0).getNombre());
 			
-			jug.jugarCartaEnCampo(numJugador,listaJugadores, m, pantallaPartida, jug, 0);
+			if(jugadorElegido.getManoDeCartas().getMano().get(0).getNombre() == "Princesa") {
+				jugadorElegido.setEstado("Fuera de Ronda");
+				JOptionPane.showMessageDialog(pantallaPartida, "Jugador " + jugadorElegido.getNombre() + " descarto a la Princesa y quedo fuera de ronda");
+			}
+			
+			if(jugadorElegido.getEstado() != "Fuera de Ronda") {
+				
+				jugadorElegido.jugarCartaEnCampoPrincipe(posJugadorElegido,listaJugadores, m, pantallaPartida, jug, 0);
 
-			jugadorElegido.agarrarCarta(m);
+				jugadorElegido.agarrarCarta(m);
+				
+				Carta card = jugadorElegido.getManoDeCartas().getMano().get(0);
 			
-			Carta card = jugadorElegido.getManoDeCartas().getMano().get(0);
-		
-			Image img = null;
-			try {
-				img = ImageIO.read(new File( "Imagenes\\"+card.getNombre()+ ".png"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Image img = null;
+				try {
+					img = ImageIO.read(new File( "Imagenes\\"+card.getNombre()+ ".png"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(posJugadorElegido == 0) {
+					pantallaPartida.getCartaVisible1().setIcon(new ImageIcon(img));
+					pantallaPartida.getCartaVisible1().setVisible(true);
+				}
+				else if(posJugadorElegido == 1) {
+					pantallaPartida.getCartaVisible3().setIcon(new ImageIcon(img));
+					pantallaPartida.getCartaVisible3().setVisible(true);
+				}
+				else if(posJugadorElegido == 2) {
+					pantallaPartida.getCartaVisible5().setIcon(new ImageIcon(img));
+					pantallaPartida.getCartaVisible5().setVisible(true);
+				}
+				else if(posJugadorElegido == 3) {
+					pantallaPartida.getCartaVisible7().setIcon(new ImageIcon(img));
+					pantallaPartida.getCartaVisible7().setVisible(true);
+				}
+				
+				JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre() + " agarro una nueva carta");
+				
+				pantallaPartida.ocultarCartasJugador(posJugadorElegido, jug);
+				}
 			}
-			
-			if(numJugador == 0) {
-				pantallaPartida.getCartaVisible1().setIcon(new ImageIcon(img));
-				pantallaPartida.getCartaVisible1().setVisible(true);
+			else {
+					JOptionPane.showMessageDialog(pantallaPartida, "El Mazo esta Vacio.");
 			}
-			else if(numJugador == 1) {
-				pantallaPartida.getCartaVisible3().setIcon(new ImageIcon(img));
-				pantallaPartida.getCartaVisible3().setVisible(true);
-			}
-			else if(numJugador == 2) {
-				pantallaPartida.getCartaVisible5().setIcon(new ImageIcon(img));
-				pantallaPartida.getCartaVisible5().setVisible(true);
-			}
-			else if(numJugador == 3) {
-				pantallaPartida.getCartaVisible7().setIcon(new ImageIcon(img));
-				pantallaPartida.getCartaVisible7().setVisible(true);
-			}
-			
-			JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre() + " agarro una nueva carta");
-			
-			pantallaPartida.ocultarCartasJugador(numJugador, jug);
-		}
-		else {
-			JOptionPane.showMessageDialog(pantallaPartida, "El Mazo esta Vacio.");
-		}
 		
 	}
-
 }

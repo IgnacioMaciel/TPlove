@@ -394,6 +394,7 @@ public class PantallaPartida extends JFrame {
 			if (partida.verificarFinPartida()) {
 				JOptionPane.showMessageDialog(this,
 						"Partida finalizada, el ganador es " + partida.getGanador().getNombre());
+				this.getDefaultCloseOperation();
 
 			} else {
 				JOptionPane.showMessageDialog(this, "Ronda " + partida.getNroRonda());

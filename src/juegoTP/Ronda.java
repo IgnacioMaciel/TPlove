@@ -89,108 +89,20 @@ public class Ronda extends Observable {
 	public Descarte getDescarte() {
 		return descarte;
 	}
-
-	public void registrar(Partida partida) {
-		registrar(partida);
-	}
-
-	public void registrarJugadores(ArrayList<Jugador> jugadores) {
-		jugadoresActivos = jugadores;
-	}
-
-	/*
-	 * Elimina de la lista de jugadores activos al perdedor
-	 */
-	public boolean eliminarJugador(Jugador jugador) {
-		return jugadoresActivos.remove(jugador);
-	}
-
-	/*
-	 * Se actualiza la ronda, es decir, esta jugando una nueva persona. El jugador
-	 * realiza la jugada dentro del actualizar Si la partida solo tiene un jugador o
-	 * se termino el mazo, se determina al ganador.
-	 */
-	public void actualizar() {
-
-		int index = 0;
-
-		if (jugadoresActivos.size() > 1 && mazo.getCantidadCartas() > 0) {
-			for (Jugador jugador : jugadoresActivos) {
-				if (turnoDeJugador == index) {
-
-					/// si se aprico un efecto y quedo fuera un jugador se lo elimina aca
-					if (jugador.getEstado() == "Fuera de Ronda") {
-						eliminarJugador(jugador);
-					} else {
-						// deja de ser inmune cuando dio toda la vuelta
-						if (jugador.getEstado() == "Inmune")
-							jugador.setEstado("Jugando");
-
-//						jugador.jugada(mazo, jugadoresActivos, descarte);
-					}
-
-					if (turnoDeJugador < jugadoresActivos.size())
-						turnoDeJugador++;
-					else
-						turnoDeJugador = 0;
-				}
-
-				index++;
-			}
-		} else {
-			if (jugadoresActivos.size() > 1)
-				determinarGanador();
-			notificar();
-		}
-	}
-
-	public int getTurnoDeJugador() {
-		return turnoDeJugador;
-	}
-
-	/*
-	 * Elimina a los jugadores que no cumplan con la mayor cantidad de cartas
-	 * tiradas, solo quedando dentro del array el jugador ganador. Luego notifica al
-	 * observador que hubo un cambio en ronda
-	 */
-	public void determinarGanador() {
-		int mayor = 0;
-		// Determino si hay solo una persona con mayor fuerza de carta
-		for (Jugador jugador : jugadoresActivos) {
-			if (mayor < (jugador.getCartaMano().getPuntajeFuerza()))
-				mayor = jugador.getCartaMano().getPuntajeFuerza();
-		}
-
-		// Elimino a los que no tienen esa carta de mayor fuerza
-		for (Jugador jugador : jugadoresActivos) {
-			if (mayor != (jugador.getCartaMano().getPuntajeFuerza()))
-				eliminarJugador(jugador);
-		}
-
-		// Pregunto si tengo que desempatar todavia y sino busco por las cartas tiradas
-		if (jugadoresActivos.size() > 1) {
-			mayor = 0;
-			for (Jugador jugador : jugadoresActivos) {
-
-				if (mayor < jugador.getCartasTiradas())
-					mayor = jugador.getCartasTiradas();
-			}
-
-			for (Jugador jugador : jugadoresActivos) {
-				if (mayor != jugador.getCartasTiradas())
-					eliminarJugador(jugador);
-			}
-		}
-	}
-
+	
 	public void resetRonda() {
 		for (Jugador jugador : jugadoresActivos) {
 			jugador.setEstado("Jugando");
+			jugador.resetCantCartasTiradas();
 		}
 		
 		mazo = new Mazo();
 		descarte = new Descarte();
 		turnoDeJugador = 0;
+	}
+	
+	public int getTurnoDeJugador() {
+		return turnoDeJugador;
 	}
 
 }

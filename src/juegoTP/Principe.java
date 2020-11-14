@@ -78,10 +78,22 @@ public class Principe extends Carta{
 			difPosiciones = numJugadorActivoEfecto - difPosiciones;
 			int posJugadorElegido = numJugadorActivoEfecto - difPosiciones;
 			jug = listaJugadores.get(posJugadorElegido);
-			
-			//buscar numero otro jugador
+
 			
 			JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre() + " descarta la carta " + jug.getManoDeCartas().getMano().get(0).getNombre());
+			
+			if(posJugadorElegido == 0) {
+				pantallaPartida.getCartaVisible2().setVisible(false);
+			}
+			else if(posJugadorElegido == 1) {
+				pantallaPartida.getCartaVisible4().setVisible(false);
+			}
+			else if(posJugadorElegido == 2) {
+				pantallaPartida.getCartaVisible6().setVisible(false);
+			}
+			else if(posJugadorElegido == 3) {
+				pantallaPartida.getCartaVisible8().setVisible(false);
+			}
 			
 			if(jugadorElegido.getManoDeCartas().getMano().get(0).getNombre() == "Princesa") {
 				jugadorElegido.setEstado("Fuera de Ronda");

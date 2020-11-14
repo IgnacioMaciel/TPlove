@@ -419,7 +419,7 @@ public class PantallaPartida extends JFrame {
 				
 				JOptionPane.showMessageDialog(this, "ES EL TURNO DE " + jug.getNombre() + " , NO VEAS SUS CARTAS!!!!");
 				
-				if( turno == 0) {
+				/*if( turno == 0) {
 					
 					for (Jugador jugSinPantallas : jugadores) {
 						if(aux != numJugador) {
@@ -428,7 +428,7 @@ public class PantallaPartida extends JFrame {
 						
 						aux++;
 					}
-				}
+				}*/
 				
 				if(jug.getEstado() == "Inmune") {
 					jug.setEstado("Jugando");

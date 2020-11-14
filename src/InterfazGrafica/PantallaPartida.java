@@ -49,6 +49,8 @@ public class PantallaPartida extends JFrame {
 	private SpringLayout sl_contentPane;
 	
 	private JLabel ronda;
+	private JLabel LabelPuntuacionJ1;
+	private JLabel LabelPuntuacionJ2;
 	private int turno=0;
 	private int numRonda=0;
 	private JButton cartaJugada;
@@ -68,15 +70,12 @@ public class PantallaPartida extends JFrame {
 	private JButton cartaVisible7;
 	private JButton cartaVisible8;
 	
-	private JPanel cartaOculta1;
-	private JPanel cartaOculta2;
-	private JPanel cartaOculta3;
-	private JPanel cartaOculta4;
-	
 	private Jugador p1;
 	private Jugador p2;
 	private Jugador p3;
 	private Jugador p4;
+	private JLabel ronda1;
+	private JLabel lblNewLabel;
 	
 	public JPanel getContenedorPartida() {
 		return contenedorPartida;
@@ -100,6 +99,22 @@ public class PantallaPartida extends JFrame {
 
 	public void setRonda(JLabel ronda) {
 		this.ronda = ronda;
+	}
+	
+	public JLabel getLabelPuntuacionJ1() {
+		return LabelPuntuacionJ1;
+	}
+
+	public void setLabelPuntuacionJ1(JLabel labelPuntuacionJ1) {
+		LabelPuntuacionJ1 = labelPuntuacionJ1;
+	}
+
+	public JLabel getLabelPuntuacionJ2() {
+		return LabelPuntuacionJ2;
+	}
+
+	public void setLabelPuntuacionJ2(JLabel labelPuntuacionJ2) {
+		LabelPuntuacionJ2 = labelPuntuacionJ2;
 	}
 
 	public JButton getCartaJugada() {
@@ -214,38 +229,6 @@ public class PantallaPartida extends JFrame {
 		this.cartaVisible8 = cartaVisible8;
 	}
 
-	public JPanel getCartaOculta1() {
-		return cartaOculta1;
-	}
-
-	public void setCartaOculta1(JPanel cartaOculta1) {
-		this.cartaOculta1 = cartaOculta1;
-	}
-
-	public JPanel getCartaOculta2() {
-		return cartaOculta2;
-	}
-
-	public void setCartaOculta2(JPanel cartaOculta2) {
-		this.cartaOculta2 = cartaOculta2;
-	}
-
-	public JPanel getCartaOculta3() {
-		return cartaOculta3;
-	}
-
-	public void setCartaOculta3(JPanel cartaOculta3) {
-		this.cartaOculta3 = cartaOculta3;
-	}
-
-	public JPanel getCartaOculta4() {
-		return cartaOculta4;
-	}
-
-	public void setCartaOculta4(JPanel cartaOculta4) {
-		this.cartaOculta4 = cartaOculta4;
-	}
-
 	public int getTurno() {
 		return turno;
 	}
@@ -338,54 +321,75 @@ public class PantallaPartida extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, nombre2, 0, SpringLayout.EAST, nombre1);
 		contenedorPartida.add(nombre2);
 		
-		cartaVisible1 = new JButton("cartaVisible1");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaVisible1, -186, SpringLayout.NORTH, nombre1);
-		sl_contentPane.putConstraint(SpringLayout.WEST, cartaVisible1, 560, SpringLayout.WEST, contenedorPartida);
+		cartaVisible1 = new JButton("");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaVisible1, 520, SpringLayout.NORTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.WEST, cartaVisible1, 548, SpringLayout.WEST, contenedorPartida);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaVisible1, -21, SpringLayout.NORTH, nombre1);
-		sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible1, 670, SpringLayout.WEST, contenedorPartida);
 		contenedorPartida.add(cartaVisible1);
 		
-		cartaVisible2 = new JButton("cartaVisible2");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaVisible2, 0, SpringLayout.NORTH, cartaVisible1);
-		sl_contentPane.putConstraint(SpringLayout.WEST, cartaVisible2, 11, SpringLayout.EAST, cartaVisible1);
+		cartaVisible2 = new JButton("");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaVisible2, 520, SpringLayout.NORTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible1, -10, SpringLayout.WEST, cartaVisible2);
+		sl_contentPane.putConstraint(SpringLayout.WEST, cartaVisible2, 680, SpringLayout.WEST, contenedorPartida);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaVisible2, -21, SpringLayout.NORTH, nombre1);
-		sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible2, -553, SpringLayout.EAST, contenedorPartida);
 		contenedorPartida.add(cartaVisible2);
 		
-		cartaVisible3 = new JButton("cartaVisible3");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaVisible3, 6, SpringLayout.SOUTH, nombre2);
-		sl_contentPane.putConstraint(SpringLayout.WEST, cartaVisible3, 560, SpringLayout.WEST, contenedorPartida);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaVisible3, -499, SpringLayout.SOUTH, cartaVisible1);
-		sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible3, -670, SpringLayout.EAST, contenedorPartida);
-		contenedorPartida.add(cartaVisible3);
-		
-		cartaVisible4 = new JButton("cartaVisible4");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaVisible4, 6, SpringLayout.SOUTH, nombre2);
-		sl_contentPane.putConstraint(SpringLayout.WEST, cartaVisible4, 11, SpringLayout.EAST, cartaVisible3);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaVisible4, -334, SpringLayout.NORTH, cartaVisible2);
-		sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible4, -549, SpringLayout.EAST, contenedorPartida);
+		cartaVisible3 = new JButton("");
+		sl_contentPane.putConstraint(SpringLayout.WEST, cartaVisible3, 0, SpringLayout.WEST, cartaVisible1);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaVisible3, -524, SpringLayout.SOUTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible3, 0, SpringLayout.EAST, cartaVisible1);
+        contenedorPartida.add(cartaVisible3);
+
+		cartaVisible4 = new JButton("");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaVisible4, 17, SpringLayout.SOUTH, nombre2);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaVisible4, -524, SpringLayout.SOUTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaVisible3, 0, SpringLayout.NORTH, cartaVisible4);
+		sl_contentPane.putConstraint(SpringLayout.WEST, cartaVisible4, 680, SpringLayout.WEST, contenedorPartida);
 		contenedorPartida.add(cartaVisible4);
 		
-		cartaJugada = new JButton("cartaJugada");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaJugada, 80, SpringLayout.SOUTH, cartaVisible3);
-		sl_contentPane.putConstraint(SpringLayout.WEST, cartaJugada, 619, SpringLayout.WEST, contenedorPartida);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaJugada, -89, SpringLayout.NORTH, cartaVisible1);
-		sl_contentPane.putConstraint(SpringLayout.EAST, cartaJugada, -610, SpringLayout.EAST, contenedorPartida);
+		cartaJugada = new JButton("");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, cartaJugada, 63, SpringLayout.SOUTH, cartaVisible4);
+		sl_contentPane.putConstraint(SpringLayout.WEST, cartaJugada, 0, SpringLayout.WEST, cartaVisible2);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaJugada, -287, SpringLayout.SOUTH, contenedorPartida);
+		sl_contentPane.putConstraint(SpringLayout.EAST, cartaJugada, -548, SpringLayout.EAST, contenedorPartida);
 		contenedorPartida.add(cartaJugada);
 		
 		numRonda=1;
 		
 		ronda = new JLabel("Ronda");
 		ronda.setForeground(Color.WHITE);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, ronda, 41, SpringLayout.NORTH, contenedorPartida);
-		sl_contentPane.putConstraint(SpringLayout.WEST, ronda, 256, SpringLayout.WEST, contenedorPartida);
-		contenedorPartida.add(ronda);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, ronda, 51, SpringLayout.NORTH, contenedorPartida);
+        sl_contentPane.putConstraint(SpringLayout.WEST, ronda, 104, SpringLayout.WEST, contenedorPartida);
+        contenedorPartida.add(ronda);
+		
+		LabelPuntuacionJ1 = new JLabel("Puntuacion: ");
+		sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible2, -34, SpringLayout.WEST, LabelPuntuacionJ1);
+		sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible2, -34, SpringLayout.WEST, LabelPuntuacionJ1);
+		sl_contentPane.putConstraint(SpringLayout.WEST, LabelPuntuacionJ1, 836, SpringLayout.WEST, contenedorPartida);
+		LabelPuntuacionJ1.setForeground(Color.WHITE);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelPuntuacionJ1, -97, SpringLayout.SOUTH, contenedorPartida);
+        contenedorPartida.add(LabelPuntuacionJ1);
+        
+        LabelPuntuacionJ2 = new JLabel("Puntuacion:");
+        sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible4, -34, SpringLayout.WEST, LabelPuntuacionJ2);
+        sl_contentPane.putConstraint(SpringLayout.WEST, LabelPuntuacionJ2, 836, SpringLayout.WEST, contenedorPartida);
+        LabelPuntuacionJ2.setForeground(Color.WHITE);
+        sl_contentPane.putConstraint(SpringLayout.NORTH, LabelPuntuacionJ2, 74, SpringLayout.NORTH, contenedorPartida);
+        contenedorPartida.add(LabelPuntuacionJ2);
+        
+        MazoLabel = new JLabel("");
+        MazoLabel.setIcon(new ImageIcon("Imagenes\\Mazo.png"));
+        sl_contentPane.putConstraint(SpringLayout.NORTH, MazoLabel, 0, SpringLayout.NORTH, cartaJugada);
+        sl_contentPane.putConstraint(SpringLayout.EAST, MazoLabel, -195, SpringLayout.WEST, cartaJugada);
+        contenedorPartida.add(MazoLabel);
+		
 		
 		FondoPartida fondo;
 		try {
 			fondo = new FondoPartida(ImageIO.read(new File("Imagenes\\fondo.jpg")));
 			JPanel panel = (JPanel) this.getContentPane();
 	        panel.setBorder(fondo);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -395,17 +399,36 @@ public class PantallaPartida extends JFrame {
 
 		while(partida.hayGanador() == null) { //no haya ganador de partida
 			
+			ronda.setText("Ronda: " + numRonda);
+			LabelPuntuacionJ1.setText("Puntuacion: " + p1.getPuntaje());
+			LabelPuntuacionJ2.setText("Puntuacion: " + p2.getPuntaje());
 			turno=0;
 			int opc=0;
 			Mazo mazo = new Mazo();
 			Jugador jug = null;
-			
-			partida.empezarJuego(jugadores, mazo, this);
 
-			while(partida.hayGanadorDeRonda() == null) {	//no haya ganador de ronda
+			partida.empezarJuego(jugadores, mazo, this);
+			
+			JOptionPane.showMessageDialog(this, "Empieza la ronda: " + numRonda);
+
+			while(partida.hayGanadorDeRonda() == null || mazo.getMazoVacio()) {	//no haya ganador de ronda
 				
+				int aux=0;
 				int numJugador = turno%jugadores.size();
 				jug = jugadores.get(numJugador);
+				
+				JOptionPane.showMessageDialog(this, "ES EL TURNO DE " + jug.getNombre() + " , NO VEAS SUS CARTAS!!!!");
+				
+				if( turno == 0) {
+					
+					for (Jugador jugSinPantallas : jugadores) {
+						if(aux != numJugador) {
+							this.invisiblesCartasJugador(aux, jugSinPantallas);				
+						}	
+						
+						aux++;
+					}
+				}
 				
 				if(jug.getEstado() == "Inmune") {
 					jug.setEstado("Jugando");
@@ -450,22 +473,51 @@ public class PantallaPartida extends JFrame {
 				}
 				
 				turno++;
+				
+				
 			}
 			
-			partida.hayGanadorDeRonda().sumarCorazon();
+			if(partida.hayGanadorDeRonda() == null) {
+				
+				Jugador maxCartaPuntaje = jugadores.get(0);
+				
+				for (Jugador juga : jugadores) {
+					if(maxCartaPuntaje.getManoDeCartas().getMano().get(0).getPuntajeFuerza() < juga.getManoDeCartas().getMano().get(0).getPuntajeFuerza()) {
+						maxCartaPuntaje = juga;
+					}
+				}
+				
+				maxCartaPuntaje.sumarCorazon();
+				JOptionPane.showMessageDialog(this, "El ganador de la ronda es: " + maxCartaPuntaje.getNombre() + "\nFelicitaciones!");
+			}
+			else {
+				partida.hayGanadorDeRonda().sumarCorazon();
+				JOptionPane.showMessageDialog(this, "El ganador de la ronda es: " + partida.hayGanadorDeRonda().getNombre() + "\nFelicitaciones!");
+			}
+			
 			
 			for (Jugador jugador : jugadores) {
 				jugador.setEstado("Jugando");
 			}
 			
+			numRonda++;
+			
 			
 		}
-			
 		
-		JOptionPane.showMessageDialog(this, "El ganador del juego es: " + partida.hayGanador().getNombre() + "\nFelicitaciones!");
+		String listado = new String();
+		
+		for (Jugador jugador : jugadores) {
+			listado += "Jugador: " + jugador.getNombre() + "   Puntuacion: " + jugador.getPuntaje() + "\n";
+		}
+		
+		JOptionPane.showMessageDialog(this, "El ganador del juego es: " + partida.hayGanador().getNombre() + "\nFelicitaciones!\n\n" + listado);
+		
 		
 	}
 	
+	
+
 	private void actualizarPantalla(int numJugador, Jugador jug) {
 		
 		Carta uno = jug.getManoDeCartas().getMano().get(0);
@@ -517,42 +569,59 @@ public class PantallaPartida extends JFrame {
 
 	public void ocultarCartasJugador(int numJugador, Jugador jug) {
 	
-		Image img1 = null;
+		Image img = null;
 		try {
-			img1 = ImageIO.read(new File( "Imagenes\\mazo.png"));
+			img = ImageIO.read(new File( "Imagenes\\mazo.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		Image img2 = null;
-		try {
-			img2 = ImageIO.read(new File( "Imagenes\\mazo.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		
 		if(numJugador == 0) {
-			this.cartaVisible1.setIcon(new ImageIcon(img1));
-			this.cartaVisible2.setIcon(new ImageIcon(img2));
+			this.cartaVisible1.setIcon(new ImageIcon(img));
+			this.cartaVisible2.setIcon(new ImageIcon(img));
+		}	
+		else if(numJugador == 1) {
+			this.cartaVisible3.setIcon(new ImageIcon(img));
+			this.cartaVisible4.setIcon(new ImageIcon(img));
+		}	
+		else if(numJugador == 2) {
+			this.cartaVisible5.setIcon(new ImageIcon(img));
+			this.cartaVisible6.setIcon(new ImageIcon(img));
+		}	
+		else if(numJugador == 3) {
+			this.cartaVisible7.setIcon(new ImageIcon(img));
+			this.cartaVisible8.setIcon(new ImageIcon(img));
+		}
+	}
+	
+	private void invisiblesCartasJugador(int aux, Jugador jugSinPantallas) {
+
+		Image img = null;
+		try {
+			img = ImageIO.read(new File( "Imagenes\\mazo.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		if(numJugador == 1) {
-			this.cartaVisible3.setIcon(new ImageIcon(img1));
-			this.cartaVisible4.setIcon(new ImageIcon(img2));
+		if(aux == 0) {
+			this.cartaVisible1.setIcon(new ImageIcon(img));
+			this.cartaVisible2.setVisible(false);
+		}
+		else if(aux == 1) {
+			this.cartaVisible3.setIcon(new ImageIcon(img));
+			this.cartaVisible4.setVisible(false);
+		}
+		else if(aux == 2) {
+			this.cartaVisible5.setIcon(new ImageIcon(img));
+			this.cartaVisible6.setVisible(false);
+		}		
+		else if(aux == 3) {
+			this.cartaVisible7.setIcon(new ImageIcon(img));
+			this.cartaVisible8.setVisible(false);
 		}
 		
-		if(numJugador == 2) {
-			this.cartaVisible5.setIcon(new ImageIcon(img1));
-			this.cartaVisible6.setIcon(new ImageIcon(img2));
-		}
-		
-		if(numJugador == 3) {
-			this.cartaVisible7.setIcon(new ImageIcon(img1));
-			this.cartaVisible8.setIcon(new ImageIcon(img2));
-		}
 	}
 	
 	public void mostrarRonda(String nroRonda) throws InterruptedException {
@@ -562,32 +631,5 @@ public class PantallaPartida extends JFrame {
 	
 	public void mazoVacio() {
 		
-	}
-	
-	
-	class FondoPartida implements Border {
-
-	    private BufferedImage mImagen = null;
-
-    	public FondoPartida(BufferedImage pImagen) {
-    		mImagen = pImagen;
-	    }
-
-	    @Override
-	    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-	        if (mImagen != null) {
-	            g.drawImage(mImagen, 0, 0, width, height, null);
-	        }
-	    }
-
-	    @Override
-	    public Insets getBorderInsets(Component c) {
-	        return new Insets(0, 0, 0, 0);
-	    }
-
-	    @Override
-	    public boolean isBorderOpaque() {
-	        return true;
-	    }
 	}
 }

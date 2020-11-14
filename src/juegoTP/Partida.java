@@ -8,6 +8,15 @@ import InterfazGrafica.PantallaPartida;
 
 public class Partida extends Observador {
 	private ArrayList<Jugador> jugadores;
+	
+	public ArrayList<Jugador> getJugadores() {
+		return jugadores;
+	}
+	
+	public void setJugadores(ArrayList<Jugador> jugadores) {
+		this.jugadores = jugadores;
+	}
+
 	// private ArrayList<Ronda> rondas;
 	private int simbolosParaGanar, orden, primerJugador;
 	private Tablero tablero;
@@ -214,8 +223,7 @@ public class Partida extends Observador {
 			Collections.reverse(jugadores);
 		}
 		int i = 0;
-		
-		
+			
 		while (jugadores.size() > i && primero.getNombre().compareTo(jugadores.get(i).getNombre()) != 0) {
 			i++;
 		}

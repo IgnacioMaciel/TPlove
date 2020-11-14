@@ -10,15 +10,19 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Toolkit;
 import java.awt.Color;
 
@@ -55,6 +59,18 @@ public class PantallaInicio extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		
+		FondoPartida fondo;
+		try {
+			fondo = new FondoPartida(ImageIO.read(new File("Imagenes\\fondoInicio.png")));
+			JPanel panel = (JPanel) this.getContentPane();
+	        panel.setBorder(fondo);
+	        
+	        
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		SpringLayout sl_contentPane = new SpringLayout();
 	    contentPane.setLayout(sl_contentPane);
@@ -67,11 +83,13 @@ public class PantallaInicio extends JFrame {
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Love Letter");
+		lblNewLabel.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 10, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 166, SpringLayout.WEST, contentPane);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Ingrese nombre de usuario");
+		lblNewLabel_1.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_1, 116, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, -6, SpringLayout.NORTH, textField_1);
 		contentPane.add(lblNewLabel_1);

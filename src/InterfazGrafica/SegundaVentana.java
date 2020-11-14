@@ -1,6 +1,8 @@
 package InterfazGrafica;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import juegoTP.*;
 import java.awt.EventQueue;
 
@@ -12,10 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -52,6 +57,18 @@ public class SegundaVentana extends PantallaInicio {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		
+		FondoPartida fondo;
+		try {
+			fondo = new FondoPartida(ImageIO.read(new File("Imagenes\\fondoInicio.png")));
+			JPanel panel = (JPanel) this.getContentPane();
+	        panel.setBorder(fondo);
+	        
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		SpringLayout sl_contentPane = new SpringLayout();
 		contentPane.setLayout(sl_contentPane);
 
@@ -62,6 +79,7 @@ public class SegundaVentana extends PantallaInicio {
 		contentPane.add(botonCrearPartida);
 
 		JLabel lblNewLabel = new JLabel("Cantidad de corazones para ganar");
+		lblNewLabel.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel, 44, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 10, SpringLayout.WEST, contentPane);
 		contentPane.add(lblNewLabel);
@@ -78,6 +96,7 @@ public class SegundaVentana extends PantallaInicio {
 		textField_nombreJugador.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Ingrese nombre de jugador");
+		lblNewLabel_1.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.WEST, textField_nombreJugador, 31, SpringLayout.EAST, lblNewLabel_1);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 3, SpringLayout.NORTH, textField_nombreJugador);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_1, 0, SpringLayout.WEST, lblNewLabel);
@@ -94,6 +113,7 @@ public class SegundaVentana extends PantallaInicio {
 		contentPane.add(botonAgregarJugador);
 
 		JLabel lblNewLabel_2 = new JLabel("Indicar primer jugador de la ronda");
+		lblNewLabel_2.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 54, SpringLayout.SOUTH, lblNewLabel_1);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_2, 0, SpringLayout.WEST, lblNewLabel);
 		contentPane.add(lblNewLabel_2);
@@ -107,6 +127,7 @@ public class SegundaVentana extends PantallaInicio {
 		contentPane.add(comboListaJugadores);
 
 		JLabel lblNewLabel_3 = new JLabel("Sentido de ronda");
+		lblNewLabel_3.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 50, SpringLayout.SOUTH, lblNewLabel_2);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_3, 10, SpringLayout.WEST, contentPane);
 		contentPane.add(lblNewLabel_3);
@@ -164,7 +185,7 @@ public class SegundaVentana extends PantallaInicio {
 								(Jugador) jugadores.get(combo.getIndexOf((String) combo.getSelectedItem())-1),
 								(String) comboSentidoRonda.getSelectedItem());
 						pantallaInicio.setVisible(false);
-						PantallaPartida pantallaPar = new PantallaPartida(jugadores, partida);
+						PantallaPartida pantallaPar = new PantallaPartida(partida.getJugadores(), partida);
 					} else {
 						JOptionPane.showMessageDialog(segundaVentana, "No se eligio jugador para iniciar ronda");
 					}

@@ -2,6 +2,8 @@ package juegoTP;
 
 import java.util.ArrayList;
 
+import InterfazGrafica.PantallaPartida;
+
 public class Mucama extends Carta{
 
 	public Mucama() {
@@ -9,11 +11,16 @@ public class Mucama extends Carta{
 	}
 
 	@Override
-	public boolean activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte d, Mazo m) {
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m,
+			PantallaPartida pantallaPartida){
 		
 		jugador.setEstado("Inmune");	///SOLAMENTE SETEA EL ESTADO A INMUNE POR 1 RONDA
 		///FALTA MANEJAR EL TEMA DE RONDAS
-		return false;
+		return ;
 	}
 	
+	@Override
+	public String getDescripcion() {
+		return super.getDescripcion();
+	}
 }

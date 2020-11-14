@@ -3,55 +3,67 @@ package juegoTP;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
+import InterfazGrafica.PantallaPartida;
+
 public class Sacerdote extends Carta {
 
 	public Sacerdote() {
 		super("Sacerdote", 2, "El jugador elige otro jugador para ver la cartas en su mano");
 	}
 
-	public boolean activarEfecto (Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte des, Mazo m) {
-			
-		int i=1, numeroJugador=-1;
-		Scanner ingresoTeclado = new Scanner(System.in);
-		
-		System.out.println("\nLos Jugadores a elegir son:");
-		for (Jugador jug : listaJugadores) {	///METE EN UN VECTOR A LOS JUGADORES SELECCIONABLES
-			
-			if(jugador!=jug && jug.getEstado().compareTo("Jugando")==0) 
-				System.out.println("Jugador " + i + " : " + jug.getNombre());
-			i++;
-				
-		}	
-		
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m,
+			PantallaPartida pantallaPartida) {
 
-//		do {
-//			System.out.println("Ingrese numero de jugador a seleccionar");
-//			numeroJugador = ingresoTeclado.nextInt()-1;
-//		}while( (numeroJugador < 0 || numeroJugador >= listaJugadores.size()) && listaJugadores.get(numeroJugador) !=jugador && 
-//				listaJugadores.get(numeroJugador).getEstado()=="Fuera de Ronda");	
-		
-		while(numeroJugador == -1) {
-			 System.out.println("\n-------Ingrese numero de jugador a seleccionar:");
-				numeroJugador = ingresoTeclado.nextInt()-1;
-				if(numeroJugador <0 || numeroJugador>=listaJugadores.size())
-					numeroJugador=-1;
-				else 
-					if(listaJugadores.get(numeroJugador)==jugador || listaJugadores.get(numeroJugador).getEstado().compareTo("Fuera de Ronda")==0)
-						numeroJugador = -1;	
-		 }
-		///HASTA ELEGIR UN JUGADOR VALIDO DEL ARRAY
-		Jugador jugElegido = listaJugadores.get(numeroJugador);
-		if(jugElegido.getEstado().compareTo("Jugando")==0) {
-		System.out.println("CARTA DEL JUGADOR:" + jugElegido.getNombre());
-		System.out.println(jugElegido.getReferenciaCarta());
-		System.out.println("*******************************");
-		//System.out.println("Carta:"+jugElegido.getInfoCarta());	///IMPRIME LA CARTA DEL OPONENTE
-		///METODO A ARREGLAR PARA QUE SOLO SE LO MUESTRE AL JUGADOR QUE TIRA LA CARTA
+		ArrayList<Jugador> jugadoresElegibles = new ArrayList<Jugador>();
+
+		int jugadorElegido = 0;
+
+		for (Jugador jug : listaJugadores) { /// METE EN UN VECTOR A LOS JUGADORES SELECCIONABLES
+
+			if (jugador != jug && jug.getEstado().compareTo("Jugando") == 0) {
+
+				jugadoresElegibles.add(jug);
+			}
 		}
-		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");
-		return false;
+
+		Object[] opciones = new String[jugadoresElegibles.size()];
+
+		int i = 0;
+
+		for (Jugador jug : jugadoresElegibles) {
+			opciones[i] = jugadoresElegibles.get(i).getNombre();
+			i++;
+		}
+
+		if (jugadoresElegibles.size() == 0) {
+			JOptionPane.showMessageDialog(pantallaPartida, "No hay jugadores seleccionables.");
+			return;
+		} else if (jugadoresElegibles.size() == 1) {
+			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para ver su carta",
+					"Jugador: " + jugador.getNombre(), JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					opciones, opciones[0]);
+		} else if (jugadoresElegibles.size() == 2) {
+			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para ver su carta",
+					"Jugador: " + jugador.getNombre(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+					opciones, opciones[1]);
+		} else {
+			jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para ver su carta",
+					"Jugador: " + jugador.getNombre(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+					null, opciones, opciones[2]);
+		}
+		
+		Jugador jugElegido = jugadoresElegibles.get(jugadorElegido);
+
+		JOptionPane.showMessageDialog(pantallaPartida, "El jugador "+ jugElegido.getNombre()+ " tiene la carta "+jugElegido.getManoDeCartas().getCarta(1));
+		
+		return;
 	}
-	
-	
-	
+
+	@Override
+	public String getDescripcion() {
+		return super.getDescripcion();
+	}
+
 }

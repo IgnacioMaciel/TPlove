@@ -14,7 +14,7 @@ public class Jugador extends Observador {
 
 	public Jugador(String nombre) {
 		this.nombre = nombre;
-		estado = "En Espera";
+		estado = "Jugando";
 		puntaje = 0;
 		manoDeCartas = new Mano();
 		esAdmin = false;
@@ -22,35 +22,6 @@ public class Jugador extends Observador {
 		partidaJuego = null;
 	}
 
-	public void iniciarPartida(Partida p) {
-		if (this.esAdmin == true) {
-			if (p.getCantJugadores() >= 2) {
-				p.jugarPartida();
-				this.estado = "Jugando";
-			} else
-				System.out.println("No se puede inicar la partida al no haber 2 jugadores o mas");
-		} else
-			System.out.println("Solo un administrador puede inicar la partida");
-	}
-
-	public void unirsePartida(Partida pp) {
-		pp.agregarJugador(this);
-		this.partidaJuego = pp;
-		this.setEstado("Jugando");
-	}
-
-	public Partida crearPartida() {
-		int cantSimbolos;
-		Scanner leoTeclado = new Scanner(System.in);
-		do {
-			System.out.println("-------Ingrese cantidad de simbolos para ganar de 2 a 10: ");
-			cantSimbolos = leoTeclado.nextInt();
-		} while (cantSimbolos < 2 || cantSimbolos > 10);
-		this.esAdmin = true;
-		this.partidaJuego = new Partida(cantSimbolos, this);
-		this.estado = "Jugando";
-		return partidaJuego;
-	}
 
 	public boolean agarrarCarta(Mazo mazo) {
 		Carta cartaAsignada = mazo.asignarCarta();
@@ -67,48 +38,6 @@ public class Jugador extends Observador {
 		manoDeCartas.agarrarCarta(c);
 	}
 
-	public Carta seleccionarCartaAJugar() { /// Metodo por el cual el jugador elije una de las 2
-											/// cartas que posee en la mano, que es un array list de
-											/// cartas, por lo que debera insertar el indice de la carta
-											/// que quiere tirar
-		int pos = 0, opcion = 0;
-
-		Scanner tecla = new Scanner(System.in);
-		while (opcion != 1) {
-			do {
-				System.out.println(this.manoDeCartas);
-				System.out.println("\n-------Seleccione 1 o 2 dependiendo la carta que quiera jugar:");
-				pos = tecla.nextInt() - 1;
-			} while (pos < 0 || pos > 1);/// la posicion debe ser la 1ra o 2da de su mano
-											/// ya que nunca tendra mas de 2 cartas en su mano, y siempre por lo menos
-											/// tendra 1
-
-			System.out.println("\nSe eligio la carta" + this.manoDeCartas.getCartaEn(pos) + "\n");
-			System.out.println("-------Presione 1 para confirmar");
-			System.out.println("-------Presione otro NUMERO para volver a elegir");
-			opcion = tecla.nextInt();
-
-		}
-		return manoDeCartas.sacarCarta(pos);
-	}
-
-	public boolean jugarCarta(Carta carta, Descarte descarte, ArrayList<Jugador> jugadores, Mazo mazo, Jugador j) {// descartar
-																													// carta
-		/// recibe por parametro la carta que se saco de su mano
-		/// y el descarte, para tirar la carta alli
-//		System.out.println("oprime una tecla para jugar la carta seleccionada");
-//		Scanner tecla = new Scanner(System.in);
-//		tecla.next();
-		boolean sacoJug = carta.activarEfecto(j, jugadores, descarte, mazo);/// DENTRO DE ESTE METODO SE VA A
-																			/// SELECCIONAR UN JUGADOR DEL ARRAY DE
-																			/// JUGADORES
-		/// PARA ACTIVARLE EL EFECTO QUE SE LE VA A DAR
-		System.out.println("Se jugo la carta: " + carta.getNombre());
-		descarte.agregarCarta(carta);
-		cartasTiradas++; // AL FINAL DE CADA RONDA SE VERIFICA CUANTAS CARTAS TIRO, PARA VER QUIEN GANO
-		return sacoJug;
-	}
-
 	public void descarto(Descarte d, Mazo m) {
 		Carta c = this.manoDeCartas.sacarCarta(0);
 		d.agregarCarta(c);
@@ -119,33 +48,6 @@ public class Jugador extends Observador {
 		else if (m.getCantidadCartas() > 0)
 			this.manoDeCartas.agarrarCarta(m.asignarCarta());
 
-	}
-
-	public boolean jugada(int posCarta,Mazo mazo, ArrayList<Jugador> jugadores, Descarte descarte) {
-		/// ESTE METODO ES AL QUE SE LLAMA CUANDO LE TOCA EL TURNO A CADA JUGADOR
-		/// DENTRO DE ESTE EL JUGADOR REALIZA TODO LO Q DEBE HACER: AGARRA UNA CARTA DEL
-		/// MAZO,
-		/// SE VERIFICA SI TIENE CONDEZA, Y LUEGO SELECCIONA UNA CARTA DEL MAZO
-		if(this.getEstado() == "Inmune") {
-			this.setEstado("Jugando");
-		}
-
-		if (manoDeCartas.estaCarta(new Condesa())
-				&& (manoDeCartas.estaCarta(new Principe()) || manoDeCartas.estaCarta(new Rey()))) {
-
-			System.out.println(this.manoDeCartas);
-
-			System.out.println("Solo puede jugar la condesa");
-			return jugarCarta(manoDeCartas.sacarCondesa(), descarte, jugadores, mazo, this);/// SE DEBE JUGAR
-			/// OBLIGATORIAMENTE LA CONDESA, POR LO QUE SE BUSCARA EL INDICE DE LA CARTA Y
-			/// SE PROCEDERA A TIRAR ESA. Se le pasa EL ARRAY DE JUGADORES, PARA QUE AL
-			/// LLAMAR A ACTIVAR
-			/// EFECTO DE CADA CARTA SE LE PUEDA ELEGIR UN JUGADOR AL CUAL ACTIVARLE EL
-			/// EFECTO
-
-		}
-
-		return jugarCarta(manoDeCartas.sacarCarta(posCarta), descarte, jugadores, mazo, this);
 	}
 
 	public String getNombre() {
@@ -213,7 +115,6 @@ public class Jugador extends Observador {
 	public int getCartasTiradas() {
 		return cartasTiradas;
 	}
-	
 
 	public void verCarta(Carta c) {
 		System.out.println(c);
@@ -245,55 +146,14 @@ public class Jugador extends Observador {
 		return this.manoDeCartas.getCartaEn(0).getPuntajeFuerza();
 	}
 
-///////////////////////////////////////////////////////// COMMENT# 1 
-
-//	
-//	
-////	public void crearSala() {///a completar para proximas entregas
-//	this.esAdmin = true;
-//}
-//
-//public void salirDeSala() {///a completar para proximas entregas
-//	
-//}
-//	private void setOrdenRonda() {
-//		Scanner entradaJugador = new Scanner(System.in);
-//		int ordenRonda;
-//		do {
-//			System.out.print("\nElija una opcion: \n0-Orden Horario\n1-Orden inverso\nOpcion: ");
-//			ordenRonda = entradaJugador.nextInt();
-//		} while (ordenRonda < 0 && ordenRonda > 1);
-//		partidaJuego.setOrden(ordenRonda);
-//	}
-
-//	
-	private void setPrimerJugador() {
-		int cantJug = partidaJuego.getCantJugadores();
-		Scanner entradaJugador = new Scanner(System.in);
-		System.out.println("Seleccione el jugador que inicia la ronda");
-		int eleccion;
-		do {
-			eleccion = entradaJugador.nextInt() - 1;
-		} while (eleccion < 0 && eleccion >= cantJug);
-//		partidaJuego.setPrimerJugador(eleccion);
-	}
-
-//	
-//	///SE PENSARON PRIVATE PARA SER LLAMADAS DENTRO DE CONFIGURAR PARTIDA
-//	
-//	public void configurarPartida() {
-//		if (this.esAdmin == true) {
-//			setPrimerJugador();/// Este metodo de partida va a ver en el array de jguadores
-//								/// y hacer que tire primero ese jugador que eligio la persona
-//								/// que creo la sala
-//			setOrdenRonda();
-//		}
-//
-//	}
-
 	public void sumarUnDesc() {
 		this.cartasTiradas++;
-		
+
+	}
+
+	public void sumarTiradas() {
+		cartasTiradas++;
+
 	}
 
 //	public void seleccionarSala() {

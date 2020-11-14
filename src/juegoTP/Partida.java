@@ -15,6 +15,7 @@ public class Partida extends Observador {
 	private PantallaPartida pantallaPartida = null;
 	int nroRonda;
 	private Jugador creador;
+	private Jugador ganador;
 	
 
 	/*
@@ -26,6 +27,7 @@ public class Partida extends Observador {
 		simbolosParaGanar = victoriasNecesarias;
 		creador=jugadorCreador;
 		nroRonda = 1;
+		ganador = null;
 	}
 	
 	public Ronda getRonda() {
@@ -111,134 +113,15 @@ public class Partida extends Observador {
 		}
 	}
 		
-		
-//		while (!ganador) {
-//			try {
-//				pantallaPartida.mostrarRonda("Ronda "+ronda);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			mazo.setCantidadCartas(16);
-//			mazo.mezclarMazo();
-//			mazo.repartir(jugadores);
-//			
-//			while (mazo.getCantidadCartas() > 0 && jugadoresEstables > 1) {
-//
-//				for (int i = 0; i < jugadores.size() && jugadoresEstables > 1; i++)
-//					if (jugadores.get(i).getEstado().compareTo("Fuera de Ronda") != 0) {
-//						if(mazo.getCantidadCartas() == 0)
-//							pantallaPartida.mazoVacio();
-//						else
-//						if (jugadores.get(i).jugada(mazo, jugadores, d))
-//							jugadoresEstables--;/// Verifica que el jugador pueda jugar///para que le toque el turno
-//					}
-//			}	
-//		}
-		
+
 
 	
 	public void darCarta(int n) {
 		jugadores.get(n).getManoDeCartas().agarrarCarta(ronda.getMazo().asignarCarta());
 	}
 
-	public void jugarPartida() {
-
-		Tablero tableroPartida = new Tablero();
-		Mazo m = tableroPartida.getMazo();
-		Descarte d = tableroPartida.getDescarte();
-		boolean ganador = false;
-		Jugador ganadorJug = null, ganadorRonda = null;
-		int jugadoresEstables = this.jugadores.size();
-		int ronda = 1, mayorCartas = 0, empate = 0;
-
-		while (!ganador) {
-			m.setCantidadCartas(16);
-			m.mezclarMazo();
-			m.repartir(jugadores);
-
-			System.out.println("*************RONDA NUMERO " + ronda + "*************");
-
-			while (m.getCantidadCartas() > 0 && jugadoresEstables > 1) {
-				System.out.println("La cantidad de cartas en el mazo es de : " + m.getCantidadCartas() + "\n");
-
-				for (int i = 0; i < jugadores.size() && jugadoresEstables > 1; i++)
-					if (jugadores.get(i).getEstado().compareTo("Fuera de Ronda") != 0) {
-//						pantallaPartida.
-//						if (jugadores.get(i).jugada(m, jugadores, d))
-							jugadoresEstables--;/// Verifica que el jugador pueda jugar///para que le toque el turno
-						System.out.println("*************************************");
-					}
-
-			}
-			/// ACA SE DESARROLLA CADA RONDA: SE DESARROLLAN LOS TURNOS Y SI SE DETECTA UN
-			/// JUGADOR EN CONDICION DE FUERA DE RONDA
-			/// SE RESTA LA CANTIDAD DE JUGADORES ESTABLES DE LA PARTIDA
-
-			/// UNA VEZ QUE SE TERMINO LA RONDA SE DEBE VERIFICAR AL GANADOR
-
-			/// SI HAY JUGADORES ESTABLES, DEBO ANALIZAR PRIMERO POR LA MAYOR FUERZA DE
-			/// CARTA, Y SI SE EMPATA, POR CARTAS TIRADAS
-			if (jugadoresEstables > 1) {
-				for (int j = 0; j < jugadores.size() && empate == 0; j++) {
-					Jugador jReviso = jugadores.get(j);
-					Carta cartaReviso = jReviso.getCartaMano();
-					if (cartaReviso != null) {
-						if (cartaReviso.getPuntajeFuerza() > mayorCartas) {
-							mayorCartas = cartaReviso.getPuntajeFuerza();
-							ganadorRonda = jReviso;
-						} else if (cartaReviso.getPuntajeFuerza() == mayorCartas)
-							empate = 1;
-					}
-
-				}
-			} else {/// EN CASO DE NO HABER JUGADORES ESTABLES, PONGO AL GANADOR DE RONDA AL UNICO
-					/// QUE ESTE EN CONDICION DE JUGANDO
-				for (Jugador jGana : jugadores) {
-					if (jGana.getEstado().compareTo("Jugando") == 0) {
-						ganadorRonda = jGana;
-					}
-				}
-			}
-
-			if (empate == 1) { /// SI DETECTO QUE HUBO UN EMPATE DE FUERZA DE CARTAS, DEBO BUSCAR QUIEN TIRO
-								/// MAYOR CANTIDAD DE CARTAS
-				for (int k = 0; k < jugadores.size(); k++) {
-					Jugador jAnalizo = jugadores.get(k);
-					if (jAnalizo.getCartasTiradas() > mayorCartas) {
-						ganadorRonda = jAnalizo;
-						mayorCartas = jAnalizo.getCartasTiradas();
-					}
-				}
-			}
-
-			if (ganadorRonda != null)
-				ganadorRonda.setPuntaje(1);
-
-			for (Jugador j : this.jugadores) {
-				if (j.getPuntaje() == this.simbolosParaGanar) {
-					ganador = true;
-					ganadorJug = j;
-				}
-//				d.ultimaCartaJugada();
-			}
-
-			for (Jugador j : this.jugadores) { /// Al final de cada ronda, se comienza poniendo los jugadres en
-												/// estado "Jugando"
-				j.setEstado("Jugando");
-			}
-
-			System.out.println("Ganador de la ronda : " + ganadorRonda.getNombre());
-			System.out.println("*************************************");
-			ronda++;
-			ganadorRonda = null;
-			empate = 0;
-			jugadoresEstables = this.jugadores.size();
-		}
-		System.out.println("\n*************************************");
-		System.out.println("GANADOR DE LA PARTIDA : " + ganadorJug.getNombre());
-		System.out.println("*************************************");
-
+	public int getNroRonda() {
+		return nroRonda;
 	}
 
 	@Override
@@ -251,5 +134,24 @@ public class Partida extends Observador {
 	public void notificarseJugador(Jugador jugador) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public boolean verificarFinPartida() {
+		for (Jugador jugador : jugadores) {
+			if(jugador.getPuntaje()==simbolosParaGanar) {
+				ganador = jugador;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Jugador getGanador() {
+		return ganador;
+	}
+
+	public void setNroRonda(int i) {
+		nroRonda+=i;
+		
 	}
 }

@@ -1,64 +1,99 @@
 package juegoTP;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Principe extends Carta{
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
+import InterfazGrafica.PantallaPartida;
+
+public class Principe extends Carta {
 
 	public Principe() {
-		super("Principe", 5, "El jugador elige otro jugador (incluso a sí mismo) para descartar su mano y robar una carta nueva. Si la Princesa es descartada de esta manera, el jugador que la descartó es eliminado de la ronda");
+		super("Principe", 5,
+				"El jugador elige otro jugador (incluso a sí mismo) para descartar su mano y robar una carta nueva. Si la Princesa es descartada de esta manera, el jugador que la descartó es eliminado de la ronda");
 	}
 
 	@Override
-	public boolean activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte desc, Mazo mazo) {
-		boolean valor = false;
-		int i=1, numeroJugador=-1;
-		Scanner ingresoTeclado = new Scanner(System.in);
-		
-		for (Jugador jug : listaJugadores) {	///METE EN UN VECTOR A LOS JUGADORES SELECCIONABLES
-			
-			if(jug.getEstado().compareTo("Jugando")==0 || jugador.getNombre() == jug.getNombre()) 
-				System.out.println("Jugador " + i + " : " + jug.getNombre());
-			i++;
-				
-		}
-		
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m,
+			PantallaPartida pantallaPartida) {
 
-//		do {
-//			System.out.println("Ingrese numero de jugador a seleccionar");
-//			numeroJugador = ingresoTeclado.nextInt()-1;
-//		}while( (numeroJugador < 0 || numeroJugador >= listaJugadores.size()) && listaJugadores.get(numeroJugador).getEstado()=="Fuera de Ronda");		///HASTA ELEGIR UN JUGADOR VALIDO DEL VECTOR
-		while(numeroJugador == -1) {
-			 System.out.println("\n-------Ingrese numero de jugador a seleccionar:");
-				numeroJugador = ingresoTeclado.nextInt()-1;
-				if(numeroJugador <0 || numeroJugador>=listaJugadores.size())
-					numeroJugador=-1;
-				else 
-					if(listaJugadores.get(numeroJugador).getEstado().compareTo("Fuera de Ronda")==0)
-						numeroJugador = -1;	
-		 }
-		
-		Jugador jElegido = listaJugadores.get(numeroJugador);
-		listaJugadores.get(numeroJugador).sumarUnDesc();
-		///NECESITAMOS LOS METODOS IMPLEMENTADOS DE MANO Y MAZO PARA PODER AGARRAR 1 CARTA DEL MAZO
-		if(jElegido.getEstado().compareTo("Jugando")==0) {
-			Carta cartaElimino = jElegido.getCartaMano();
-			desc.agregarCarta(cartaElimino);
-			if(cartaElimino.getPuntajeFuerza()==9) {
-				jElegido.setEstado("Fuera de Ronda");
-				valor = true;
+		ArrayList<Jugador> jugadoresElegibles = new ArrayList<Jugador>();
+
+		for (Jugador jug : listaJugadores) {
+			if (jug.getEstado().compareTo("Jugando") == 0) {
+				jugadoresElegibles.add(jug);
 			}
-			else if(mazo.getCantidadCartas()>0)
-					jElegido.setCarta(mazo.asignarCarta());
-			
-		///listaJugadores.get(numeroJugador).descarto(desc, mazo);
-			
-		//System.out.println(listaJugadores.get(numeroJugador).getCartaMano());
 		}
-		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");
-		//System.out.println(listaJugadores.get(numeroJugador).getCartaMano());
-		
-		return valor;
+
+		Object[] opciones = new String[jugadoresElegibles.size()];
+
+		int i = 0;
+
+		for (Jugador jug : jugadoresElegibles) {
+			opciones[i] = jugadoresElegibles.get(i).getNombre();
+			i++;
+		}
+
+		JComboBox combo = new JComboBox(opciones);
+
+		JOptionPane.showMessageDialog(null, combo, "A quien deseas elegir?", JOptionPane.QUESTION_MESSAGE);
+
+		int numJugadorElegido = combo.getSelectedIndex();
+
+		String nombreJugadorElegido = (String) opciones[numJugadorElegido];
+
+		Jugador jugadorElegido = null;
+
+		for (Jugador jug : listaJugadores) {
+			if (jug.getNombre() == nombreJugadorElegido) {
+				jugadorElegido = jug;
+			}
+		}
+
+		int numJugador = 0;
+
+		if (m.getCantidadCartas() != 0) {
+
+			if (jugadorElegido.getNombre().compareTo(jugador.getNombre()) != 0) {
+				JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre()
+						+ " descarta la carta " + jugadorElegido.getManoDeCartas().getMano().get(0).getNombre());
+				jugadorElegido.getCartaMano();
+				jugadorElegido.agarrarCarta(m);
+			} else {
+				if (jugadorElegido.getManoDeCartas().getCarta(1).getNombre().compareTo("Principe") == 0) {
+
+					JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre()
+							+ " descarta la carta " + jugadorElegido.getManoDeCartas().getMano().get(1).getNombre());
+					jugadorElegido.getManoDeCartas().sacarCarta(1);
+					jugadorElegido.agarrarCarta(m);
+
+				} else {
+					JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre()
+							+ " descarta la carta " + jugadorElegido.getManoDeCartas().getMano().get(0).getNombre());
+					jugadorElegido.getManoDeCartas().sacarCarta(0);
+					jugadorElegido.agarrarCarta(m);
+				}
+			}
+
+			JOptionPane.showMessageDialog(pantallaPartida,
+					"El jugador " + jugadorElegido.getNombre() + " agarro una nueva carta");
+
+		} else
+
+		{
+			JOptionPane.showMessageDialog(pantallaPartida, "El Mazo esta Vacio.");
+		}
+	}
+
+	@Override
+	public String getDescripcion() {
+		return super.getDescripcion();
 	}
 
 }

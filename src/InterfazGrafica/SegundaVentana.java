@@ -127,7 +127,7 @@ public class SegundaVentana extends PantallaInicio {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if (textField_nombreJugador.getText().length() != 0) {
-					if (jugadores.size() < 3) {
+					if (jugadores.size() < 4) {
 						jugadores.add(new Jugador(textField_nombreJugador.getText()));
 
 						combo.insertElementAt(textField_nombreJugador.getText(), jugadores.size());

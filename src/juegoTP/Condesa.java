@@ -2,6 +2,8 @@ package juegoTP;
 
 import java.util.ArrayList;
 
+import InterfazGrafica.PantallaPartida;
+
 public class Condesa extends Carta{
 
 	public Condesa() {	
@@ -9,9 +11,10 @@ public class Condesa extends Carta{
 	}
 
 	@Override
-	public boolean activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte d, Mazo m) {
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m, PantallaPartida pantalla) {
 		///ESTE EFECTO NO SE ACTIVA NUNCA PORQUE YA ESTA PREDEFINIDO EN LA CLASE JUGADOR
-		return false;
+		return ;
 	}
+	
 
 }

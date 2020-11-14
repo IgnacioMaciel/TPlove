@@ -2,6 +2,10 @@ package juegoTP;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import InterfazGrafica.PantallaPartida;
+
 public class Princesa extends Carta{
 
 	public Princesa() {
@@ -9,10 +13,15 @@ public class Princesa extends Carta{
 	}
 
 	@Override
-	public boolean activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte d, Mazo m) {
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m,
+			PantallaPartida pantallaPartida) {
 		jugador.setEstado("Fuera de Ronda");
-		
-		return true;
+		JOptionPane.showMessageDialog(pantallaPartida, "Jugador "+ jugador.getNombre()+" Fuera de Ronda");
+		return;
 	}
 	
+	@Override
+	public String getDescripcion() {
+		return super.getDescripcion();
+	}
 }

@@ -29,7 +29,7 @@ class ReyTest {
 		Carta c3 = new Mucama();
 		j2.asignarCarta(c3);
 		
-		rey.activarEfecto(j1, jugadores, descarte, mazo);
+//		rey.activarEfecto(j1, jugadores, descarte, mazo);
 		
 		assertTrue(j1.getManoDeCartas().estaCarta(c3));
 		

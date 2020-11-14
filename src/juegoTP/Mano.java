@@ -21,7 +21,7 @@ public class Mano {
 	}
 	
 	public Carta sacarCarta(int pos) {
-		return mano.remove(pos-1);
+		return mano.remove(pos);
 	}
 	
 	public Carta getCartaEn(int n) {

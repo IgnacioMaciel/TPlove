@@ -3,69 +3,80 @@ package juegoTP;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
+import InterfazGrafica.PantallaPartida;
+
 public class Guardia extends Carta {
 
 	public Guardia() {
-		super("Guardia", 1, "El jugador elige otro jugador oponente y nombra un tipo de carta (excepto \"Guardia\"). Si el oponente tiene en su mano una carta de ese tipo, el oponente es eliminado de la ronda");
+		super("Guardia", 1,
+				"El jugador elige otro jugador oponente y nombra un tipo de carta (excepto \"Guardia\"). Si el oponente tiene en su mano una carta de ese tipo, el oponente es eliminado de la ronda");
+	}
+
+
+	@Override
+	public String getDescripcion() {
+		return super.getDescripcion();
 	}
 
 	@Override
-	public boolean activarEfecto (Jugador jugador, ArrayList<Jugador> listaJugadores, Descarte d, Mazo m) {
-		boolean valor = false;
-		int i=1, numeroJugador=-1, cartaSeleccionada=0;
-		Scanner ingresoTeclado = new Scanner(System.in);
+	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m,
+			PantallaPartida pantallaPartida) {
 		
-		System.out.println("\nLos Jugadores a elegir son:");
+		int jugadorElegido = 0,cartaElegida;
+		ArrayList<Jugador> jugadoresElegibles = new ArrayList<Jugador>();
 		
-		for (Jugador jug : listaJugadores) {	///METE EN UN VECTOR A LOS JUGADORES SELECCIONABLES
-			
-			if(jugador!=jug && jug.getEstado().compareTo("Jugando")==0) 
-				System.out.println("Jugador " + i + " : " + jug.getNombre());
-				i++;
-				
-		}
+		String cartas[] = {"Sacerdote","Baron", "Mucama", "Principe", "Rey", "Condesa", "Princesa"};
 
-//		do {
-//			System.out.println("Ingrese numero de jugador a seleccionar");
-//			numeroJugador = ingresoTeclado.nextInt()-1;
-//		}while((numeroJugador < 0 || numeroJugador >= listaJugadores.size()) && listaJugadores.get(numeroJugador)!=jugador);		///HASTA ELEGIR UN JUGADOR VALIDO DEL VECTOR
-		
-		while(numeroJugador == -1) {
-			 System.out.println("\n-------Ingrese numero de jugador a seleccionar:");
-				numeroJugador = ingresoTeclado.nextInt()-1;
-				if(numeroJugador <0 || numeroJugador>=listaJugadores.size())
-					numeroJugador=-1;
-				else 
-					if(listaJugadores.get(numeroJugador)==jugador || listaJugadores.get(numeroJugador).getEstado().compareTo("Fuera De Ronda")==0)
-						numeroJugador = -1;	
-		 }
-		
-		do {
-			System.out.println("2: Sacerdote");
-			System.out.println("3: Baron");
-			System.out.println("4: Mucama");
-			System.out.println("5: Principe");
-			System.out.println("6: Rey");
-			System.out.println("7: Condesa");
-			System.out.println("8: Princesa");
-			System.out.println("\n-------Elija la carta que creas que tiene tu oponente:");
-			cartaSeleccionada = ingresoTeclado.nextInt();
-		}while(cartaSeleccionada < 2 || cartaSeleccionada > 8);		///HASTA ELEGIR UN NUMERO DE CARTA VALIDA
-		
-		
-		Jugador jugadorSeleccionado = listaJugadores.get(numeroJugador);
-		if(jugadorSeleccionado.getEstado().compareTo("Jugando")==0) {
-		if(jugadorSeleccionado.getReferenciaCarta()!=null && cartaSeleccionada== jugadorSeleccionado.getFuerzaCarta()) {	
-			jugadorSeleccionado.setEstado("Fuera de Ronda");
-			valor = true;
-			System.out.println("Jugador" + listaJugadores.get(numeroJugador).getNombre() + "Quedo eliminado");
-			///SI EL NUMERO DE CARTA SELECCIONADA QUE ELIGIO ES IGUAL A LA FUERZA ENTONCES EL JUGADOR SELECCIONADO QUEDA FUERA DE RONDA
+		for (Jugador jug : listaJugadores) { /// METE EN UN VECTOR A LOS JUGADORES SELECCIONABLES
+
+			if (jugador != jug && jug.getEstado().compareTo("Jugando") == 0) {
+
+				jugadoresElegibles.add(jug);
+			}
 		}
-		else System.out.println("El jugador no posee esa carta");
+		
+		Object[] opciones = new String[jugadoresElegibles.size()];
+
+		int i=0;
+
+		for (Jugador jug : jugadoresElegibles) {
+		opciones[i] = jugadoresElegibles.get(i).getNombre();
+		i++;
 		}
-		else System.out.println("No se le pudo aplicar el efecto al jugador!!!");
-	
-		return valor;
+		
+		if(jugadoresElegibles.size()==0) {
+			JOptionPane.showMessageDialog(pantallaPartida, "No hay jugadores seleccionables.");
+			return;
+			}
+			else if(jugadoresElegibles.size()==1) {
+				jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para comparar cartas","Jugador: " + jugador.getNombre(), JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,opciones, opciones[0]);
+			}
+			else if(jugadoresElegibles.size()==2) {
+				jugadorElegido = JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para comparar cartas","Jugador: " + jugador.getNombre(), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,opciones, opciones[1]);
+			}
+			else {
+				jugadorElegido =JOptionPane.showOptionDialog(pantallaPartida, "Elija un jugador para comparar cartas","Jugador: " + jugador.getNombre(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,opciones, opciones[2]);
+			}
+		
+		
+		
+		JComboBox combo = new JComboBox(cartas);
+		
+		JOptionPane.showMessageDialog(null, combo, "Date", JOptionPane.QUESTION_MESSAGE);
+		
+		cartaElegida = combo.getSelectedIndex();
+		
+		
+		if(jugadoresElegibles.get(jugadorElegido).getManoDeCartas().getCarta(1).getNombre().compareTo(cartas[cartaElegida]) == 0){
+			JOptionPane.showMessageDialog(pantallaPartida, "Carta Correcta!");
+			jugadoresElegibles.get(jugadorElegido).setEstado("Fuera de Ronda");
+		}else {
+			JOptionPane.showMessageDialog(pantallaPartida, "El jugador "+jugadoresElegibles.get(jugadorElegido).getNombre()+" no tiene la carta seleccionada");
+		}
+		return;
 	}
 
 }

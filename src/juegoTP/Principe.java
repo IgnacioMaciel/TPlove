@@ -63,27 +63,41 @@ public class Principe extends Carta {
 			if (jugadorElegido.getNombre().compareTo(jugador.getNombre()) != 0) {
 				JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre()
 						+ " descarta la carta " + jugadorElegido.getManoDeCartas().getMano().get(0).getNombre());
-				jugadorElegido.getCartaMano();
-				jugadorElegido.agarrarCarta(m);
+				if (jugadorElegido.getCartaMano().getNombre().compareTo("Princesa") == 0) {
+					JOptionPane.showMessageDialog(pantallaPartida,
+							"El jugador " + jugadorElegido.getNombre() + " quedo Fuera de Ronda!");
+					jugadorElegido.setEstado("Fuera de Ronda");
+				} else {
+					jugadorElegido.agarrarCarta(m);
+				}
 			} else {
 				if (jugadorElegido.getManoDeCartas().getCarta(1).getNombre().compareTo("Principe") == 0) {
 
 					JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre()
 							+ " descarta la carta " + jugadorElegido.getManoDeCartas().getMano().get(1).getNombre());
-					jugadorElegido.getManoDeCartas().sacarCarta(1);
-					jugadorElegido.agarrarCarta(m);
-
+					if (jugadorElegido.getManoDeCartas().sacarCarta(1).getNombre().compareTo("Princesa") == 0) {
+						JOptionPane.showMessageDialog(pantallaPartida,
+								"El jugador " + jugadorElegido.getNombre() + " quedo Fuera de Ronda!");
+						jugadorElegido.setEstado("Fuera de Ronda");
+					} else {
+						JOptionPane.showMessageDialog(pantallaPartida,
+								"El jugador " + jugadorElegido.getNombre() + " agarro una nueva carta");
+						jugadorElegido.agarrarCarta(m);
+					}
 				} else {
 					JOptionPane.showMessageDialog(pantallaPartida, "El jugador " + jugadorElegido.getNombre()
 							+ " descarta la carta " + jugadorElegido.getManoDeCartas().getMano().get(0).getNombre());
-					jugadorElegido.getManoDeCartas().sacarCarta(0);
-					jugadorElegido.agarrarCarta(m);
+					if (jugadorElegido.getManoDeCartas().sacarCarta(0).getNombre().compareTo("Princesa") == 0) {
+						JOptionPane.showMessageDialog(pantallaPartida,
+								"El jugador " + jugadorElegido.getNombre() + " quedo Fuera de Ronda!");
+						jugadorElegido.setEstado("Fuera de Ronda");
+					} else {
+						JOptionPane.showMessageDialog(pantallaPartida,
+								"El jugador " + jugadorElegido.getNombre() + " agarro una nueva carta");
+						jugadorElegido.agarrarCarta(m);
+					}
 				}
 			}
-
-			JOptionPane.showMessageDialog(pantallaPartida,
-					"El jugador " + jugadorElegido.getNombre() + " agarro una nueva carta");
-
 		} else
 
 		{

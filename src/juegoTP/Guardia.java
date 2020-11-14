@@ -72,7 +72,9 @@ public class Guardia extends Carta {
 		
 		if(jugadoresElegibles.get(jugadorElegido).getManoDeCartas().getCarta(1).getNombre().compareTo(cartas[cartaElegida]) == 0){
 			JOptionPane.showMessageDialog(pantallaPartida, "Carta Correcta!");
+			JOptionPane.showMessageDialog(pantallaPartida, "El jugador "+jugadoresElegibles.get(jugadorElegido).getNombre()+" quedo Fuera de Ronda!");
 			jugadoresElegibles.get(jugadorElegido).setEstado("Fuera de Ronda");
+			
 		}else {
 			JOptionPane.showMessageDialog(pantallaPartida, "El jugador "+jugadoresElegibles.get(jugadorElegido).getNombre()+" no tiene la carta seleccionada");
 		}

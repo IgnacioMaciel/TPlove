@@ -161,7 +161,8 @@ public class PantallaPartida extends JFrame {
 
 		botonCarta1Jugador1 = new JButton("Carta1Jugador1");
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1Jugador1, -70, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador1, 0, SpringLayout.NORTH, botonCarta1Jugador1);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador1, 0, SpringLayout.NORTH,
+				botonCarta1Jugador1);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador1, 252, SpringLayout.SOUTH, LabelJugador2);
 		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador1, -471, SpringLayout.EAST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta1Jugador1, 471, SpringLayout.WEST, contentPane);
@@ -179,7 +180,8 @@ public class PantallaPartida extends JFrame {
 		botonCarta2Jugador2 = new JButton("Carta2Jugador2");
 		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador2, 605, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2Jugador2, -334, SpringLayout.EAST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador2, -11, SpringLayout.WEST, botonCarta2Jugador2);
+		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador2, -11, SpringLayout.WEST,
+				botonCarta2Jugador2);
 		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador1, 0, SpringLayout.WEST, botonCarta2Jugador2);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador2, 25, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador2, -6, SpringLayout.NORTH, LabelJugador2);
@@ -200,18 +202,21 @@ public class PantallaPartida extends JFrame {
 		contentPane.add(botonCarta1Jugador3);
 
 		botonCarta2Jugador3 = new JButton("Carta2Jugador3");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador3, 0, SpringLayout.NORTH, botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador3, 0, SpringLayout.NORTH,
+				botonCarta1Jugador3);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador3, -6, SpringLayout.NORTH, LabelJugador3);
 		contentPane.add(botonCarta2Jugador3);
 
 		botonCarta1Jugador4 = new JButton("Carta1Jugador4");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador4, 0, SpringLayout.NORTH, botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta1Jugador4, 0, SpringLayout.NORTH,
+				botonCarta1Jugador3);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta1Jugador4, -6, SpringLayout.NORTH, LabelJugador4);
 		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta1Jugador4, -155, SpringLayout.EAST, contentPane);
 		contentPane.add(botonCarta1Jugador4);
 
 		botonCarta2Jugador4 = new JButton("Carta2Jugador4");
-		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador4, 0, SpringLayout.NORTH, botonCarta1Jugador3);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, botonCarta2Jugador4, 0, SpringLayout.NORTH,
+				botonCarta1Jugador3);
 		sl_contentPane.putConstraint(SpringLayout.WEST, botonCarta2Jugador4, 9, SpringLayout.EAST, botonCarta1Jugador4);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, botonCarta2Jugador4, -313, SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, botonCarta2Jugador4, -23, SpringLayout.EAST, contentPane);
@@ -222,35 +227,40 @@ public class PantallaPartida extends JFrame {
 		botonMazo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (partida.getJugadores().get(partida.getRonda().getTurnoDeJugador())
-						.agarrarCarta(partida.getRonda().getMazo())) {
-					switch (partida.getRonda().getTurnoDeJugador()) {
-					case 0:
-						actualizarLabelJugador1(partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()));
-						pantallaPartida.mostrarCartasJugador1(
-								partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getManoDeCartas());
-						break;
-					case 1:
-						actualizarLabelJugador2(partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()));
-						pantallaPartida.mostrarCartasJugador2(
-								partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getManoDeCartas());
-						break;
-
-					case 2:
-						actualizarLabelJugador3(partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()));
-						pantallaPartida.mostrarCartasJugador3(
-								partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getManoDeCartas());
-						break;
-					case 3:
-						actualizarLabelJugador4(partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()));
-						pantallaPartida.mostrarCartasJugador4(
-								partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getManoDeCartas());
-						break;
-
-					default:
-						break;
-					}
+				while (partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getEstado()
+						.compareTo("Jugando") != 0 &&  partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getEstado()
+						.compareTo("Inmune") != 0) {
+					partida.getRonda().pasarTurno();
 				}
+				partida.getJugadores().get(partida.getRonda().getTurnoDeJugador())
+						.agarrarCarta(partida.getRonda().getMazo());
+				switch (partida.getRonda().getTurnoDeJugador()) {
+				case 0:
+					actualizarLabelJugador1(partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()));
+					pantallaPartida.mostrarCartasJugador1(
+							partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getManoDeCartas());
+					break;
+				case 1:
+					actualizarLabelJugador2(partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()));
+					pantallaPartida.mostrarCartasJugador2(
+							partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getManoDeCartas());
+					break;
+
+				case 2:
+					actualizarLabelJugador3(partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()));
+					pantallaPartida.mostrarCartasJugador3(
+							partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getManoDeCartas());
+					break;
+				case 3:
+					actualizarLabelJugador4(partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()));
+					pantallaPartida.mostrarCartasJugador4(
+							partida.getJugadores().get(partida.getRonda().getTurnoDeJugador()).getManoDeCartas());
+					break;
+
+				default:
+					break;
+				}
+
 			}
 
 		});
@@ -275,6 +285,7 @@ public class PantallaPartida extends JFrame {
 		botonCarta2Jugador4.setVisible(false);
 
 		botonCarta1Jugador1.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				pantallaPartida.jugarCarta(0, 1);

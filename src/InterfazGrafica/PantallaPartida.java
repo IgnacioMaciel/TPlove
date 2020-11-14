@@ -327,11 +327,13 @@ public class PantallaPartida extends JFrame {
 		contenedorPartida.setLayout(sl_contentPane);
 		
 		nombre1 = new JLabel(p1.getNombre());
+		nombre1.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, nombre1, 0, SpringLayout.SOUTH, contenedorPartida);
 		sl_contentPane.putConstraint(SpringLayout.EAST, nombre1, -642, SpringLayout.EAST, contenedorPartida);
 		contenedorPartida.add(nombre1);
 		
 		nombre2 = new JLabel(p2.getNombre());
+		nombre2.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, nombre2, 0, SpringLayout.NORTH, contenedorPartida);
 		sl_contentPane.putConstraint(SpringLayout.EAST, nombre2, 0, SpringLayout.EAST, nombre1);
 		contenedorPartida.add(nombre2);
@@ -374,9 +376,20 @@ public class PantallaPartida extends JFrame {
 		numRonda=1;
 		
 		ronda = new JLabel("Ronda");
+		ronda.setForeground(Color.WHITE);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, ronda, 41, SpringLayout.NORTH, contenedorPartida);
 		sl_contentPane.putConstraint(SpringLayout.WEST, ronda, 256, SpringLayout.WEST, contenedorPartida);
 		contenedorPartida.add(ronda);
+		
+		FondoPartida fondo;
+		try {
+			fondo = new FondoPartida(ImageIO.read(new File("Imagenes\\fondo.jpg")));
+			JPanel panel = (JPanel) this.getContentPane();
+	        panel.setBorder(fondo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		setVisible(true);
 

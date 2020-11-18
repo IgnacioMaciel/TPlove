@@ -45,10 +45,10 @@ public class Mazo {
 		return cartaAsignadaJugador;
 	}
 	
-	public boolean getMazoVacio() {	
+	public boolean getMazoNoVacio() {	
 		if(this.cantidadCartas == 0)
-			return true;
-		return false;	
+			return false;	
+		return true;	
 	}
 
 	public int getCantidadCartas() {

@@ -58,7 +58,7 @@ public class Principe extends Carta{
 		int numJugadorActivoEfecto=0;
 		int difPosiciones=0;
 		
-		if( !m.getMazoVacio()) {
+		if( m.getMazoNoVacio()) {
 			
 			numJugadorActivoEfecto = pantallaPartida.getTurno() % listaJugadores.size();
 			Jugador jug = listaJugadores.get(numJugadorActivoEfecto);

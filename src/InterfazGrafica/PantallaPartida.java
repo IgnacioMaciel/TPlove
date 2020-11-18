@@ -51,6 +51,8 @@ public class PantallaPartida extends JFrame {
 	private JLabel ronda;
 	private JLabel LabelPuntuacionJ1;
 	private JLabel LabelPuntuacionJ2;
+	private JLabel LabelPuntuacionJ3;
+	private JLabel LabelPuntuacionJ4;
 	private int turno=0;
 	private int numRonda=0;
 	private JButton cartaJugada;
@@ -279,7 +281,7 @@ public class PantallaPartida extends JFrame {
 		
 		getContentPane().setLayout(null);
 		
-		for(int i=0; i<jugadores.size()-1; i++) {
+		for(int i=0; i<jugadores.size(); i++) {
 			if(i == 0) {
 				p1 = jugadores.get(0);
 			}
@@ -407,6 +409,50 @@ public class PantallaPartida extends JFrame {
         sl_contentPane.putConstraint(SpringLayout.EAST, cartaVisible8, 132, SpringLayout.EAST, cartaVisible7);
         contenedorPartida.add(cartaVisible8);
         
+        LabelPuntuacionJ3 = new JLabel("Puntuacion: ");
+        sl_contentPane.putConstraint(SpringLayout.NORTH, LabelPuntuacionJ3, 24, SpringLayout.SOUTH, cartaVisible5);
+        sl_contentPane.putConstraint(SpringLayout.EAST, LabelPuntuacionJ3, 0, SpringLayout.EAST, ronda);
+        LabelPuntuacionJ3.setForeground(Color.WHITE);
+        contenedorPartida.add(LabelPuntuacionJ3);
+        
+        LabelPuntuacionJ4 = new JLabel("Puntuacion: ");
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, LabelPuntuacionJ4, 0, SpringLayout.SOUTH, LabelPuntuacionJ3);
+        sl_contentPane.putConstraint(SpringLayout.EAST, LabelPuntuacionJ4, -212, SpringLayout.EAST, contenedorPartida);
+        LabelPuntuacionJ4.setForeground(Color.WHITE);
+        contenedorPartida.add(LabelPuntuacionJ4);
+  
+        nombre3 = new JLabel("");
+        nombre3.setForeground(Color.WHITE);
+        sl_contentPane.putConstraint(SpringLayout.WEST, nombre3, 164, SpringLayout.WEST, contenedorPartida);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, nombre3, -6, SpringLayout.NORTH, cartaVisible6);
+        contenedorPartida.add(nombre3);
+        
+        nombre4 = new JLabel("");
+        nombre4.setForeground(Color.WHITE);
+        sl_contentPane.putConstraint(SpringLayout.SOUTH, nombre4, -6, SpringLayout.NORTH, cartaVisible7);
+        sl_contentPane.putConstraint(SpringLayout.EAST, nombre4, -137, SpringLayout.EAST, contenedorPartida);
+        contenedorPartida.add(nombre4);
+        
+        LabelPuntuacionJ3.setVisible(false);
+        nombre3.setVisible(false);
+        LabelPuntuacionJ4.setVisible(false);
+        nombre4.setVisible(false);
+        
+        if(jugadores.size()==3) {
+        	LabelPuntuacionJ3.setVisible(true);
+        	nombre3.setText(p3.getNombre());
+        	nombre3.setVisible(true);
+        }
+        if(jugadores.size()==4) {
+        	LabelPuntuacionJ3.setVisible(true);
+        	nombre3.setText(p3.getNombre());
+        	nombre3.setVisible(true);
+        	LabelPuntuacionJ4.setVisible(true);
+        	nombre4.setText(p4.getNombre());
+        	nombre4.setVisible(true);
+        }
+        
+        
         cartaVisible1.setVisible(false);
         cartaVisible2.setVisible(false);
         cartaVisible3.setVisible(false);
@@ -416,14 +462,11 @@ public class PantallaPartida extends JFrame {
         cartaVisible7.setVisible(false);
         cartaVisible8.setVisible(false);
         
-        
-		
 		FondoPartida fondo;
 		try {
 			fondo = new FondoPartida(ImageIO.read(new File("Imagenes\\fondo.jpg")));
 			JPanel panel = (JPanel) this.getContentPane();
-	        panel.setBorder(fondo);
-
+	        panel.setBorder(fondo); 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -464,6 +507,16 @@ public class PantallaPartida extends JFrame {
 			ronda.setText("Ronda: " + numRonda);
 			LabelPuntuacionJ1.setText("Puntuacion: " + p1.getPuntaje());
 			LabelPuntuacionJ2.setText("Puntuacion: " + p2.getPuntaje());
+			
+			if(jugadores.size()==3) {
+				LabelPuntuacionJ3.setText("Puntuacion: " + p3.getPuntaje());		
+			}
+			
+			if(jugadores.size()==4) {
+				LabelPuntuacionJ3.setText("Puntuacion: " + p3.getPuntaje());
+				LabelPuntuacionJ4.setText("Puntuacion: " + p4.getPuntaje());
+			}
+			
 			turno=0;
 			int opc=0;
 			Mazo mazo = new Mazo();

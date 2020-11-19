@@ -336,7 +336,8 @@ public class PantallaPartida extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, cartaJugada, -548, SpringLayout.EAST, contenedorPartida);
 		contenedorPartida.add(cartaJugada);
 		
-		ronda = new JLabel("Ronda");
+		ronda = new JLabel("");
+		ronda.setIcon(new ImageIcon("Imagenes\\Ronda.png"));
 		ronda.setForeground(Color.WHITE);
         sl_contentPane.putConstraint(SpringLayout.NORTH, ronda, 51, SpringLayout.NORTH, contenedorPartida);
         sl_contentPane.putConstraint(SpringLayout.WEST, ronda, 104, SpringLayout.WEST, contenedorPartida);
@@ -447,11 +448,23 @@ public class PantallaPartida extends JFrame {
 		
 		numRonda=1;
 		
+		try {
+			imprimirFotoRonda();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		setVisible(true);
 
 		repartoInicialVisible(jugadores);
 
 		while(partida.hayGanador() == null) { //no haya ganador de partida
+			
+			try {
+				imprimirFotoRonda();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			actualizarLabels(jugadores);
 			
@@ -647,7 +660,8 @@ public class PantallaPartida extends JFrame {
 	}
 
 	public void actualizarLabels(ArrayList<Jugador> jugadores) {
-		ronda.setText("Ronda: " + numRonda);
+		//ronda.setText("Ronda: " + numRonda);
+		ronda.setIcon(new ImageIcon("Imagenes\\Ronda" + numRonda + ".png"));
 		LabelPuntuacionJ1.setText("Puntuacion: " + p1.getPuntaje());
 		LabelPuntuacionJ2.setText("Puntuacion: " + p2.getPuntaje());
 		
@@ -712,7 +726,7 @@ public class PantallaPartida extends JFrame {
 	
 		Image img = null;
 		try {
-			img = ImageIO.read(new File( "Imagenes\\mazo.png"));
+			img = ImageIO.read(new File("Imagenes\\mazo.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -733,5 +747,16 @@ public class PantallaPartida extends JFrame {
 			this.cartaVisible7.setIcon(new ImageIcon(img));
 			this.cartaVisible8.setIcon(new ImageIcon(img));
 		}
+	}
+	
+	public void imprimirFotoRonda() throws Exception{
+		final BufferedImage image = ImageIO.read(new File("Imagenes\\ronda.png"));
+		
+		Graphics g = image.getGraphics();
+		g.setFont(g.getFont().deriveFont(30f));
+		g.drawString("Ronda: " + numRonda, 75, 60);
+		g.dispose();
+		
+		ImageIO.write(image, "png", new File("Imagenes\\ronda" + numRonda + ".png"));
 	}
 }

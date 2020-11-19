@@ -103,6 +103,8 @@ public class Principe extends Carta{
 			if(jugadorElegido.getEstado() != "Fuera de Ronda") {
 				
 				jugadorElegido.jugarCartaEnCampoPrincipe(posJugadorElegido,listaJugadores, m, pantallaPartida, jug, 0);
+				
+				jugadorElegido.setCartasTiradas(jugadorElegido.getCartasTiradas()+1);
 
 				jugadorElegido.agarrarCarta(m);
 				

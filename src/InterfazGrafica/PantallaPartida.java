@@ -573,12 +573,12 @@ public class PantallaPartida extends JFrame {
 						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, 1);
 					}				
 					
+					jug.setCartasTiradas(jug.getCartasTiradas()+1);
+					
 					this.ocultarCartasJugador(numJugador, jug);
 				}
 				
-				turno++;
-				
-				
+				turno++;		
 			}
 			
 			if(partida.hayGanadorDeRonda() == null) {
@@ -602,6 +602,7 @@ public class PantallaPartida extends JFrame {
 			
 			for (Jugador jugador : jugadores) {
 				jugador.setEstado("Jugando");
+				jugador.setCartasTiradas(0);
 			}
 			
 			numRonda++;

@@ -237,6 +237,10 @@ public class Jugador extends Observador {
 		return cartasTiradas;
 	}
 
+	public void setCartasTiradas(int cartasTiradas) {
+		this.cartasTiradas = cartasTiradas;
+	}
+
 	public void verCarta(Carta c) {
 		System.out.println(c);
 	}

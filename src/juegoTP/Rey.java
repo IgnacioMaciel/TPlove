@@ -15,8 +15,7 @@ public class Rey extends Carta{
 
 	@Override
 	public void activarEfecto(Jugador jugador, ArrayList<Jugador> listaJugadores, Mazo m, PantallaPartida pantallaPartida) {
-		
-		
+
 		ArrayList<Jugador> jugadoresElegibles = new ArrayList<Jugador>();
 
 		int jugadorElegido = 0;
@@ -62,11 +61,7 @@ public class Rey extends Carta{
 		
 		jugador.asignarCarta(cartaInt2);
 		jugElegido.asignarCarta(cartaInt1);
-		
-		
-		
-		JOptionPane.showMessageDialog(pantallaPartida, "Se ha producido el Intercambio!");
-
-		
+	
+		JOptionPane.showMessageDialog(pantallaPartida, "Se ha producido el Intercambio!");	
 	}
 }

@@ -280,24 +280,8 @@ public class PantallaPartida extends JFrame {
 	public PantallaPartida(ArrayList<Jugador> jugadores, Partida partida) {
 		
 		getContentPane().setLayout(null);
-		
-		for(int i=0; i<jugadores.size(); i++) {
-			if(i == 0) {
-				p1 = jugadores.get(0);
-			}
-				
-			if(i == 1){				
-				p2 = jugadores.get(1);		
-			}
-					
-			if(i == 2) {
-				p3 = jugadores.get(2);
-			}
-				
-			if(i == 3){				
-				p4 = jugadores.get(3);		
-			}	
-		}
+
+		cargarJugadoresEnPartida(jugadores);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1366, 768);
@@ -351,8 +335,6 @@ public class PantallaPartida extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, cartaJugada, -287, SpringLayout.SOUTH, contenedorPartida);
 		sl_contentPane.putConstraint(SpringLayout.EAST, cartaJugada, -548, SpringLayout.EAST, contenedorPartida);
 		contenedorPartida.add(cartaJugada);
-		
-		numRonda=1;
 		
 		ronda = new JLabel("Ronda");
 		ronda.setForeground(Color.WHITE);
@@ -452,15 +434,7 @@ public class PantallaPartida extends JFrame {
         	nombre4.setVisible(true);
         }
         
-        
-        cartaVisible1.setVisible(false);
-        cartaVisible2.setVisible(false);
-        cartaVisible3.setVisible(false);
-        cartaVisible4.setVisible(false);
-        cartaVisible5.setVisible(false);
-        cartaVisible6.setVisible(false);
-        cartaVisible7.setVisible(false);
-        cartaVisible8.setVisible(false);
+        hacerBotonesInvisibles(); 
         
 		FondoPartida fondo;
 		try {
@@ -468,54 +442,18 @@ public class PantallaPartida extends JFrame {
 			JPanel panel = (JPanel) this.getContentPane();
 	        panel.setBorder(fondo); 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		setVisible(true);
+		numRonda=1;
 		
-		if(jugadores.size()>1) {
-			
-			Image imgYugioh = null;
-			try {
-				imgYugioh = ImageIO.read(new File( "Imagenes\\mazo.png"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			cartaVisible1.setIcon(new ImageIcon(imgYugioh));
-			cartaVisible1.setVisible(true);
-			cartaVisible3.setIcon(new ImageIcon(imgYugioh));
-			cartaVisible3.setVisible(true);
-			
-			if(jugadores.size()>2) {
-				
-				cartaVisible5.setIcon(new ImageIcon(imgYugioh));
-				cartaVisible5.setVisible(true);
-				
-				if(jugadores.size()>3) {
-					
-					cartaVisible7.setIcon(new ImageIcon(imgYugioh));
-					cartaVisible7.setVisible(true);
-				}
-			}
-		}
+		setVisible(true);
+
+		repartoInicialVisible(jugadores);
 
 		while(partida.hayGanador() == null) { //no haya ganador de partida
 			
-			ronda.setText("Ronda: " + numRonda);
-			LabelPuntuacionJ1.setText("Puntuacion: " + p1.getPuntaje());
-			LabelPuntuacionJ2.setText("Puntuacion: " + p2.getPuntaje());
-			
-			if(jugadores.size()==3) {
-				LabelPuntuacionJ3.setText("Puntuacion: " + p3.getPuntaje());		
-			}
-			
-			if(jugadores.size()==4) {
-				LabelPuntuacionJ3.setText("Puntuacion: " + p3.getPuntaje());
-				LabelPuntuacionJ4.setText("Puntuacion: " + p4.getPuntaje());
-			}
+			actualizarLabels(jugadores);
 			
 			turno=0;
 			int opc=0;
@@ -531,17 +469,16 @@ public class PantallaPartida extends JFrame {
 				int aux=0;
 				int numJugador = turno%jugadores.size();
 				jug = jugadores.get(numJugador);
-				
-				JOptionPane.showMessageDialog(this, "ES EL TURNO DE " + jug.getNombre() + " , NO VEAS SUS CARTAS!!!!");
-				
-				if(jug.getEstado() == "Inmune") {
-					jug.setEstado("Jugando");
 					
-					JOptionPane.showMessageDialog(this, "El jugador " + jug.getNombre() + " ya no tiene inmunidad!");
-				}
-				
-				
 				if(jug.getEstado() != "Fuera de Ronda") {
+					
+					JOptionPane.showMessageDialog(this, "ES EL TURNO DE " + jug.getNombre() + " , NO VEAS SUS CARTAS!!!!");
+					
+					if(jug.getEstado() == "Inmune") {
+						jug.setEstado("Jugando");
+						
+						JOptionPane.showMessageDialog(this, "El jugador " + jug.getNombre() + " ya no tiene inmunidad!");
+					}
 					
 					jug.agarrarCarta(mazo, this);
 					this.actualizarPantalla(numJugador, jug);
@@ -550,7 +487,6 @@ public class PantallaPartida extends JFrame {
 							|| (jug.getManoDeCartas().getMano().get(0).getNombre() == "Rey" || jug.getManoDeCartas().getMano().get(0).getNombre() == "Principe") && jug.getManoDeCartas().getMano().get(1).getNombre() == "Condesa") {
 						
 						Carta c1 = jug.getManoDeCartas().getMano().get(0);
-						Carta c2 = jug.getManoDeCartas().getMano().get(1);
 						
 						if(c1.getNombre() == "Condesa") {
 							opc=0;
@@ -573,56 +509,158 @@ public class PantallaPartida extends JFrame {
 						jug.jugarCartaEnCampo(numJugador,jugadores, mazo, this, jug, 1);
 					}				
 					
-					jug.setCartasTiradas(jug.getCartasTiradas()+1);
-					
+					jug.setCartasTiradas(jug.getCartasTiradas()+1);			
 					this.ocultarCartasJugador(numJugador, jug);
 				}
 				
 				turno++;		
 			}
 			
-			if(partida.hayGanadorDeRonda() == null) {
-				
-				Jugador maxCartaPuntaje = jugadores.get(0);
-				
-				for (Jugador juga : jugadores) {
-					if(maxCartaPuntaje.getManoDeCartas().getMano().get(0).getPuntajeFuerza() < juga.getManoDeCartas().getMano().get(0).getPuntajeFuerza()) {
-						maxCartaPuntaje = juga;
-					}
-				}
-				
-				maxCartaPuntaje.sumarCorazon();
-				JOptionPane.showMessageDialog(this, "El ganador de la ronda es: " + maxCartaPuntaje.getNombre() + "\nFelicitaciones!");
-			}
-			else {
-				partida.hayGanadorDeRonda().sumarCorazon();
-				JOptionPane.showMessageDialog(this, "El ganador de la ronda es: " + partida.hayGanadorDeRonda().getNombre() + "\nFelicitaciones!");
-			}
-			
-			
-			for (Jugador jugador : jugadores) {
-				jugador.setEstado("Jugando");
-				jugador.setCartasTiradas(0);
-			}
-			
-			numRonda++;
-			
-			
+			definirGanadorRonda(partida, jugadores);		
+			reiniciarRonda(jugadores);			
+			numRonda++;		
 		}
 		
 		String listado = new String();
 		
 		for (Jugador jugador : jugadores) {
-			listado += "Jugador: " + jugador.getNombre() + "   Puntuacion: " + jugador.getPuntaje() + "\n";
+			listado += "Jugador:   " + jugador.getNombre() + "   Puntuacion:  " + jugador.getPuntaje() + "\n";
 		}
 		
-		JOptionPane.showMessageDialog(this, "El ganador del juego es: " + partida.hayGanador().getNombre() + "\nFelicitaciones!\n\n" + listado);
-		
-		
+		JOptionPane.showMessageDialog(this, "El ganador del juego es: " + partida.hayGanador().getNombre() + "\nFelicitaciones!\n\n" + listado);	
 	}
 	
-	
+	private void cargarJugadoresEnPartida(ArrayList<Jugador> jugadores) {		
+		for(int i=0; i<jugadores.size(); i++) {
+			if(i == 0) {
+				p1 = jugadores.get(0);
+			}
+				
+			if(i == 1){				
+				p2 = jugadores.get(1);		
+			}
+					
+			if(i == 2) {
+				p3 = jugadores.get(2);
+			}
+				
+			if(i == 3){				
+				p4 = jugadores.get(3);		
+			}	
+		}
+	}
 
+	private void hacerBotonesInvisibles() {
+		cartaVisible1.setVisible(false);
+        cartaVisible2.setVisible(false);
+        cartaVisible3.setVisible(false);
+        cartaVisible4.setVisible(false);
+        cartaVisible5.setVisible(false);
+        cartaVisible6.setVisible(false);
+        cartaVisible7.setVisible(false);
+        cartaVisible8.setVisible(false);	
+	}
+
+	private void repartoInicialVisible(ArrayList<Jugador> jugadores) {
+		
+		if(jugadores.size()>1) {
+			
+			Image imgYugioh = null;
+			try {
+				imgYugioh = ImageIO.read(new File( "Imagenes\\mazo.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			cartaVisible1.setIcon(new ImageIcon(imgYugioh));
+			cartaVisible1.setVisible(true);
+			cartaVisible3.setIcon(new ImageIcon(imgYugioh));
+			cartaVisible3.setVisible(true);
+			
+			if(jugadores.size()>2) {
+				
+				cartaVisible5.setIcon(new ImageIcon(imgYugioh));
+				cartaVisible5.setVisible(true);
+				
+				if(jugadores.size()>3) {
+					
+					cartaVisible7.setIcon(new ImageIcon(imgYugioh));
+					cartaVisible7.setVisible(true);
+				}
+			}
+		}
+		
+	}
+
+	private void reiniciarRonda(ArrayList<Jugador> jugadores) {
+		for (Jugador jugador : jugadores) {
+			jugador.setEstado("Jugando");
+			jugador.setCartasTiradas(0);
+		}	
+	}
+
+	private void definirGanadorRonda(Partida partida, ArrayList<Jugador> jugadores) {
+		if(partida.hayGanadorDeRonda() == null) {
+			
+			int maxFuerza = jugadores.get(0).getManoDeCartas().getMano().get(0).getPuntajeFuerza();
+			
+			for (Jugador jugador : jugadores) {
+				
+				if(maxFuerza < jugador.getManoDeCartas().getMano().get(0).getPuntajeFuerza()) {
+					maxFuerza = jugador.getManoDeCartas().getMano().get(0).getPuntajeFuerza();
+				}
+			}
+			
+			ArrayList<Jugador> posiblesGanadores = new ArrayList<Jugador>();
+			Jugador ganador = null;
+			
+			for (Jugador jugador : jugadores) {
+				if(maxFuerza == jugador.getManoDeCartas().getMano().get(0).getPuntajeFuerza()) {
+					posiblesGanadores.add(jugador);
+				}
+			}
+			
+			if(posiblesGanadores.size()==1) {
+				ganador = posiblesGanadores.get(0);
+				ganador.sumarCorazon();
+				JOptionPane.showMessageDialog(this, "El ganador de la ronda es: " + ganador.getNombre() + "\nFelicitaciones!");
+				return;
+			}
+			
+			int maxCartasTiradas = posiblesGanadores.get(0).getCartasTiradas();
+			ganador = posiblesGanadores.get(0);	
+			
+			for (Jugador jugador : posiblesGanadores) {
+				if(jugador.getCartasTiradas() > maxCartasTiradas) {
+					ganador = jugador;
+					maxCartasTiradas = ganador.getCartasTiradas();
+				}
+			}
+			
+			ganador.sumarCorazon();
+			JOptionPane.showMessageDialog(this, "El ganador de la ronda es: " + ganador.getNombre() + "\nFelicitaciones!");
+		}
+		else {
+			partida.hayGanadorDeRonda().sumarCorazon();
+			JOptionPane.showMessageDialog(this, "El ganador de la ronda es: " + partida.hayGanadorDeRonda().getNombre() + "\nFelicitaciones!");
+		}
+	}
+
+	public void actualizarLabels(ArrayList<Jugador> jugadores) {
+		ronda.setText("Ronda: " + numRonda);
+		LabelPuntuacionJ1.setText("Puntuacion: " + p1.getPuntaje());
+		LabelPuntuacionJ2.setText("Puntuacion: " + p2.getPuntaje());
+		
+		if(jugadores.size()==3) {
+			LabelPuntuacionJ3.setText("Puntuacion: " + p3.getPuntaje());		
+		}
+		
+		if(jugadores.size()==4) {
+			LabelPuntuacionJ3.setText("Puntuacion: " + p3.getPuntaje());
+			LabelPuntuacionJ4.setText("Puntuacion: " + p4.getPuntaje());
+		}
+	}
+	
 	private void actualizarPantalla(int numJugador, Jugador jug) {
 		
 		Carta uno = jug.getManoDeCartas().getMano().get(0);
@@ -643,7 +681,6 @@ public class PantallaPartida extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		
 		if(numJugador == 0) {
 			this.cartaVisible1.setIcon(new ImageIcon(img1));
@@ -668,8 +705,7 @@ public class PantallaPartida extends JFrame {
 			this.cartaVisible7.setVisible(true);
 			this.cartaVisible8.setIcon(new ImageIcon(img2));
 			this.cartaVisible8.setVisible(true);
-		}
-		
+		}	
 	}
 
 	public void ocultarCartasJugador(int numJugador, Jugador jug) {
@@ -678,7 +714,6 @@ public class PantallaPartida extends JFrame {
 		try {
 			img = ImageIO.read(new File( "Imagenes\\mazo.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -698,43 +733,5 @@ public class PantallaPartida extends JFrame {
 			this.cartaVisible7.setIcon(new ImageIcon(img));
 			this.cartaVisible8.setIcon(new ImageIcon(img));
 		}
-	}
-	
-	/*private void invisiblesCartasJugador(int aux, Jugador jugSinPantallas) {
-
-		Image img = null;
-		try {
-			img = ImageIO.read(new File( "Imagenes\\mazo.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(aux == 0) {
-			this.cartaVisible1.setIcon(new ImageIcon(img));
-			this.cartaVisible2.setVisible(false);
-		}
-		else if(aux == 1) {
-			this.cartaVisible3.setIcon(new ImageIcon(img));
-			this.cartaVisible4.setVisible(false);
-		}
-		else if(aux == 2) {
-			this.cartaVisible5.setIcon(new ImageIcon(img));
-			this.cartaVisible6.setVisible(false);
-		}		
-		else if(aux == 3) {
-			this.cartaVisible7.setIcon(new ImageIcon(img));
-			this.cartaVisible8.setVisible(false);
-		}
-		
-	}*/
-	
-	public void mostrarRonda(String nroRonda) throws InterruptedException {
-		//labelRonda.setText(nroRonda);
-
-	}
-	
-	public void mazoVacio() {
-		
 	}
 }
